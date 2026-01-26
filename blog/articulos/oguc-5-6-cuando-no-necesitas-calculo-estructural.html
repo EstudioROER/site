@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OGUC 5.6: ¿Cuándo NO Necesitas Proyecto de Cálculo Estructural? | ROER</title>
+    <meta name="description"
+        content="Descubre si tu proyecto puede eximirse del cálculo estructural según OGUC 5.6. Ahorra tiempo y dinero en tu regularización o construcción. Guía completa 2026.">
+    <meta name="keywords"
+        content="OGUC 5.6, exención cálculo estructural, proyecto sin cálculo, regularización sin calculista, OGUC artículo 5.6, construcción sin cálculo">
+    <meta name="author" content="Estudio ROER Arquitectura">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OGUC 5.6: ¿Cuándo NO Necesitas Proyecto de Cálculo Estructural?">
+    <meta property="og:description"
+        content="Guía completa sobre la exención de proyecto de cálculo estructural según OGUC 5.6. Requisitos, beneficios y proceso.">
+    <meta property="og:url"
+        content="https://www.roerarquitectura.cl/blog/articulos/oguc-5-6-cuando-no-necesitas-calculo-estructural">
+    <meta property="og:image" content="../../assets/images/blog/oguc-calculo-estructural.png">
+
+    <!-- Schema.org Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "OGUC 5.6: ¿Cuándo NO Necesitas Proyecto de Cálculo Estructural?",
+      "description": "Guía sobre la exención de proyecto de cálculo estructural según OGUC artículo 5.6",
+      "image": "../../assets/images/blog/oguc-calculo-estructural.png",
+      "author": {
+        "@type": "Organization",
+        "name": "ROER Arquitectura"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ROER Arquitectura",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "../../assets/images/logo.png"
+        }
+      },
+      "datePublished": "2026-01-26",
+      "dateModified": "2026-01-26"
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../css/styles.css">
+
+    <style>
+        /* Blog-specific styles */
+        .article-header {
+            background: linear-gradient(135deg, #2B4B4B 0%, #3D6A6A 100%);
+            color: white;
+            padding: 4rem 0 3rem;
+            margin-top: 80px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            line-height: 1.8;
+        }
+
+        .article-content h2 {
+            color: #2B4B4B;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .article-content h3 {
+            color: #3D6A6A;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.2rem;
+            color: #333;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .article-content strong {
+            color: #2B4B4B;
+            font-weight: 600;
+        }
+
+        .featured-image {
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .featured-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #F0F9F9 0%, #E8F5F5 100%);
+            border-left: 4px solid #3FB8AF;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .info-box h4 {
+            color: #2B4B4B;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+            border-left: 4px solid #E07A5F;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .warning-box h4 {
+            color: #C85A3F;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #F0FFF4 0%, #E6F9EA 100%);
+            border-left: 4px solid #48BB78;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .success-box h4 {
+            color: #2F855A;
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #2B4B4B 0%, #3D6A6A 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .table-of-contents {
+            background: #F5F5F5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .table-of-contents h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #2B4B4B;
+        }
+
+        .table-of-contents ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 0.5rem;
+        }
+
+        .table-of-contents a {
+            color: #3D6A6A;
+            text-decoration: none;
+        }
+
+        .table-of-contents a:hover {
+            color: #3FB8AF;
+        }
+
+        .checklist {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .checklist h4 {
+            color: #2B4B4B;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #48BB78;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 3rem 0 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="container nav-container">
+            <a href="../../index.html" class="logo">
+                <img src="../../assets/images/logo.png" alt="Logo ROER" class="logo-icon">
+                <span>Estudio ROER</span>
+            </a>
+            <button class="mobile-toggle" aria-label="Abrir menú">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../../index.html#inicio">Inicio</a></li>
+                <li><a href="../../index.html#servicios">Servicios</a></li>
+                <li><a href="../../index.html#proyectos">Proyectos</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../index.html#about">Nosotros</a></li>
+                <li><a href="../../index.html#contacto" class="btn btn-primary sm">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../../index.html">Inicio</a> / <a href="../index.html">Blog</a> / Normativa
+            </div>
+            <h1>OGUC 5.6: ¿Cuándo NO Necesitas Proyecto de Cálculo Estructural?</h1>
+            <div class="article-meta">
+                <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    26 de enero, 2026
+                </span>
+                <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    9 min de lectura
+                </span>
+                <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    ROER Arquitectura
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+        <div class="featured-image">
+            <img src="../../assets/images/blog/oguc-calculo-estructural.png"
+                alt="Letrero informativo sobre proyecto de cálculo estructural y OGUC 5.6">
+        </div>
+
+        <p class="lead" style="font-size: 1.2rem; color: #3D6A6A; font-weight: 500;">
+            ¿Sabías que muchas viviendas de 1 y 2 pisos pueden regularizarse o construirse SIN necesidad de proyecto de
+            cálculo estructural? El artículo 5.1.6 de la OGUC establece condiciones específicas que te pueden ahorrar
+            tiempo y dinero. Descubre si tu proyecto califica.
+        </p>
+
+        <div class="table-of-contents">
+            <h3>Contenido del artículo</h3>
+            <ul>
+                <li><a href="#que-es">¿Qué es el artículo 5.1.6 de la OGUC?</a></li>
+                <li><a href="#requisitos">Requisitos para la exención</a></li>
+                <li><a href="#beneficios">Beneficios de aplicar OGUC 5.6</a></li>
+                <li><a href="#proceso">Cómo aplicar la exención</a></li>
+                <li><a href="#casos">Casos prácticos</a></li>
+                <li><a href="#errores">Errores comunes</a></li>
+                <li><a href="#cuando-no">¿Cuándo NO aplica la exención?</a></li>
+            </ul>
+        </div>
+
+        <h2 id="que-es">¿Qué es el Artículo 5.1.6 de la OGUC?</h2>
+
+        <p>El <strong>artículo 5.1.6 de la Ordenanza General de Urbanismo y Construcciones (OGUC)</strong> es una
+            disposición normativa que permite <strong>eximir del proyecto de cálculo estructural</strong> a ciertas
+            edificaciones que cumplen condiciones específicas.</p>
+
+        <p>En términos simples: si tu vivienda cumple con todos los requisitos establecidos en este artículo, puedes
+            tramitar permisos de construcción o regularización <strong>sin necesidad de contratar un ingeniero
+                calculista</strong> ni presentar proyecto de cálculo estructural.</p>
+
+        <div class="info-box">
+            <h4>💡 ¿Por qué existe esta exención?</h4>
+            <p>La OGUC reconoce que las viviendas pequeñas de 1-2 pisos, construidas con sistemas tradicionales y
+                materiales estándar, tienen un comportamiento estructural predecible y seguro. Por ello, permite
+                simplificar el proceso constructivo para este tipo de edificaciones.</p>
+        </div>
+
+        <h2 id="requisitos">Requisitos para Aplicar la Exención OGUC 5.6</h2>
+
+        <p>Para que tu proyecto pueda acogerse a la exención de cálculo estructural, debe cumplir <strong>TODOS</strong>
+            los siguientes requisitos simultáneamente:</p>
+
+        <h3>1. Número de pisos</h3>
+        <p>La edificación debe tener <strong>máximo 2 pisos</strong> sobre el nivel de terreno natural.</p>
+
+        <div class="warning-box">
+            <h4>⚠️ Importante</h4>
+            <p>Si tu casa tiene subterráneo o un tercer piso (aunque sea parcial), NO califica para la exención y
+                requiere proyecto de cálculo estructural obligatoriamente.</p>
+        </div>
+
+        <h3>2. Altura total</h3>
+        <p>La altura total de la edificación, medida desde el nivel de terreno natural hasta la cumbrera (punto más alto
+            del techo), no debe exceder <strong>7 metros</strong>.</p>
+
+        <h3>3. Superficie construida</h3>
+        <p>La superficie total construida no debe superar <strong>200 metros cuadrados</strong> por piso.</p>
+
+        <p><em>Nota: Esto significa que una casa de 2 pisos podría tener hasta 400 m² totales (200 m² por piso) y aún
+                calificar para la exención.</em></p>
+
+        <h3>4. Sistema estructural</h3>
+        <p>La estructura debe ser de <strong>albañilería confinada o armada</strong>, o bien de <strong>madera</strong>.
+        </p>
+
+        <p>Sistemas estructurales permitidos:</p>
+        <ul>
+            <li>Albañilería de ladrillo confinada con pilares y cadenas de hormigón armado</li>
+            <li>Albañilería armada de bloques de hormigón</li>
+            <li>Estructura de madera (tabiquería, entramado)</li>
+            <li>Combinaciones de los anteriores</li>
+        </ul>
+
+        <div class="warning-box">
+            <h4>❌ Sistemas NO permitidos para exención</h4>
+            <p>Los siguientes sistemas estructurales NO califican para OGUC 5.6 y requieren cálculo obligatorio:</p>
+            <ul style="margin-bottom: 0;">
+                <li>Estructura de acero</li>
+                <li>Hormigón armado (losas, vigas, pilares)</li>
+                <li>Sistemas prefabricados no tradicionales</li>
+                <li>Adobe o tierra (requieren estudio especial)</li>
+            </ul>
+        </div>
+
+        <h3>5. Distanciamientos y muros</h3>
+
+        <p>La edificación debe cumplir con:</p>
+
+        <ul>
+            <li><strong>Distanciamientos mínimos:</strong> Respetar las separaciones establecidas por el Plan Regulador
+                (típicamente 3-4 metros de deslindes laterales y posteriores)</li>
+            <li><strong>Muros medianeros:</strong> Si existen muros compartidos con vecinos, deben cumplir requisitos
+                específicos de espesor y altura</li>
+            <li><strong>Vanos en muros:</strong> El porcentaje de vanos (puertas y ventanas) no debe exceder el 50% de
+                la superficie del muro</li>
+        </ul>
+
+        <h3>6. Zona sísmica</h3>
+
+        <p>El proyecto debe estar ubicado en <strong>zona sísmica 2 o 3</strong> según la clasificación de la OGUC.</p>
+
+        <div class="info-box">
+            <h4>📍 Zona sísmica de la Región Metropolitana</h4>
+            <p>La mayor parte de la Región Metropolitana está clasificada como <strong>zona sísmica 2</strong>, por lo
+                que este requisito generalmente se cumple para proyectos en Santiago y comunas aledañas.</p>
+        </div>
+
+        <h3>7. Tipo de suelo</h3>
+
+        <p>El suelo debe ser de <strong>tipo I, II o III</strong> según clasificación sísmica. Suelos tipo IV (muy
+            blandos) requieren estudio de mecánica de suelos y cálculo estructural.</p>
+
+        <h2 id="beneficios">Beneficios de Aplicar OGUC 5.6</h2>
+
+        <p>Si tu proyecto califica para la exención de cálculo estructural, obtienes múltiples beneficios:</p>
+
+        <div class="success-box">
+            <h4>✅ Ahorro económico significativo</h4>
+            <p>No contratar ingeniero calculista te ahorra entre <strong>$1.200.000 y $2.500.000</strong> dependiendo
+                del tamaño del proyecto.</p>
+        </div>
+
+        <div class="success-box">
+            <h4>✅ Reducción de plazos</h4>
+            <p>El proceso de permisos se acorta en <strong>4-8 semanas</strong> al no tener que esperar el proyecto de
+                cálculo ni su revisión municipal.</p>
+        </div>
+
+        <div class="success-box">
+            <h4>✅ Simplificación del trámite</h4>
+            <p>Menos documentación que preparar y presentar ante la DOM, lo que reduce la complejidad del proceso.</p>
+        </div>
+
+        <div class="success-box">
+            <h4>✅ Menor riesgo de observaciones</h4>
+            <p>Al haber menos documentos técnicos, hay menos puntos que puedan generar observaciones municipales.</p>
+        </div>
+
+        <h2 id="proceso">Cómo Aplicar la Exención OGUC 5.6</h2>
+
+        <p>Para acogerte a la exención de cálculo estructural, debes seguir estos pasos:</p>
+
+        <h3>Paso 1: Verificación de requisitos</h3>
+
+        <p>Un arquitecto debe verificar que tu proyecto cumple con TODOS los requisitos del artículo 5.1.6. Esto
+            incluye:</p>
+
+        <ul>
+            <li>Medición de altura total de la edificación</li>
+            <li>Cálculo de superficie construida por piso</li>
+            <li>Verificación del sistema estructural existente o proyectado</li>
+            <li>Revisión de distanciamientos según Plan Regulador</li>
+            <li>Confirmación de zona sísmica</li>
+        </ul>
+
+        <h3>Paso 2: Declaración en proyecto de arquitectura</h3>
+
+        <p>El arquitecto debe incluir en el proyecto de arquitectura una <strong>declaración explícita</strong> de que
+            la obra se acoge al artículo 5.1.6 de la OGUC y cumple con todos sus requisitos.</p>
+
+        <p>Esta declaración debe aparecer en:</p>
+        <ul>
+            <li>Memoria de arquitectura</li>
+            <li>Láminas de planos (típicamente en planta de arquitectura)</li>
+            <li>Formulario de solicitud de permiso</li>
+        </ul>
+
+        <h3>Paso 3: Especificaciones técnicas</h3>
+
+        <p>Aunque no se requiere cálculo estructural, SÍ debes incluir en el proyecto:</p>
+
+        <div class="checklist">
+            <h4>Especificaciones técnicas mínimas:</h4>
+            <ul>
+                <li>Tipo y espesor de muros (ej: albañilería de ladrillo de 14 cm)</li>
+                <li>Dimensiones de pilares y cadenas de confinamiento</li>
+                <li>Tipo de fundaciones (corridas, zapatas aisladas, etc.)</li>
+                <li>Especificación de losa (si aplica): tipo, espesor, armadura mínima</li>
+                <li>Detalles constructivos de encuentros y amarres</li>
+                <li>Especificación de materiales (resistencia de hormigón, tipo de ladrillo, etc.)</li>
+            </ul>
+        </div>
+
+        <h3>Paso 4: Presentación ante la DOM</h3>
+
+        <p>El proyecto se presenta en la Dirección de Obras Municipales con:</p>
+
+        <ul>
+            <li>Proyecto de arquitectura con declaración OGUC 5.6</li>
+            <li>Especificaciones técnicas</li>
+            <li>Formularios de solicitud</li>
+            <li>Documentación de propiedad</li>
+            <li>Pago de derechos municipales</li>
+        </ul>
+
+        <p><strong>NO se presenta:</strong> Proyecto de cálculo estructural ni memoria de cálculo.</p>
+
+        <h2 id="casos">Casos Prácticos</h2>
+
+        <h3>Caso 1: Regularización de casa de 1 piso ✅</h3>
+
+        <p><strong>Situación:</strong> Casa de 120 m² construida hace 15 años sin permisos. Albañilería de ladrillo
+            confinado, altura 3.5 metros.</p>
+
+        <p><strong>Resultado:</strong> Califica para OGUC 5.6. Se puede regularizar sin proyecto de cálculo, solo con
+            proyecto de arquitectura y especificaciones técnicas.</p>
+
+        <p><strong>Ahorro:</strong> $1.500.000 aproximadamente y 6 semanas de plazo.</p>
+
+        <h3>Caso 2: Ampliación de segundo piso ✅</h3>
+
+        <p><strong>Situación:</strong> Casa existente de 1 piso (90 m²) quiere ampliar con segundo piso de 80 m².
+            Altura total proyectada: 6.5 metros. Albañilería confinada.</p>
+
+        <p><strong>Resultado:</strong> Califica para OGUC 5.6 SI la estructura existente del primer piso está en buenas
+            condiciones y puede soportar el segundo piso. El arquitecto debe verificar esto mediante inspección visual y
+            declararlo en el proyecto.</p>
+
+        <p><strong>Nota importante:</strong> Aunque no se requiere cálculo, es altamente recomendable que un ingeniero
+            evalúe la capacidad de la estructura existente antes de ampliar.</p>
+
+        <h3>Caso 3: Casa de 2 pisos con losa de hormigón ❌</h3>
+
+        <p><strong>Situación:</strong> Casa de 2 pisos, 180 m² totales, altura 6 metros. Estructura de pilares y vigas
+            de hormigón armado con losa.</p>
+
+        <p><strong>Resultado:</strong> NO califica para OGUC 5.6 porque el sistema estructural es de hormigón armado
+            (no albañilería ni madera). Requiere proyecto de cálculo estructural obligatorio.</p>
+
+        <h3>Caso 4: Casa de 3 pisos ❌</h3>
+
+        <p><strong>Situación:</strong> Casa de 3 pisos, albañilería confinada, 150 m² por piso.</p>
+
+        <p><strong>Resultado:</strong> NO califica para OGUC 5.6 porque excede los 2 pisos permitidos. Requiere
+            proyecto de cálculo estructural obligatorio.</p>
+
+        <h2 id="errores">Errores Comunes al Aplicar OGUC 5.6</h2>
+
+        <div class="warning-box">
+            <h4>❌ Error #1: Asumir que califica sin verificar todos los requisitos</h4>
+            <p>Muchos propietarios asumen que por tener 1-2 pisos automáticamente califican, sin verificar altura,
+                superficie, sistema estructural y otros requisitos. Todos deben cumplirse simultáneamente.</p>
+        </div>
+
+        <div class="warning-box">
+            <h4>❌ Error #2: No declarar explícitamente la exención</h4>
+            <p>No basta con que el proyecto cumpla los requisitos; el arquitecto debe declarar explícitamente en el
+                proyecto que se acoge al artículo 5.1.6 de la OGUC.</p>
+        </div>
+
+        <div class="warning-box">
+            <h4>❌ Error #3: Omitir especificaciones técnicas</h4>
+            <p>Aunque no se requiere cálculo, SÍ se deben especificar dimensiones de elementos estructurales, materiales
+                y detalles constructivos. Omitir esto genera observaciones municipales.</p>
+        </div>
+
+        <div class="warning-box">
+            <h4>❌ Error #4: Aplicar la exención en ampliaciones sin evaluar estructura existente</h4>
+            <p>En ampliaciones, aunque se pueda eximir del cálculo, es fundamental verificar que la estructura existente
+                puede soportar la nueva carga. No hacerlo puede resultar en problemas estructurales graves.</p>
+        </div>
+
+        <h2 id="cuando-no">¿Cuándo NO Aplica la Exención?</h2>
+
+        <p>La exención OGUC 5.6 <strong>NO aplica</strong> en los siguientes casos:</p>
+
+        <ul>
+            <li>Edificaciones de <strong>3 o más pisos</strong></li>
+            <li>Edificaciones con <strong>subterráneo</strong></li>
+            <li>Altura total mayor a <strong>7 metros</strong></li>
+            <li>Superficie por piso mayor a <strong>200 m²</strong></li>
+            <li>Estructura de <strong>hormigón armado</strong> (pilares, vigas, losas)</li>
+            <li>Estructura de <strong>acero</strong></li>
+            <li>Edificaciones en <strong>zona sísmica 1</strong> (alta sismicidad)</li>
+            <li>Suelos <strong>tipo IV</strong> (muy blandos)</li>
+            <li><strong>Edificios colectivos</strong> (departamentos, condominios)</li>
+            <li>Edificaciones de <strong>uso público</strong> (comercio, oficinas, etc.)</li>
+        </ul>
+
+        <div class="info-box">
+            <h4>💡 Consejo profesional</h4>
+            <p>Aunque tu proyecto califique para OGUC 5.6, en algunos casos puede ser recomendable hacer un cálculo
+                estructural de todas formas, especialmente en:</p>
+            <ul style="margin-bottom: 0;">
+                <li>Ampliaciones sobre estructura existente antigua</li>
+                <li>Terrenos con pendiente pronunciada</li>
+                <li>Zonas con antecedentes de problemas de suelo</li>
+                <li>Proyectos cercanos al límite de los parámetros (ej: 195 m² por piso)</li>
+            </ul>
+        </div>
+
+        <h2>Conclusión</h2>
+
+        <p>El artículo 5.1.6 de la OGUC es una herramienta valiosa que puede simplificar significativamente el proceso
+            de construcción o regularización de viviendas pequeñas. Sin embargo, es fundamental:</p>
+
+        <ul>
+            <li>✅ Verificar que se cumplen <strong>TODOS</strong> los requisitos</li>
+            <li>✅ Contar con un arquitecto que conozca bien la normativa</li>
+            <li>✅ Incluir especificaciones técnicas completas en el proyecto</li>
+            <li>✅ Declarar explícitamente la exención en la documentación</li>
+            <li>✅ Considerar evaluación estructural en ampliaciones, aunque no sea obligatoria</li>
+        </ul>
+
+        <p>Aplicar correctamente OGUC 5.6 puede ahorrarte entre $1.200.000 y $2.500.000 y reducir los plazos de tu
+            proyecto en 1-2 meses. Sin embargo, aplicarla incorrectamente puede resultar en observaciones municipales,
+            rechazo del proyecto, o peor aún, problemas estructurales futuros.</p>
+
+        <div class="cta-box">
+            <h3>¿Tu proyecto califica para OGUC 5.6?</h3>
+            <p>Solicita una evaluación técnica gratuita. Revisamos si tu proyecto puede acogerse a la exención de
+                cálculo estructural y te entregamos un informe en 48 horas.</p>
+            <a href="../../index.html#contacto" class="btn btn-primary">Solicitar evaluación gratuita</a>
+        </div>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 1px solid #E0E0E0;">
+
+        <div style="background: #F5F5F5; padding: 1.5rem; border-radius: 8px;">
+            <h4 style="margin-top: 0;">Sobre el autor</h4>
+            <p style="margin-bottom: 0;"><strong>ROER Arquitectura</strong> es un estudio especializado en
+                regularización de viviendas y proyectos de arquitectura en la Región Metropolitana. Con amplia
+                experiencia en la aplicación de OGUC 5.6, ayudamos a propietarios a optimizar costos y plazos en sus
+                proyectos de construcción y regularización.</p>
+        </div>
+
+        <hr style="margin: 3rem 0; border: none; border-top: 1px solid #E0E0E0;">
+
+        <div style="background: #F9F9F9; padding: 1.5rem; border-radius: 8px;">
+            <h4 style="margin-top: 0;">Artículos relacionados</h4>
+            <ul style="margin-bottom: 0;">
+                <li><a href="como-regularizar-casa-sin-permiso-chile-2026.html"
+                        style="color: #3FB8AF; font-weight: 600;">Cómo regularizar una casa sin permiso de edificación
+                        en Chile 2026</a></li>
+                <li><a href="ampliacion-segundo-piso-requisitos-permisos-rm.html"
+                        style="color: #3FB8AF; font-weight: 600;">Ampliación de segundo piso: Requisitos y permisos en
+                        la RM</a></li>
+            </ul>
+        </div>
+
+    </article>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <div class="logo-wrapper">
+                    <img src="../../assets/images/logo.png" alt="Logo ROER" class="logo-icon-footer">
+                    <span>ROER Arquitectura</span>
+                </div>
+                <p>© 2026 Todos los derechos reservados.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="../../index.html#inicio">Inicio</a></li>
+                <li><a href="../../index.html#servicios">Servicios</a></li>
+                <li><a href="../../index.html#proyectos">Proyectos</a></li>
+                <li><a href="../index.html">Blog</a></li>
+                <li><a href="../../index.html#contacto">Contacto</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="https://2x3.cl/profesional/smvarquitectura?clientOrigin=SELF" target="_blank"
+                    aria-label="Perfil en 2x3">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/estudioroer" target="_blank" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="https://x.com/roer_arqui" target="_blank" aria-label="X (Twitter)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@ROER-Arqui" target="_blank" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33zM9.75 15.02l5.75-3.27-5.75-3.27z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/estudio.roer/" target="_blank" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+
+</html>

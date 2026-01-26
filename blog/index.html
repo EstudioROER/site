@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Arquitectura y Regularización | ROER Arquitectura</title>
+    <meta name="description"
+        content="Artículos sobre regularización de viviendas, permisos de construcción, ampliaciones y normativa OGUC en Chile. Guías prácticas para propietarios.">
+    <meta name="keywords"
+        content="blog arquitectura chile, regularización viviendas, permisos construcción, OGUC, ampliaciones">
+    <meta name="author" content="Estudio ROER Arquitectura">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <style>
+        .blog-hero {
+            background: linear-gradient(135deg, #2B4B4B 0%, #3D6A6A 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blog-filters {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .filter-tag {
+            padding: 0.5rem 1.2rem;
+            border: 2px solid #3FB8AF;
+            border-radius: 25px;
+            background: transparent;
+            color: #2B4B4B;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: #3FB8AF;
+            color: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-card-image img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #3FB8AF;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .blog-card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .blog-card h3 {
+            color: #2B4B4B;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        .blog-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .blog-card-link {
+            color: #3FB8AF;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .blog-card-link:hover {
+            gap: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar glass">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.png" alt="Logo ROER" class="logo-icon">
+                <span>Estudio ROER</span>
+            </a>
+            <button class="mobile-toggle" aria-label="Abrir menú">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index.html#inicio">Inicio</a></li>
+                <li><a href="../index.html#servicios">Servicios</a></li>
+                <li><a href="../index.html#proyectos">Proyectos</a></li>
+                <li><a href="index.html">Blog</a></li>
+                <li><a href="../index.html#about">Nosotros</a></li>
+                <li><a href="../index.html#contacto" class="btn btn-primary sm">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Hero -->
+    <header class="blog-hero">
+        <div class="container">
+            <h1>Blog de Arquitectura</h1>
+            <p>Guías prácticas sobre regularización, permisos, ampliaciones y normativa en Chile</p>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <section class="section">
+        <div class="container">
+            <!-- Filters -->
+            <div class="blog-filters">
+                <button class="filter-tag active" data-category="all">Todos</button>
+                <button class="filter-tag" data-category="regularizacion">Regularización</button>
+                <button class="filter-tag" data-category="permisos">Permisos</button>
+                <button class="filter-tag" data-category="ampliaciones">Ampliaciones</button>
+                <button class="filter-tag" data-category="normativa">Normativa</button>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+
+                <!-- Article 1 -->
+                <article class="blog-card" data-category="regularizacion">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/blog/regularization-house.png"
+                            alt="Casa moderna que requiere regularización">
+                        <span class="blog-card-tag">Regularización</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                26 Ene 2026
+                            </span>
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                8 min
+                            </span>
+                        </div>
+                        <h3>Cómo Regularizar una Casa sin Permiso de Edificación en Chile 2026</h3>
+                        <p>Guía completa paso a paso para regularizar tu vivienda construida sin permisos. Conoce el
+                            proceso, documentos necesarios, costos y plazos.</p>
+                        <a href="articulos/como-regularizar-casa-sin-permiso-chile-2026.html" class="blog-card-link">
+                            Leer artículo
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card" data-category="ampliaciones">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/blog/ampliacion-segundo-piso.png" alt="Ampliación de segundo piso">
+                        <span class="blog-card-tag">Ampliaciones</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                26 Ene 2026
+                            </span>
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                10 min
+                            </span>
+                        </div>
+                        <h3>Ampliación de Segundo Piso: Requisitos y Permisos en la RM</h3>
+                        <p>Todo lo que necesitas saber sobre permisos, normativas y costos para ampliar tu vivienda con
+                            un segundo piso en la Región Metropolitana.</p>
+                        <a href="articulos/ampliacion-segundo-piso-requisitos-permisos-rm.html" class="blog-card-link">
+                            Leer artículo
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card" data-category="normativa">
+                    <div class="blog-card-image">
+                        <img src="../assets/images/blog/oguc-calculo-estructural.png" alt="Normativa OGUC 5.6">
+                        <span class="blog-card-tag">Normativa</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                26 Ene 2026
+                            </span>
+                            <span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                9 min
+                            </span>
+                        </div>
+                        <h3>OGUC 5.6: ¿Cuándo NO Necesitas Proyecto de Cálculo Estructural?</h3>
+                        <p>Descubre si tu proyecto puede eximirse del cálculo estructural y ahorra tiempo y dinero en
+                            tu regularización o construcción.</p>
+                        <a href="articulos/oguc-5-6-cuando-no-necesitas-calculo-estructural.html"
+                            class="blog-card-link">
+                            Leer artículo
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <div class="logo-wrapper">
+                    <img src="../assets/images/logo.png" alt="Logo ROER" class="logo-icon-footer">
+                    <span>ROER Arquitectura</span>
+                </div>
+                <p>© 2026 Todos los derechos reservados.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="../index.html#inicio">Inicio</a></li>
+                <li><a href="../index.html#servicios">Servicios</a></li>
+                <li><a href="../index.html#proyectos">Proyectos</a></li>
+                <li><a href="index.html">Blog</a></li>
+                <li><a href="../index.html#contacto">Contacto</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="https://2x3.cl/profesional/smvarquitectura?clientOrigin=SELF" target="_blank"
+                    aria-label="Perfil en 2x3">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/estudioroer" target="_blank" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="https://x.com/roer_arqui" target="_blank" aria-label="X (Twitter)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@ROER-Arqui" target="_blank" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33zM9.75 15.02l5.75-3.27-5.75-3.27z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/estudio.roer/" target="_blank" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Blog filter functionality
+        const filterButtons = document.querySelectorAll('.filter-tag');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Filter cards
+                blogCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
