@@ -219,6 +219,31 @@ function handleFileUpload(inputId, fileType, maxSize, maxFiles) {
     });
 }
 
+function getRequirementsHtml(projectType) {
+    let reqs = [];
+    switch (projectType) {
+        case 'obra-nueva': reqs = ['Copie de Inscripción de Dominio (CBR)', 'Certificado de Informaciones Previas (CIP)', 'Topografía (si existe)']; break;
+        case 'ampliacion': reqs = ['Permiso de Edificación de la casa original', 'Planos de la casa existente', 'Certificado de Informaciones Previas']; break;
+        case 'regularizacion': reqs = ['Certificado de Avalúo Fiscal detallado', 'Escritura de la propiedad', 'Boleta de servicios (luz/agua)']; break;
+        case 'subdivision': reqs = ['Escritura con inscripción CBR (fojas/número)', 'Certificado de Informaciones Previas', 'Plano Topográfico']; break;
+        case 'fusion-predial': reqs = ['Escrituras de todos los roles a fusionar', 'Certificado de Informaciones Previas', 'Certificados de número']; break;
+        case 'remodelacion': reqs = ['Planos de arquitectura actuales', 'Fotos del estado actual']; break;
+        case 'cambio-destino': reqs = ['Certificado de Informaciones Previas (CIP)', 'Recepción Final del destino actual', 'Planos aprobados']; break;
+        default: return '';
+    }
+
+    if (reqs.length === 0) return '';
+
+    return `
+        <div style="background: #E8F5F5; border-left: 4px solid #3FB8AF; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+            <p style="color: #2B4B4B; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem;">💡 Documentos ideales para el estudio:</p>
+            <ul style="margin: 0; padding-left: 1.2rem; color: #2B4B4B; font-size: 0.9rem; line-height: 1.5;">
+                ${reqs.map(r => `<li>${r}</li>`).join('')}
+            </ul>
+        </div>
+    `;
+}
+
 function generateDynamicStep(projectType) {
     console.log('Generating dynamic step for:', projectType);
     const step3 = document.getElementById('step3Dynamic');
@@ -228,6 +253,7 @@ function generateDynamicStep(projectType) {
     }
 
     let html = '<h2 class="step-title">Detalles Específicos del Proyecto</h2>';
+    html += getRequirementsHtml(projectType);
 
     switch (projectType) {
         case 'obra-nueva':
@@ -837,6 +863,9 @@ function validateStep(step) {
             formData.urgencia = document.getElementById('urgencia').value || 'No especificado';
             break;
         case 7:
+            // Files are optional, just continue
+            break;
+        case 8:
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
             const telefono = document.getElementById('telefono').value;
@@ -866,9 +895,8 @@ function validateStep(step) {
             formData.email = email;
             formData.telefono = telefono;
             break;
-        case 8:
-            // Files are optional, just continue
-            break;
+        default:
+            console.log('No specific validation for step', step);
     }
     console.log('Validation passed for step', step);
     return true;
@@ -998,18 +1026,23 @@ function updateButtons() {
     const nextBtn = document.getElementById('nextBtn');
     const actions = document.getElementById('wizardActions');
 
+    // Ensure actions are visible by default
+    actions.style.display = 'flex';
+
     if (currentStep === 1) {
         prevBtn.style.display = 'none';
     } else {
         prevBtn.style.display = 'block';
     }
 
-    if (currentStep === 8) {
-        nextBtn.textContent = 'Enviar Solicitud';
-    } else if (currentStep === 9) {
+    if (currentStep === 9) {
+        nextBtn.textContent = 'Confirmar y Enviar';
+        nextBtn.style.background = '#2B4B4B'; // Highlight explicit action
+    } else if (currentStep === 10) {
         actions.style.display = 'none';
     } else {
         nextBtn.textContent = 'Siguiente';
+        nextBtn.style.background = ''; // Reset style
     }
 }
 

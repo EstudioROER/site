@@ -230,6 +230,9 @@
             background: white;
             color: #2B4B4B;
             cursor: text;
+            position: relative;
+            /* Ensure it floats above potential overlaps */
+            z-index: 1;
         }
 
         .form-group select {
@@ -637,12 +640,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="superficieTerreno">Superficie del Terreno (m²) *</label>
-                        <input type="number" id="superficieTerreno" placeholder="Ej: 200" required>
+                        <input type="text" inputmode="numeric" id="superficieTerreno" placeholder="Ej: 200" required>
                     </div>
                     <div class="form-group">
                         <label for="superficieConstruida">Superficie Construida Actual (m²) <span
                                 style="color: #999; font-weight: normal;">(opcional)</span></label>
-                        <input type="number" id="superficieConstruida" placeholder="Ej: 120">
+                        <input type="text" inputmode="numeric" id="superficieConstruida" placeholder="Ej: 120">
                     </div>
                 </div>
                 <div class="form-row">
@@ -660,7 +663,7 @@
                     <div class="form-group">
                         <label for="anoConstruccion">Año de Construcción Aprox. <span
                                 style="color: #999; font-weight: normal;">(opcional)</span></label>
-                        <input type="number" id="anoConstruccion" placeholder="Ej: 1990">
+                        <input type="text" inputmode="numeric" id="anoConstruccion" placeholder="Ej: 1990">
                     </div>
                 </div>
             </div>
