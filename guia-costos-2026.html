@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costos Construcción 2026 | Estudio ROER</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;700&display=swap"
+        rel="stylesheet">
+    <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --accent: #FF6B6B;
+            --light: #F0F9F9;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #f5f5f5;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--secondary);
+        }
+
+        .page-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #contentToPrint {
+            padding: 50px;
+            background: white;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Price Table */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cost-table th {
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .cost-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        /* Callout */
+        .promo-box {
+            background: var(--light);
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .doc-footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .download-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+
+        .hide-on-pdf {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-container">
+        <div id="contentToPrint">
+            <header>
+                <span class="brand">Estudio ROER</span>
+                <h1>Referencia de Costos 2026</h1>
+                <div class="subtitle">Valores estimados de construcción por m² (Región Metropolitana/V)</div>
+            </header>
+
+            <p style="margin-bottom: 30px;">
+                Esta guía te ayudará a planificar tu presupuesto inicial. Los valores están calculados con una
+                <strong>UF Referencial de $39.700 (Feb 2026)</strong>.
+            </p>
+
+            <table class="cost-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Proyecto</th>
+                        <th>Rango Estimado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Remodelación / Ampliación Ligera</strong><br>
+                            <span class="note">Tabiquería, Metalcom, Pisos flotantes, Pintura. Sin grandes obras
+                                civiles.</span>
+                        </td>
+                        <td class="price-tag">
+                            18 - 22 UF/m²<br>
+                            <span style="font-size:0.8rem; font-weight:400; color:#555">($715.000 - $875.000 app)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Obra Nueva Estándar</strong><br>
+                            <span class="note">Albañilería o Panel SIP. Terminaciones medias. Llave en mano.</span>
+                        </td>
+                        <td class="price-tag">
+                            28 - 35 UF/m²<br>
+                            <span style="font-size:0.8rem; font-weight:400; color:#555">($1.110.000 - $1.390.000
+                                app)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Obra Nueva Alta Gama</strong><br>
+                            <span class="note">Hormigón a la vista, Ventanas PVC Termopanel, Calefacción central.</span>
+                        </td>
+                        <td class="price-tag">
+                            38 - 45+ UF/m²<br>
+                            <span style="font-size:0.8rem; font-weight:400; color:#555">($1.500.000 - $1.785.000+
+                                app)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Regularización (Solo Honorarios)</strong><br>
+                            <span class="note">Trámite Ley del Mono / Ley General (No incluye obras físicas).</span>
+                        </td>
+                        <td class="price-tag">Variable por caso</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box" style="background:#e8f5e9; border-color:#66bb6a">
+                <h3>💡 La Inversión Inteligente</h3>
+                <p>Es normal asustarse con los costos de construcción. Pero piensa en esto:</p>
+                <ul class="checklist">
+                    <li><strong>El Arquitecto representa solo el ~8-12%</strong> del costo total.</li>
+                    <li><strong>Pero controla el 100% de la obra.</strong> Sin un buen plano, es común tener
+                        <strong>sobrecostos del 30%</strong> por errores, demoliciones y materiales mal calculados.</li>
+                    <li><em>"Un buen proyecto se paga solo con el ahorro en la construcción."</em></li>
+                </ul>
+            </div>
+
+            <div class="promo-box">
+                <h3>🧮 ¿Quieres un valor más exacto?</h3>
+                <p>Hemos creado una <strong>Calculadora Interactiva</strong> que considera la pendiente de tu terreno y
+                    los materiales específicos.</p>
+                <div style="text-align:center; margin-top:20px;">
+                    <!-- Placeholder for QR -->
+                    <a href="calculadora-costos.html"
+                        style="background:var(--secondary); color:white; padding:10px 20px; text-decoration:none; border-radius:5px; display:inline-block">👉
+                        Abrir Calculadora Interactiva</a>
+                    <p style="font-size:0.8rem; margin-top:10px; color:#666"><em>(Disponible en nuestra web)</em></p>
+                </div>
+            </div>
+
+            <div class="doc-footer">
+                <p><strong>Estudio ROER Arquitectura</strong><br>
+                    Evaluación Gratuita de Proyectos: www.estudioroer.com<br>
+                    +56 9 5019 6861</p>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="generatePDF()" class="download-btn hide-on-pdf">
+        ⬇️ Descargar Guía Costos
+    </button>
+
+    <script>
+        function generatePDF() {
+            const element = document.getElementById('contentToPrint');
+            const opt = {
+                margin: 10,
+                filename: 'Guia-Costos-2026-ROER.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            const buttons = document.querySelectorAll('.hide-on-pdf');
+            buttons.forEach(btn => btn.style.display = 'none');
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                buttons.forEach(btn => btn.style.display = '');
+            });
+        }
+    </script>
+</body>
+
+</html>
