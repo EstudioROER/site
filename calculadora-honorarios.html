@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Honorarios Arquitectura | Estudio ROER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --accent: #FF6B6B;
+            --dark: #121212;
+            --card-bg: #1E1E1E;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(63, 184, 175, 0.1) 0%, transparent 100%);
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        p.subtitle {
+            color: #aaa;
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Step 1: Project Type */
+        .step-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .type-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .type-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 15px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+        }
+
+        .type-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .type-card.active {
+            border-color: var(--primary);
+            background: rgba(63, 184, 175, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(63, 184, 175, 0.2);
+        }
+
+        .icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+
+        /* Step 2: Slider */
+        .slider-container {
+            margin-bottom: 40px;
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #333;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(63, 184, 175, 0.8);
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .m2-display {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        /* Result Area */
+        .result-box {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .result-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .price-label {
+            color: #ccc;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .btn-calc {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(63, 184, 175, 0.3);
+        }
+
+        .btn-calc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(63, 184, 175, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-link {
+            color: #777;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Calculadora de Honorarios</h1>
+        <p class="subtitle">Estima cuánto cuesta contratar a un arquitecto para tu proyecto.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Step 1 -->
+        <div class="step-title">1. ¿Qué quieres hacer?</div>
+        <div class="type-grid">
+            <div class="type-card" onclick="selectType('regularizacion', this)">
+                <span class="icon">📜</span>
+                <span class="label">Regularizar (Ley Mono)</span>
+            </div>
+            <div class="type-card" onclick="selectType('obra_nueva', this)">
+                <span class="icon">🏗️</span>
+                <span class="label">Obra Nueva</span>
+            </div>
+            <div class="type-card" onclick="selectType('remodelacion', this)">
+                <span class="icon">🔨</span>
+                <span class="label">Ampliación / Remodelacion</span>
+            </div>
+
+            <!-- Nuevos Servicios -->
+            <div class="type-card" onclick="selectType('obra_menor', this)">
+                <span class="icon">🛠️</span>
+                <span class="label">Obra Menor (Interior)</span>
+            </div>
+            <div class="type-card" onclick="selectType('subdivision', this)">
+                <span class="icon">🧩</span>
+                <span class="label">Subdivisión / Fusión</span>
+            </div>
+            <div class="type-card" onclick="selectType('otros', this)">
+                <span class="icon">💡</span>
+                <span class="label">Otros / Asesoría</span>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-title" id="stepEqTitle">2. Tamaño aproximado (m²)</div>
+        <div class="slider-container" id="sliderContainer">
+            <div class="m2-display"><span id="m2Value">60</span> m²</div>
+            <input type="range" id="m2Slider" min="10" max="300" value="60" oninput="updateM2(this.value)">
+            <p style="font-size:0.8rem; color:#666">Desliza para ajustar</p>
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">CALCULAR ESTIMACIÓN</button>
+
+        <!-- Result -->
+        <div class="result-box" id="result">
+            <p class="price-label">Rango Estimado de Honorarios</p>
+            <div class="price-value" id="finalPrice">$0</div>
+            <p class="price-note" id="priceNote">*Referencial. Incluye diseño y gestión de permisos.<br>No incluye pagos
+                de derechos municipales.</p>
+            <a id="wspLink" href="#" target="_blank"
+                style="display:inline-block; margin-top:15px; color:var(--primary); text-decoration:none; font-weight:bold">
+                Cotizar Exacto en WhatsApp →
+            </a>
+        </div>
+
+    </div>
+
+    <div style="text-align:center; padding-bottom:50px">
+        <a href="vip.html" class="back-link">← Volver a Zona VIP</a>
+    </div>
+
+    <script>
+        let selectedType = null;
+        let m2 = 60;
+        const UF = 37000; // Referencia
+
+        function selectType(type, element) {
+            selectedType = type;
+            // Visual feedback
+            document.querySelectorAll('.type-card').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Hide result if type changes
+            document.getElementById('result').classList.remove('show');
+
+            // Handle UI for fixed cost items (No m2 slider needed)
+            const slider = document.getElementById('sliderContainer');
+            const title = document.getElementById('stepEqTitle');
+
+            if (type === 'subdivision' || type === 'otros') {
+                slider.style.opacity = '0.3';
+                slider.style.pointerEvents = 'none';
+                title.innerText = "2. Tamaño (No aplica)";
+                title.style.opacity = '0.5';
+            } else {
+                slider.style.opacity = '1';
+                slider.style.pointerEvents = 'auto';
+                title.innerText = "2. Tamaño aproximado (m²)";
+                title.style.opacity = '1';
+            }
+        }
+
+        function updateM2(val) {
+            m2 = val;
+            document.getElementById('m2Value').innerText = val;
+            document.getElementById('result').classList.remove('show');
+        }
+
+        function calculate() {
+            if (!selectedType) {
+                alert("Selecciona un tipo de proyecto primero.");
+                return;
+            }
+
+            let minUF = 0;
+            let maxUF = 0;
+            let note = "*Referencial. No incluye derechos municipales.";
+
+            // LOGIC
+            if (selectedType === 'regularizacion') {
+                // ~ 12-18 UF base
+                minUF = 12 + (m2 * 0.05);
+                maxUF = 18 + (m2 * 0.08);
+            } else if (selectedType === 'obra_nueva') {
+                // ~ 1.5 UF/m2
+                minUF = m2 * 1.2;
+                maxUF = m2 * 1.8;
+            } else if (selectedType === 'remodelacion') {
+                minUF = m2 * 1.5;
+                maxUF = m2 * 2.2;
+            } else if (selectedType === 'obra_menor') {
+                // Cheaper usually
+                minUF = 8 + (m2 * 0.05);
+                maxUF = 12 + (m2 * 0.1);
+                note = "*Para modificaciones interiores que NO alteran estructura.";
+            } else if (selectedType === 'subdivision') {
+                // FIXED range
+                minUF = 15;
+                maxUF = 35;
+                note = "*Valor depende de cantidad de lotes y topografía.";
+            } else if (selectedType === 'otros') {
+                // Consultancy base
+                minUF = 3;
+                maxUF = 10;
+                note = "*Valor por hora de asesoría técnica.";
+            }
+
+            // Calculations
+            const minCLP = Math.round(minUF * UF / 10000) * 10000;
+            const maxCLP = Math.round(maxUF * UF / 10000) * 10000;
+
+            const format = (num) => "$" + num.toLocaleString('es-CL');
+
+            document.getElementById('finalPrice').innerText = `${format(minCLP)} - ${format(maxCLP)}`;
+            document.getElementById('priceNote').innerText = note;
+
+            // Build WSP Link
+            const text = `Hola, simulé una ${selectedType.replace('_', ' ')} ${selectedType !== 'subdivision' ? 'de ' + m2 + 'm2' : ''} y me dio aprox ${format(minCLP)}. Quiero cotizar exacto.`;
+            document.getElementById('wspLink').href = `https://wa.me/56950196861?text=${encodeURIComponent(text)}`;
+
+            document.getElementById('result').classList.add('show');
+        }
+    </script>
+
+</body>
+
+</html>
