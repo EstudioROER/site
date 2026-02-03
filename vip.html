@@ -206,19 +206,28 @@
     <!-- LOCK SCREEN -->
     <div id="gate">
         <div class="lock-icon">🔒</div>
-        <h2>Material Exclusivo Feria</h2>
-        <p>Ingresa el código que aparece en el cartel</p>
+        <h2>Bóveda de Recursos VIP</h2>
+        <p>Ingresa tu Código de Acceso de Cliente</p>
         <input type="text" id="passInput" placeholder="CÓDIGO SECRETO">
         <button id="unlockBtn" onclick="unlock()">DESBLOQUEAR</button>
         <div class="error-msg" id="error">❌ Código incorrecto</div>
-        <p style="margin-top:30px; opacity:0.5; font-size:0.8rem">Pista: ROER26</p>
+
+        <div style="margin-top:30px; text-align:center">
+            <p style="opacity:0.5; font-size:0.8rem; margin-bottom:5px">¿No tienes código?</p>
+            <a href="https://instagram.com/estudio.roer" target="_blank"
+                style="color:var(--primary); text-decoration:none; font-weight:bold; border:1px solid var(--primary); padding:5px 15px; border-radius:20px; font-size:0.8rem">
+                Pídelo en Instagram 📸
+            </a>
+            <p style="margin-top:15px; opacity:0.3; font-size:0.7rem">Código activo: ROER26</p>
+        </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <div class="container">
         <header>
-            <h1>Bienvenido(a) al VIP</h1>
-            <p>Gracias por visitarnos en la Feria. Aquí tienes acceso a todas nuestras herramientas premium.</p>
+            <h1>Zona VIP Estudio ROER</h1>
+            <p>Bienvenido al área de recursos exclusivos. Aquí tienes herramientas profesionales gratuitas para tu
+                proyecto.</p>
         </header>
 
         <div class="grid">
@@ -262,11 +271,25 @@
                 </div>
                 <div class="btn-card">Descargar PDF →</div>
             </a>
+
+            <!-- Card 5 (Evaluacion) -->
+            <a href="evaluacion.html" class="card">
+                <div class="card-icon">🏗️</div>
+                <div>
+                    <h3>Evaluación de Proyecto</h3>
+                    <p>¿Tienes una idea? Obtén un pre-análisis de factibilidad gratuito.</p>
+                </div>
+                <div class="btn-card">Iniciar Test →</div>
+            </a>
         </div>
 
         <div style="text-align:center; margin-top:50px; opacity:0.5">
             <p>Estudio ROER Arquitectura © 2026</p>
-            <a href="index.html" style="color:white; text-decoration:none">← Ir al Sitio Web Principal</a>
+            <a href="index.html" style="color:white; text-decoration:none; margin-right:15px">← Ir al Sitio Web
+                Principal</a>
+            <button onclick="relock()"
+                style="background:none; border:none; color:var(--accent); cursor:pointer; text-decoration:underline">Bloquear
+                / Salir 🔒</button>
         </div>
     </div>
 
@@ -278,6 +301,11 @@
             if (localStorage.getItem('roer_vip_access') === 'granted') {
                 document.getElementById('gate').style.display = 'none';
             }
+        }
+
+        function relock() {
+            localStorage.removeItem('roer_vip_access');
+            location.reload();
         }
 
         function unlock() {
