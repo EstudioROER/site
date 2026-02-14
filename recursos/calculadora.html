@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Rápida - Estudio ROER</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --accent: #d4af37;
+            --bg: #f9f9f9;
+            --text: #333;
+            --white: #ffffff;
+            --love: #e11d48;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button.btn-calc {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button.btn-calc:hover {
+            transform: scale(1.02);
+            background: #000;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fffbe6;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Calculadora Rápida</h1>
+        <p class="subtitle">Estima tu inversión en segundos</p>
+
+        <div class="form-group">
+            <label>¿Qué estás buscando?</label>
+            <select id="service">
+                <option value="regularizar">Regularizar (Ley del Mono)</option>
+                <option value="ampliar">Ampliar (2do Piso / Pieza)</option>
+                <option value="construir">Construir Casa Nueva</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Metros Cuadrados Aprox.</label>
+            <input type="number" id="meters" placeholder="Ej: 40" min="1">
+        </div>
+
+        <button class="btn-calc" onclick="calculate()">Calcular Estimado</button>
+
+        <div id="result">
+            <p>Valor Referencial de Servicio:</p>
+            <div class="price" id="displayPrice">$0</div>
+            <p class="disclaimer">*Este valor es una estimación referencial basada en tarifas estándar. El precio final
+                requiere visita técnica y evaluación detallada.</p>
+            <button class="btn-calc" style="background: #25D366; margin-top: 15px;" onclick="whatsapp()">Cotizar Exacto
+                en WhatsApp</button>
+        </div>
+
+        <a href="feria.html" class="back-link">← Volver al Hub</a>
+    </div>
+
+    <script>
+        function calculate() {
+            const service = document.getElementById('service').value;
+            const meters = parseFloat(document.getElementById('meters').value);
+            const resultBox = document.getElementById('result');
+            const displayPrice = document.getElementById('displayPrice');
+
+            if (!meters || meters <= 0) {
+                alert("Por favor ingresa los metros cuadrados.");
+                return;
+            }
+
+            let price = 0;
+            // PRECIOS REFERENCIALES (MODIFICAR SEGÚN TARIFARIO REAL)
+            // Regularización: ~0.5 UF/m2 (Base min 15 UF)
+            // Ampliación (Diseño): ~1.0 UF/m2
+            // Obra Nueva (Diseño): ~1.5 UF/m2
+            const UF = 38000;
+
+            if (service === 'regularizar') {
+                price = (meters * 0.5 * UF);
+                if (price < 15 * UF) price = 15 * UF; // Base mínima
+            } else if (service === 'ampliar') {
+                price = (meters * 1.0 * UF);
+                if (price < 25 * UF) price = 25 * UF;
+            } else if (service === 'construir') {
+                price = (meters * 1.5 * UF);
+                if (price < 40 * UF) price = 40 * UF;
+            }
+
+            // Formato CLP
+            const formatted = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(price);
+
+            displayPrice.textContent = formatted;
+            resultBox.style.display = 'block';
+        }
+
+        function whatsapp() {
+            const service = document.getElementById('service').options[document.getElementById('service').selectedIndex].text;
+            const meters = document.getElementById('meters').value;
+            const price = document.getElementById('displayPrice').textContent;
+
+            const text = `Hola, hice el cálculo en la feria para ${service} de ${meters}m2 (aprox ${price}). Quiero agendar la visita.`;
+            window.location.href = `https://wa.me/56950196861?text=${encodeURIComponent(text)}`;
+        }
+    </script>
+
+</body>
+
+</html>

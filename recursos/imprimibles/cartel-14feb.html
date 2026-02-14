@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cartel 14 de Febrero - Estudio ROER</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #d4af37;
+            --love: #be123c;
+            /* Deep romantic red */
+            --love-light: #fff1f2;
+            --bg: #ffffff;
+            --text: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            width: 297mm;
+            height: 420mm;
+            /* A3 Portrait */
+            margin: 0 auto;
+            background: white;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+            /* Subtle heart pattern background */
+            background-image: radial-gradient(var(--love-light) 15%, transparent 16%);
+            background-size: 30mm 30mm;
+        }
+
+        .container {
+            padding: 20mm;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px dashed #ddd;
+            /* Cut guide */
+        }
+
+        /* Ribbon Header */
+        .ribbon {
+            background: var(--love);
+            color: white;
+            padding: 5mm 30mm;
+            font-size: 18pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10mm;
+            box-shadow: 0 5mm 15mm rgba(190, 18, 60, 0.3);
+            transform: rotate(-2deg);
+            position: relative;
+            z-index: 10;
+        }
+
+        .ribbon::after {
+            content: '♥';
+            position: absolute;
+            right: 10mm;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .ribbon::before {
+            content: '♥';
+            position: absolute;
+            left: 10mm;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56pt;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5mm;
+        }
+
+        .match-text {
+            color: var(--love);
+            font-style: italic;
+            display: block;
+            margin-top: 5mm;
+            position: relative;
+        }
+
+        /* Roulette Graphic Simulation (CSS Art) */
+        .roulette-preview {
+            width: 120mm;
+            height: 120mm;
+            background: conic-gradient(#FF9AA2 0deg 60deg,
+                    #FFB7B2 60deg 120deg,
+                    #FFDAC1 120deg 180deg,
+                    #E2F0CB 180deg 240deg,
+                    #B5EAD7 240deg 300deg,
+                    #C7CEEA 300deg 360deg);
+            border-radius: 50%;
+            margin: 10mm 0;
+            border: 5mm solid white;
+            box-shadow: 0 10mm 30mm rgba(0, 0, 0, 0.15);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roulette-center {
+            width: 30mm;
+            height: 30mm;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40pt;
+            color: var(--love);
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .roulette-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-box {
+            background: white;
+            border: 2mm solid var(--accent);
+            padding: 10mm;
+            border-radius: 5mm;
+            width: 90%;
+            margin-top: 5mm;
+            box-shadow: 0 5mm 20mm rgba(212, 175, 55, 0.2);
+        }
+
+        .cta-title {
+            font-size: 24pt;
+            color: var(--primary);
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .cta-subtitle {
+            font-size: 16pt;
+            color: #64748b;
+            margin-bottom: 5mm;
+        }
+
+        .qr-placeholder {
+            width: 50mm;
+            height: 50mm;
+            background: #eee;
+            margin: 5mm auto;
+            border: 2mm solid var(--love);
+            display: block;
+        }
+
+        .scan-me {
+            font-family: 'Playfair Display', serif;
+            font-size: 18pt;
+            font-style: italic;
+            color: var(--love);
+            margin-top: 5mm;
+        }
+
+        .footer {
+            margin-top: auto;
+            font-size: 10pt;
+            color: #94a3b8;
+        }
+
+        /* Print Settings */
+        @page {
+            size: A3 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                border: none;
+            }
+
+            .container {
+                border: none;
+            }
+
+            .btn-download {
+                display: none;
+            }
+        }
+
+        .btn-download {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--love);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="#" class="btn-download" onclick="window.print()">🖨️ Imprimir Cartel 14F</a>
+
+    <div class="container">
+        <div class="ribbon">Especial 14 de Febrero</div>
+
+        <h1>
+            Haz <span class="match-text">MATCH</span> <br>
+            con tu Casa Soñada
+        </h1>
+
+        <div class="roulette-preview">
+            <div class="roulette-center">?</div>
+            <!-- Decorative overlay to imply sections -->
+            <div class="roulette-text" style="transform: rotate(30deg) translateY(-40mm);">PREMIO</div>
+            <div class="roulette-text" style="transform: rotate(150deg) translateY(-40mm);">DCTO</div>
+            <div class="roulette-text" style="transform: rotate(270deg) translateY(-40mm);">GRATIS</div>
+        </div>
+
+        <div class="cta-box">
+            <div class="cta-title">¡Gira la Ruleta del Amor!</div>
+            <p class="cta-subtitle">y gana premios sorpresa para tu proyecto</p>
+
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://www.estudioroer.com/feria.html"
+                class="qr-placeholder" alt="QR Code">
+
+            <div class="scan-me">Escanea para jugar ahora</div>
+        </div>
+
+        <div class="footer">
+            Estudio ROER • Arquitectura con Pasión
+        </div>
+    </div>
+</body>
+
+</html>
