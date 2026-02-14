@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costos de Construcción | Estudio ROER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --accent: #FF6B6B;
+            --bg: #F0F9F9;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f7f6;
+            margin: 0;
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--secondary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .calculator-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .range-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .result-box {
+            background: var(--bg);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            border: 2px solid var(--primary);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .result-box.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .total-clp {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+
+        .total-uf {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 15px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            text-align: justify;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-calculate:hover {
+            background: #2c8f87;
+        }
+
+        .logo-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="capture">
+        <header>
+            <h1>Estimador de Costos</h1>
+            <div class="subtitle">Estudio ROER Arquitectura</div>
+        </header>
+
+        <div class="calculator-form">
+            <div class="form-group">
+                <label for="area">¿Cuántos m² quieres construir?</label>
+                <input type="number" id="area" placeholder="Ej: 45" min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="type">Tipo de Proyecto</label>
+                <select id="type">
+                    <option value="20">Ampliación Ligera (Tabiquería/Metalcom)</option>
+                    <option value="32">Obra Nueva Estándar (Albañilería)</option>
+                    <option value="42">Obra Nueva Alta Gama / Hormigón</option>
+                    <option value="15">Quincho / Terraza Techada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="slope">Pendiente del Terreno</label>
+                <select id="slope">
+                    <option value="1.0">Plano (Sin complicaciones)</option>
+                    <option value="1.15">Moderada (Requiere nivelación)</option>
+                    <option value="1.30">Fuerte (Requiere contención importante)</option>
+                </select>
+            </div>
+
+            <button class="btn-calculate" onclick="calculate()">Calcular Presupuesto</button>
+
+            <div id="result" class="result-box">
+                <div style="font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Costo Estimado de Obra
+                </div>
+                <div class="total-clp" id="clpOutput">$0</div>
+                <div class="total-uf" id="ufOutput">0 UF</div>
+
+                <div class="disclaimer">
+                    * Valores de mercado validados (Promedio 2025-2026). Incluye materiales y mano de obra a cargo de
+                    constructora. No incluye honorarios de arquitectura ni permisos municipales (+/- 12%).
+                </div>
+
+                <button onclick="downloadPDF()"
+                    style="background:none; border:none; color:var(--primary); text-decoration:underline; margin-top:15px; cursor:pointer">Guardar
+                    Pantallazo</button>
+            </div>
+
+            <div class="logo-footer">
+                www.estudioroer.com
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const UF_VALUE = 39700;
+
+        function calculate() {
+            const area = parseFloat(document.getElementById('area').value);
+            const basePrice = parseFloat(document.getElementById('type').value);
+            const slopeFactor = parseFloat(document.getElementById('slope').value);
+
+            if (!area || area <= 0) {
+                alert("Por favor ingresa una superficie válida");
+                return;
+            }
+
+            // Calculation
+            let totalUF = area * basePrice * slopeFactor;
+
+            // Rounding rules
+            totalUF = Math.round(totalUF);
+            const totalCLP = Math.round(totalUF * UF_VALUE);
+
+            // Formatting
+            const clpFormatted = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(totalCLP);
+
+            // Display
+            document.getElementById('clpOutput').innerHTML = clpFormatted;
+            document.getElementById('ufOutput').innerHTML = totalUF + " UF";
+
+            document.getElementById('result').classList.add('visible');
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('capture');
+            const opt = {
+                margin: 0,
+                filename: 'Estimacion-ROER.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+
+</body>
+
+</html>

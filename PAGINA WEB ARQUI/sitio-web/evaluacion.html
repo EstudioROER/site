@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Evaluación de Proyecto | ROER Arquitectura</title>
+    <meta name="description"
+        content="Obtén una evaluación preliminar gratuita de tu proyecto arquitectónico en 3 minutos. Respuesta en 48 horas.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #F0F9F9 0%, #E8F5F5 100%);
+            min-height: 100vh;
+            padding-top: 80px;
+            cursor: default;
+        }
+
+        /* Navigation from index.html */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #2B4B4B;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2B4B4B;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3FB8AF;
+        }
+
+        .wizard-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .wizard-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .wizard-header {
+            background: linear-gradient(135deg, #2B4B4B 0%, #3D6A6A 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .wizard-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wizard-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #3FB8AF;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 10px;
+        }
+
+        .wizard-body {
+            padding: 2.5rem;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            color: #2B4B4B;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            background: #F5F5F5;
+            border: 3px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .option-card:hover {
+            background: #E8F5F5;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-card.selected {
+            background: #E8F5F5;
+            border-color: #3FB8AF;
+        }
+
+        .option-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .option-card .title {
+            font-weight: 600;
+            color: #2B4B4B;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2B4B4B;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+            background: white;
+            color: #2B4B4B;
+            cursor: text;
+            position: relative;
+            /* Ensure it floats above potential overlaps */
+            z-index: 1;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3FB8AF;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .radio-option label {
+            color: #2B4B4B !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .checkbox-option label {
+            color: #2B4B4B !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+            cursor: pointer;
+        }
+
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-secondary {
+            background: #E0E0E0;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background: #D0D0D0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3FB8AF 0%, #2B9A91 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(63, 184, 175, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: #CCC;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .summary-section {
+            background: #F9F9F9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-section h3 {
+            color: #2B4B4B;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item .label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .summary-item .value {
+            color: #2B4B4B;
+            font-weight: 600;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message .icon {
+            font-size: 4rem;
+            color: #48BB78;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h2 {
+            color: #2B4B4B;
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1EBE57;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .wizard-container {
+                margin: 1rem;
+                border-radius: 12px;
+                width: auto;
+            }
+
+            .wizard-header {
+                padding: 1.5rem;
+            }
+
+            .wizard-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .wizard-body {
+                padding: 1.25rem;
+            }
+
+            .option-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .option-card {
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 1rem;
+            }
+
+            .option-card .icon {
+                font-size: 1.8rem;
+                margin-bottom: 0;
+            }
+
+            .option-card .title {
+                font-size: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .wizard-actions {
+                flex-direction: column-reverse;
+                /* Put 'Next' button on top visually or just ensure primary is prominent */
+                gap: 0.8rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 1rem;
+                /* Larger touch target */
+            }
+
+            /* Navbar Adjustments */
+            .nav-container {
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                /* Simplify UI by hiding unnecessary links on mobile steps */
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        /* File Preview Styles */
+        .file-preview {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: #F0F9F9;
+            border-radius: 6px;
+            border-left: 3px solid #3FB8AF;
+        }
+
+        .file-size {
+            color: #999;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Logo ROER" class="logo-icon">
+                <span>Estudio ROER</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Volver al Inicio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="wizard-container">
+        <div class="wizard-header">
+            <h1>Pre-Evaluación de Proyecto</h1>
+            <p>Completa estos pasos y recibe una evaluación en 48 horas</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="wizard-body">
+            <!-- Step 1: Tipo de Proyecto -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">¿Qué tipo de proyecto necesitas?</h2>
+                <div class="option-grid">
+                    <div class="option-card" data-value="obra-nueva">
+                        <div class="icon">🏗️</div>
+                        <div class="title">Obra Nueva</div>
+                    </div>
+                    <div class="option-card" data-value="ampliacion">
+                        <div class="icon">📐</div>
+                        <div class="title">Ampliación</div>
+                    </div>
+                    <div class="option-card" data-value="subdivision">
+                        <div class="icon">✂️</div>
+                        <div class="title">Subdivisión</div>
+                    </div>
+                    <div class="option-card" data-value="regularizacion">
+                        <div class="icon">📋</div>
+                        <div class="title">Regularización</div>
+                    </div>
+                    <div class="option-card" data-value="remodelacion">
+                        <div class="icon">🔨</div>
+                        <div class="title">Remodelación</div>
+                    </div>
+                    <div class="option-card" data-value="fusion-predial">
+                        <div class="icon">🔗</div>
+                        <div class="title">Fusión Predial</div>
+                    </div>
+                    <div class="option-card" data-value="cambio-destino">
+                        <div class="icon">🔄</div>
+                        <div class="title">Cambio de Destino</div>
+                    </div>
+                    <div class="option-card" data-value="otro">
+                        <div class="icon">💡</div>
+                        <div class="title">Otro</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Ubicación -->
+            <div class="step" id="step2">
+                <h2 class="step-title">Ubicación del Proyecto</h2>
+                <div class="form-group">
+                    <label for="comuna">Comuna *</label>
+                    <select id="comuna" required>
+                        <option value="">Selecciona una comuna</option>
+                        <option value="Santiago">Santiago</option>
+                        <option value="Maipú">Maipú</option>
+                        <option value="La Florida">La Florida</option>
+                        <option value="Puente Alto">Puente Alto</option>
+                        <option value="Las Condes">Las Condes</option>
+                        <option value="Providencia">Providencia</option>
+                        <option value="Ñuñoa">Ñuñoa</option>
+                        <option value="Peñalolén">Peñalolén</option>
+                        <option value="La Reina">La Reina</option>
+                        <option value="Macul">Macul</option>
+                        <option value="San Miguel">San Miguel</option>
+                        <option value="La Cisterna">La Cisterna</option>
+                        <option value="El Bosque">El Bosque</option>
+                        <option value="San Bernardo">San Bernardo</option>
+                        <option value="Valparaíso">Valparaíso</option>
+                        <option value="Viña del Mar">Viña del Mar</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección (opcional)</label>
+                    <input type="text" id="direccion" placeholder="Ej: Av. Libertador 1234">
+                </div>
+            </div>
+
+            <!-- Step 3: DINÁMICO - Cambia según tipo de proyecto -->
+            <div class="step" id="step3Dynamic"></div>
+
+            <!-- Step 4: Características del Terreno (General) -->
+            <div class="step" id="step4">
+                <h2 class="step-title">Características del Terreno</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="superficieTerreno">Superficie del Terreno (m²) *</label>
+                        <input type="text" inputmode="numeric" id="superficieTerreno" placeholder="Ej: 200" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="superficieConstruida">Superficie Construida Actual (m²) <span
+                                style="color: #999; font-weight: normal;">(opcional)</span></label>
+                        <input type="text" inputmode="numeric" id="superficieConstruida" placeholder="Ej: 120">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="numeroPisos">Número de Pisos Actuales <span
+                                style="color: #999; font-weight: normal;">(opcional)</span></label>
+                        <select id="numeroPisos">
+                            <option value="">Selecciona</option>
+                            <option value="0">Sin construcción</option>
+                            <option value="1">1 piso</option>
+                            <option value="2">2 pisos</option>
+                            <option value="3">3 o más pisos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="anoConstruccion">Año de Construcción Aprox. <span
+                                style="color: #999; font-weight: normal;">(opcional)</span></label>
+                        <input type="text" inputmode="numeric" id="anoConstruccion" placeholder="Ej: 1990">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Estado Legal -->
+            <div class="step" id="step5">
+                <h2 class="step-title">Estado Legal de la Propiedad</h2>
+                <div class="form-group">
+                    <label>¿Tiene planos aprobados en la municipalidad? *</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="planosSi" name="planos" value="si">
+                            <label for="planosSi">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="planosNo" name="planos" value="no">
+                            <label for="planosNo">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="planosNoSe" name="planos" value="no-se">
+                            <label for="planosNoSe">No sé</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>¿Tiene recepción final (certificado DOM)? *</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="recepcionSi" name="recepcion" value="si">
+                            <label for="recepcionSi">Sí</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recepcionNo" name="recepcion" value="no">
+                            <label for="recepcionNo">No</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="recepcionNoSe" name="recepcion" value="no-se">
+                            <label for="recepcionNoSe">No sé</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Detalles del Proyecto -->
+            <div class="step" id="step6">
+                <h2 class="step-title">Cuéntanos más sobre tu proyecto</h2>
+                <div class="form-group">
+                    <label for="descripcion">Descripción del proyecto *</label>
+                    <textarea id="descripcion" rows="4"
+                        placeholder="Describe tu proyecto con el mayor detalle posible..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="presupuesto">Presupuesto para Honorarios de Arquitectura *</label>
+                    <select id="presupuesto" required>
+                        <option value="">Selecciona un rango</option>
+                        <!-- Options will be populated dynamically based on project type -->
+                    </select>
+                    <p style="color: #666; font-size: 0.85rem; margin-top: 0.5rem; line-height: 1.4;">
+                        💡 <strong>Nota:</strong> Este presupuesto es solo para servicios de arquitectura (planos,
+                        permisos, tramitación).
+                        Proyectos de especialidades como <strong>cálculo estructural, instalaciones
+                            eléctricas/sanitarias</strong>
+                        se cotizan aparte según requerimientos del proyecto.
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="urgencia">¿Cuándo necesitas comenzar? <span
+                            style="color: #999; font-weight: normal;">(opcional)</span></label>
+                    <select id="urgencia">
+                        <option value="">Selecciona</option>
+                        <option value="inmediato">Lo antes posible</option>
+                        <option value="1-3-meses">En 1-3 meses</option>
+                        <option value="3-6-meses">En 3-6 meses</option>
+                        <option value="mas-6-meses">En más de 6 meses</option>
+                        <option value="solo-consulta">Solo estoy consultando</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7: Adjuntar Archivos (NUEVO) -->
+        <div class="step" id="step7">
+            <h2 class="step-title">Adjuntar Documentos <span style="color: #999; font-weight: normal;">(Opcional)</span>
+            </h2>
+            <p style="color: #666; margin-bottom: 1.5rem; line-height: 1.6;">
+                Adjunta planos, fotos o documentos que ayuden a evaluar tu proyecto con mayor precisión.
+                Los archivos no se suben automáticamente, te pediremos que los envíes por WhatsApp después.
+            </p>
+
+            <div class="form-group">
+                <label for="archivosPlanos">📐 Planos (PDF, DWG, DXF)</label>
+                <input type="file" id="archivosPlanos" multiple accept=".pdf,.dwg,.dxf"
+                    style="padding: 0.75rem; border: 2px dashed #3FB8AF; border-radius: 8px; background: #F0F9F9;">
+                <p style="color: #999; font-size: 0.85rem; margin-top: 0.5rem;">Máximo 10MB por archivo</p>
+                <div id="archivosPlanosPreview" class="file-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="archivosFotos">📸 Fotos del Terreno/Construcción</label>
+                <input type="file" id="archivosFotos" multiple accept=".jpg,.jpeg,.png,.heic"
+                    style="padding: 0.75rem; border: 2px dashed #3FB8AF; border-radius: 8px; background: #F0F9F9;">
+                <p style="color: #999; font-size: 0.85rem; margin-top: 0.5rem;">Máximo 5MB por foto, hasta 10 fotos</p>
+                <div id="archivosFotosPreview" class="file-preview"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="archivosDocumentos">📄 Otros Documentos (Certificados, Permisos)</label>
+                <input type="file" id="archivosDocumentos" multiple accept=".pdf"
+                    style="padding: 0.75rem; border: 2px dashed #3FB8AF; border-radius: 8px; background: #F0F9F9;">
+                <p style="color: #999; font-size: 0.85rem; margin-top: 0.5rem;">Máximo 5MB por archivo</p>
+                <div id="archivosDocumentosPreview" class="file-preview"></div>
+            </div>
+        </div>
+
+        <!-- Step 8: Datos de Contacto -->
+        <div class="step" id="step8">
+            <h2 class="step-title">Datos de Contacto</h2>
+            <div class="form-group">
+                <label for="nombre">Nombre completo *</label>
+                <input type="text" id="nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono/WhatsApp *</label>
+                    <input type="tel" id="telefono" placeholder="+56 9 1234 5678" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 9: Resumen -->
+        <div class="step" id="step9">
+            <h2 class="step-title">Resumen de tu Solicitud</h2>
+            <div id="summaryContainer"></div>
+        </div>
+
+        <!-- Step 10: Success -->
+        <div class="step" id="step10">
+            <div class="success-message">
+                <div class="icon">✅</div>
+                <h2>¡Solicitud Enviada!</h2>
+                <p>Hemos recibido tu pre-evaluación. Te contactaremos en las próximas <strong>48 horas</strong> con
+                    una evaluación preliminar y presupuesto estimado.</p>
+                <div class="contact-buttons">
+                    <a href="index.html" class="btn btn-primary">Volver al Inicio</a>
+                    <a href="#" id="whatsappBtn" class="btn-whatsapp" target="_blank">📱 Ir a WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="wizard-actions" id="wizardActions">
+            <button class="btn btn-secondary" id="prevBtn">Anterior</button>
+            <button class="btn btn-primary" id="nextBtn">Siguiente</button>
+        </div>
+    </div>
+    </div>
+
+    <script src="js/evaluacion-wizard.js?v=2"></script>
+</body>
+
+</html>

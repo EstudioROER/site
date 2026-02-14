@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Ley del Mono 20.898 | Estudio ROER</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@300;700&display=swap"
+        rel="stylesheet">
+    <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --light: #F0F9F9;
+            --dark: #1a3030;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #f5f5f5;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--secondary);
+        }
+
+        .page-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Content Padding for PDF readability */
+        #contentToPrint {
+            padding: 50px;
+            background: white;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+            /* Avoid cutting sections in PDF */
+        }
+
+        h2 {
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Callout Box */
+        .highlight-box {
+            background: var(--light);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Checklist Style */
+        .checklist li {
+            list-style: none;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Floating Download Button */
+        .download-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--secondary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+            box-shadow: 0 6px 20px rgba(63, 184, 175, 0.4);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Hide buttons for PDF generation */
+        .hide-on-pdf {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-link hide-on-pdf">← Volver al Sitio</a>
+
+    <div class="page-container">
+        <div id="contentToPrint">
+            <header>
+                <span class="brand">Estudio ROER</span>
+                <h1>Guía Definitiva: Ley del Mono</h1>
+                <div class="subtitle">Todo lo que necesitas saber sobre la Ley 20.898 para regularizar tu vivienda.
+                </div>
+            </header>
+
+            <section>
+                <h2>1. ¿Qué es realmente esta Ley?</h2>
+                <p>La <strong>Ley 20.898</strong>, conocida popularmente como "Ley del Mono", es un procedimiento
+                    simplificado que permite a los propietarios regularizar construcciones (como ampliaciones, segundos
+                    pisos o casas nuevas) que se edificaron sin permiso municipal.</p>
+                <div class="highlight-box">
+                    <h3>💡 ¿Por qué es una oportunidad única?</h3>
+                    <p>A diferencia de la regularización normal (Ley General de Urbanismo), esta ley ofrece:</p>
+                    <ul class="checklist">
+                        <li><strong>Requisitos Técnicos Reducidos:</strong> No exige cumplir el 100% de las normas
+                            actuales.</li>
+                        <li><strong>Costos Menores:</strong> Los derechos municipales tienen rebaja (normalmente el 1.5%
+                            del presupuesto).</li>
+                        <li><strong>Rapidez:</strong> El proceso es más expedito al revisarse.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>2. Requisitos Clave (Checklist)</h2>
+                <p>Para acogerte a este beneficio, tu propiedad debe cumplir estrictamente con los siguientes puntos:
+                </p>
+                <ul class="checklist">
+                    <li><strong>Antigüedad:</strong> La construcción debe haber sido realizada <strong>antes de febrero
+                            de 2016</strong> (debe ser demostrable).</li>
+                    <li><strong>Superficie Máxima:</strong> La vivienda no debe superar los <strong>140 m²</strong> (o
+                        90 m² si el avalúo es bajo).</li>
+                    <li><strong>Avalúo Fiscal:</strong> No debe superar las <strong>2.000 UF</strong>.</li>
+                    <li><strong>Ubicación:</strong> No estar en zonas de riesgo o franjas de utilidad pública.</li>
+                    <li><strong>Uso:</strong> Debe ser destino habitacional (vivienda).</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>3. El Proceso Paso a Paso</h2>
+                <ol>
+                    <li><strong>Diagnóstico (Arquitecto):</strong> Se verifica si la casa cumple los requisitos
+                        (superficie, antigüedad, avalúo).</li>
+                    <li><strong>Levantamiento:</strong> El arquitecto va a terreno, mide la casa y dibuja los planos
+                        "As-Built" (tal como construida).</li>
+                    <li><strong>Carpeta Técnica:</strong> Se preparan formularios, especificaciones técnicas e informe
+                        del profesional.</li>
+                    <li><strong>Ingreso a la DOM:</strong> Se presenta el expediente en la Dirección de Obras
+                        Municipales.</li>
+                    <li><strong>Revisión y Pago:</strong> La DOM revisa (observa si hay errores) y emite el cobro de
+                        derechos.</li>
+                    <li><strong>Certificado de Regularización:</strong> Una vez pagado, te entregan el certificado
+                        "Recepción Final". ¡Tu casa ya es legal!</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>4. Preguntas clave a tu Arquitecto</h2>
+                <p>Antes de contratar a alguien para este trámite, asegúrate de preguntar:</p>
+                <ul>
+                    <li>✅ <em>"¿El presupuesto incluye responder las observaciones (correcciones) de la
+                            municipalidad?"</em> (Vital, a veces cobran extra).</li>
+                    <li>✅ <em>"¿Usted revisa las normas de seguridad contra incendio?"</em> (Es un requisito
+                        excluyente).</li>
+                    <li>✅ <em>"¿Los derechos municipales están incluidos en su honorario?"</em> (Generalmente se pagan
+                        aparte).</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>5. Mitos Comunes</h2>
+                <p><strong>❌ "Es Gratis":</strong> Falso. Si bien es más barato, hay que pagar al arquitecto y los
+                    derechos municipales.</p>
+                <p><strong>❌ "Necesito la firma de mis vecinos":</strong> En la mayoría de los casos de esta ley
+                    simplificada, <strong>NO</strong> se requiere patrocino de vecinos (salvo excepciones técnicas).</p>
+            </section>
+
+            <div class="doc-footer">
+                <p><strong>Estudio ROER Arquitectura</strong><br>
+                    +56 9 5019 6861 | roer.arquitectura@gmail.com<br>
+                    www.estudioroer.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Button -->
+    <button onclick="generatePDF()" class="download-btn hide-on-pdf">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Descargar PDF
+    </button>
+
+    <script>
+        function generatePDF() {
+            // Get the element to print
+            const element = document.getElementById('contentToPrint');
+
+            // Options for pdf generation
+            const opt = {
+                margin: [10, 10, 10, 10], // top, left, bottom, right in mm
+                filename: 'Guia-Ley-20898-ROER.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Hide button before print logic (double safety)
+            const buttons = document.querySelectorAll('.hide-on-pdf');
+            buttons.forEach(btn => btn.style.display = 'none');
+
+            // Generate
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore buttons
+                buttons.forEach(btn => btn.style.display = '');
+            });
+        }
+    </script>
+</body>
+
+</html>

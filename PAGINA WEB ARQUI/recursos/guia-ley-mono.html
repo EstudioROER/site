@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía 03: Regulariza con la "Ley del Mono" - Estudio ROER</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #1a1a1a;
+            --accent: #d4af37;
+            /* Gold/Architectural elegance */
+            --bg: #f9f9f9;
+            --text: #333;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #cf1322;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* --- COMPONENTS --- */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .brand {
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .cat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .category-card h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Requirements List */
+        .requirements-list {
+            list-style: none;
+        }
+
+        .req-item {
+            background: #fdfdfd;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .req-icon {
+            font-size: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Benefits */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-item {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .benefit-item h4 {
+            color: #15803d;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* Interactive Checklist */
+        .architect-checklist {
+            background: var(--primary);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .architect-checklist h3 {
+            color: var(--accent);
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .check-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .check-group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .check-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .check-group label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f5f5f5;
+            color: var(--text);
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 40px;
+            border-top: 4px solid var(--accent);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+            transition: transform 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .btn-download {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
+            .architect-checklist {
+                background: white;
+                color: black;
+                border: 2px solid var(--primary);
+            }
+
+            .architect-checklist h3 {
+                color: var(--primary);
+                border-bottom: 1px solid #ccc;
+            }
+
+            .check-group {
+                background: #f9f9f9;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="btn-download" onclick="window.print()">🖨️ Descargar Guía en PDF</button>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <span class="brand">Estudio ROER | Arquitectura y Gestión</span>
+            <h1>Guía 03: Regulariza con la "Ley del Mono"</h1>
+            <p class="subtitle">Pon tus papeles al día de forma simplificada: Todo sobre la Ley 20.898</p>
+        </header>
+
+        <!-- WHAT IS IT -->
+        <section class="section">
+            <h2>1. ¿Qué es y por qué te conviene?</h2>
+            <p>Es un procedimiento excepcional y simplificado para <strong>regularizar viviendas que fueron construidas
+                    sin permiso municipal</strong>.</p>
+            <p>Se le llama "Ley del Mono" coloquialmente, pero su nombre real es Ley 20.898. Su gran ventaja es que los
+                requisitos son mucho menos exigentes que un permiso de edificación normal, permitiendo <strong>"sanear"
+                    la propiedad rápidamente</strong>.</p>
+        </section>
+
+        <!-- WHO CAN APPLY -->
+        <section class="section">
+            <h2>2. ¿Quiénes pueden acogerse?</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <span class="cat-icon">🏠</span>
+                    <h3>Hasta 90 m²</h3>
+                    <p>Viviendas con un avalúo fiscal de hasta <strong>1.000 UF</strong>.</p>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">🏡</span>
+                    <h3>Hasta 140 m²</h3>
+                    <p>Viviendas con un avalúo fiscal de hasta <strong>2.000 UF</strong>.</p>
+                </div>
+                <div class="category-card">
+                    <span class="cat-icon">🏭</span>
+                    <h3>Microempresas</h3>
+                    <p>O equipamiento social. (Consultar condiciones específicas).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- REQUIREMENTS -->
+        <section class="section">
+            <h2>3. Los requisitos "inamovibles"</h2>
+            <p>Para que podamos tramitar tu carpeta con éxito, la construcción debe cumplir sí o sí con:</p>
+
+            <ul class="requirements-list">
+                <li class="req-item">
+                    <div class="req-icon">📅</div>
+                    <div><strong>Antigüedad:</strong> La construcción debe haber sido terminada <em>antes</em> de la
+                        publicación de la ley (Febrero 2016).</div>
+                </li>
+                <li class="req-item">
+                    <div class="req-icon">☀️</div>
+                    <div><strong>Habitabilidad:</strong> Cumplir normas mínimas de altura (2.3m), ventilación e
+                        iluminación natural.</div>
+                </li>
+                <li class="req-item">
+                    <div class="req-icon">🔥</div>
+                    <div><strong>Seguridad:</strong> Estabilidad estructural comprobada y medidas contra incendios
+                        (muros cortafuego).</div>
+                </li>
+                <li class="req-item">
+                    <div class="req-icon">🗺️</div>
+                    <div><strong>Ubicación:</strong> No estar en áreas de riesgo ni en zonas declaradas de utilidad
+                        pública (como futuras calles).</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- BENEFITS -->
+        <section class="section">
+            <h2>4. ¿Para qué sirve la Recepción Definitiva?</h2>
+            <p>Regularizar no es solo "evitar multas", es <strong>ganar libertad financiera</strong>:</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h4>💰 Venta y Créditos</h4>
+                    <p>Ningún banco aprobará un crédito hipotecario al comprador si la propiedad no está al día.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>📜 Herencias</h4>
+                    <p>Facilita enormemente la Posesión Efectiva y los trámites legales para tu familia a futuro.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🏪 Patentes Comerciales</h4>
+                    <p>Si quieres poner un negocio formal, la municipalidad exigirá la recepción de la propiedad.</p>
+                </div>
+                <div class="benefit-item">
+                    <h4>🔋 Subsidios</h4>
+                    <p>Requisito clave para postular a beneficios del estado (paneles solares, aislamiento térmico).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHITECT'S CHECKLIST -->
+        <section class="section">
+            <div class="architect-checklist">
+                <h3>📋 El "Checklist" del Arquitecto</h3>
+                <p style="text-align: center; margin-bottom: 20px;">Lo que debes traer hoy. Si tienes estos datos,
+                    podemos orientarte ahora mismo:</p>
+
+                <div class="check-form">
+                    <div class="check-group">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">¿Cuántos metros cuadrados totales tiene la casa hoy?</label>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">¿En qué año se terminó la última ampliación?</label>
+                    </div>
+                    <div class="check-group">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">¿Tienes el Avalúo Fiscal Detallado? (Lo buscamos con tu Rol)</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <h3>No dejes pasar los plazos legales</h3>
+            <p>La Ley del Mono es una oportunidad temporal. Escanea el QR para evaluar tu caso sin costo inicial.</p>
+
+            <div style="margin: 30px 0;">
+                <!-- QR Placeholder -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.estudioroer.com"
+                    alt="QR Website" style="border: 4px solid white; border-radius: 10px;">
+                <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.8;">www.estudioroer.com</p>
+            </div>
+
+            <div class="contact-info">
+                <span>📍 Av. Kennedy 5770, Vitacura</span>
+                <span>📞 +56 9 5019 6861</span>
+                <span>✉️ roer.arquitectura@gmail.com</span>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

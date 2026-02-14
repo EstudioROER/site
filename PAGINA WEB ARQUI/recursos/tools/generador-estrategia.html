@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Posts - Estudio ROER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .day-btn {
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .day-btn:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .day-btn.active {
+            border-color: #667eea;
+            background: #f7f8ff;
+        }
+
+        .day-btn h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .day-btn p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .generator {
+            display: none;
+        }
+
+        .generator.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-copy {
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .btn-copy:hover {
+            background: #059669;
+        }
+
+        .platform-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .platform-btn {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .platform-btn:hover {
+            border-color: #667eea;
+        }
+
+        .platform-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .char-count {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .welcome h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #10b981;
+            z-index: 1000;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🚀 Generador de Posts</h1>
+        <p class="subtitle">Crea contenido profesional para tus redes sociales en segundos</p>
+
+        <!-- Selector de días -->
+        <div class="days">
+            <div class="day-btn" id="btn-lunes">
+                <h3>🚀 Lunes</h3>
+                <p>Motivación</p>
+            </div>
+            <div class="day-btn" id="btn-martes">
+                <h3>💡 Martes</h3>
+                <p>Tips & Educación</p>
+            </div>
+            <div class="day-btn" id="btn-miercoles">
+                <h3>📌 Miércoles</h3>
+                <p>Casos Reales</p>
+            </div>
+            <div class="day-btn" id="btn-jueves">
+                <h3>❓ Jueves</h3>
+                <p>Interacción</p>
+            </div>
+            <div class="day-btn" id="btn-viernes">
+                <h3>🔥 Viernes</h3>
+                <p>Promoción</p>
+            </div>
+            <div class="day-btn" id="btn-feria" style="border-color: #FF4D6D; background: #FFF0F3;">
+                <h3>❤️ Feria 14 Feb</h3>
+                <p>Especial San Valentín</p>
+            </div>
+        </div>
+
+        <!-- Welcome screen -->
+        <div id="welcome" class="welcome">
+            <h2>👆 Selecciona un día</h2>
+            <p>Elige el tipo de contenido que quieres crear hoy</p>
+        </div>
+
+        <!-- Generator -->
+        <div id="generator" class="generator">
+
+            <div class="buttons">
+                <button class="btn-primary" id="btn-generate">✨ Generar Nueva Idea</button>
+            </div>
+
+            <div class="section">
+                <label>🎣 Gancho (Texto para la imagen)</label>
+                <textarea id="hook" rows="3" placeholder="El gancho aparecerá aquí..."></textarea>
+                <button class="btn-copy" id="btn-copy-hook">📋 Copiar</button>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Idea Visual:</strong>
+                <p id="visual" style="margin-top: 10px;">La sugerencia visual aparecerá aquí...</p>
+            </div>
+
+            <div class="platform-btns">
+                <button class="platform-btn active" id="platform-instagram">📸 Instagram</button>
+                <button class="platform-btn" id="platform-facebook">📘 Facebook</button>
+                <button class="platform-btn" id="platform-linkedin">💼 LinkedIn</button>
+            </div>
+
+            <div class="section">
+                <label>📝 Descripción del Post</label>
+                <textarea id="caption" rows="12" placeholder="La descripción aparecerá aquí..."></textarea>
+                <div class="char-count"><span id="count">0</span> caracteres</div>
+                <button class="btn-copy" id="btn-copy-caption">📋 Copiar Todo</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de contenido
+        const content = {
+            lunes: {
+                hooks: [
+                    '¿Nueva semana? Nuevo proyecto. ¿Empezamos a regularizar?',
+                    'Tu casa merece existir legalmente. Empecemos hoy',
+                    '¿Cuántas semanas más vas a esperar? Ley del Mono vence 2027',
+                    'Este lunes puede ser el inicio de tu casa legalizada',
+                    'Meta de la semana: regularizar tu casa'
+                ],
+                visuals: [
+                    'Foto tuya en una obra señalando progreso (4:5)',
+                    'Plano arquitectónico con café (1:1)',
+                    'Video selfie corto dando ánimo (9:16 Stories)',
+                    'Foto Antes/Después de casa (carrusel)'
+                ],
+                captions: [
+                    '🚀 Nueva semana, nuevas oportunidades.\n\nSé que regularizar suena a trámite eterno, pero el paso más difícil es DECIDIRSE.\n\nEsta semana tengo cupos para evaluaciones técnicas.\n\nComenta LUNES y te escribo.',
+                    '💪 ¿Tu meta? Casa legal.\n\nUna propiedad regularizada vale 20% más. Es inversión, no gasto.\n\nLa Ley del Mono sigue vigente pero el tiempo corre.\n\nEscríbeme hoy.',
+                    '🎯 El 70% de casas en Chile tienen irregularidades.\n\nSi la tuya es una, NO estás solo.\n\nTomemos acción juntos. Primera consulta gratis.\n\nComenta QUIERO.'
+                ]
+            },
+            martes: {
+                hooks: [
+                    '¿Sabías que la Ley del Mono vence en 2027?',
+                    'Para regularizar necesitas: escritura, plano y avalúo',
+                    'El 70% de casas en Chile tienen irregularidades',
+                    'Artículo 5.6 OGUC: te puede ahorrar miles',
+                    'Sin recepción final tu casa legalmente no existe'
+                ],
+                visuals: [
+                    'Infografía con 3 pasos (1:1)',
+                    'Foto señalando error en construcción',
+                    'Captura de Ley 20.898 resaltada',
+                    'Reel explicando concepto técnico (9:16)'
+                ],
+                captions: [
+                    '🎓 ¿Qué necesitas para regularizar?\n\nMuchos piensan que deben demoler. FALSO en 90% de casos.\n\nSolo necesitas:\n1️⃣ Escritura\n2️⃣ Avalúo Fiscal\n3️⃣ Arquitecto (yo)\n\n¿Tienes papeles? Estás listo.',
+                    '⚠️ ERROR COMÚN:\nConstruir pegado al vecino en segundo piso.\n\nLa norma exige distancia.\n\n¿Ya lo hiciste? Hay soluciones técnicas.\n\nNo te quedes con dudas.',
+                    '💡 TIP: Artículo 5.6 OGUC permite regularizar ampliaciones pequeñas con requisitos REDUCIDOS.\n\nMenos costos, trámite rápido.\n\nNo todos lo conocen. Yo sí.\n\nGuarda este post.',
+                    '📊 DATO: Casa SIN recepción final vale 10-15% menos.\n\n¿Por qué?\nBancos no dan crédito completo sin ese papel.\n\nRegulariza ANTES de vender.'
+                ]
+            },
+            miercoles: {
+                hooks: [
+                    '"Irregularizable" dijeron. La regularizamos en 45 días',
+                    'De irregular a legal en 60 días. Casa 120m² San Bernardo',
+                    'Cliente llevaba 5 años intentándolo. Lo logramos',
+                    'Ampliación cocina 20m² aprobada en Peñaflor',
+                    'Excelente servicio - María, San Bernardo'
+                ],
+                visuals: [
+                    'Carrusel Antes/Después',
+                    'Foto sosteniendo permiso aprobado',
+                    'Foto con cliente en su casa',
+                    'Video recorriendo obra terminada'
+                ],
+                captions: [
+                    '🏆 CASO REAL: San Bernardo\n\n3 arquitectos dijeron "imposible".\n\nResultado: Permiso aprobado en 45 días ✅\n\nCuando conoces la norma, encuentras soluciones.\n\n¿Tu caso difícil? Déjame verlo.',
+                    '🏠 Don Carlos llevaba 5 años preocupado por su ampliación.\n\nHoy recibió Recepción Final.\nCasa 100% legal.\n\nGracias por la confianza.'
+                ]
+            },
+            jueves: {
+                hooks: [
+                    '¿Cuánto cuesta regularizar? Comenta tu comuna',
+                    '¿Qué te frena? A) Costo B) Tiempo C) No sé cómo',
+                    '¿Casa construida sin permiso? Cuéntame',
+                    '¿Puedes regularizar sin demoler? SÍ o NO',
+                    '¿De qué comuna eres? Te digo si aplica Ley del Mono'
+                ],
+                visuals: [
+                    'Fondo color con pregunta grande',
+                    'Encuesta en Stories',
+                    'Meme sobre trámites',
+                    'Foto detalle preguntando qué es'
+                ],
+                captions: [
+                    '❓ PREGUNTA:\n\nSi pudieras cambiar UNA cosa de tu casa hoy:\n\nA) Ampliar cocina 🍳\nB) Segundo piso 🏠\nC) Regularizar lo existente 📄\n\nTe leo 👇',
+                    '📍 ¿De dónde me leen?\n\nActualizando precios por comuna.\n\nComenta tu comuna y te digo si aplica Ley del Mono.'
+                ]
+            },
+            viernes: {
+                hooks: [
+                    'Evaluación GRATIS este finde. Solo 5 cupos',
+                    '15% OFF en regularizaciones hasta domingo',
+                    '¿Otra semana sin regularizar? Actúa ahora',
+                    'Último mes precios 2025',
+                    'Ley del Mono no dura para siempre'
+                ],
+                visuals: [
+                    'Diseño con 15% OFF',
+                    'Foto agenda',
+                    'Video invitando a agendar',
+                    'Mockup informe técnico'
+                ],
+                captions: [
+                    '🔥 FLASH VIERNES\n\nSolo este finde: 5 cupos EVALUACIÓN GRATIS (valor $35.000).\n\nIncluye:\n✅ Revisión online\n✅ Informe factibilidad\n✅ Presupuesto\n\nEscribe YO QUIERO.',
+                    '⏳ ÚLTIMO LLAMADO\n\n¿Otro finde preocupado?\n\n15 min videollamada GRATIS.\nTe explico proceso, costos, plazos.\n\nSin compromiso.'
+                ]
+            },
+            feria: {
+                hooks: [
+                    '❤️ Tu casa es tu primer amor. Protégela hoy',
+                    '¿Buscas un regalo para toda la vida? Regulariza tu casa',
+                    '¡Estamos en la Feria de Emprendedores! Pasa a saludar',
+                    'Hoy 14 de Feb: Evaluación técnica GRATIS para tu vivienda',
+                    'Cupón Especial San Valentín inside 🎁'
+                ],
+                visuals: [
+                    'Foto del stand en la feria con globos rojos/blancos',
+                    'Selfie en el stand invitando a la gente',
+                    'Gráfica "Regalo de San Valentín" con el logo ROER',
+                    'Video corto del ambiente de la feria'
+                ],
+                captions: [
+                    '❤️ ¡Feliz San Valentín! Hoy estamos celebrando el amor por el emprendimiento y el hogar en la Feria de Emprendedores.\n\nQueremos que tu casa esté 100% legal para que duermas tranquilo.\n\n🎁 Por hoy: EVALUACIÓN GRATIS + 15% OFF.\n\nVen a vernos o comenta FERIA.',
+                    '🌟 REGALO ESPECIAL: Hoy en la feria estamos entregando cupones de descuento para regularizaciones.\n\nSi no puedes venir, ¡no te preocupes! Escríbeme ahora y menciona ROER-VALENTIN para activar tu beneficio.\n\nPorque amar tu hogar es tenerlo al día. ✅',
+                    '🚀 ¡Día de feria! Estamos en vivo asesorando a vecinos sobre la Ley del Mono y ampliaciones.\n\n¿Tienes dudas? Pásate por nuestro stand.\n\nUbicación: [Ingresar Ubicación Feria]\n\n¡Te esperamos! ❤️'
+                ]
+            }
+        };
+
+        let currentDay = '';
+        let currentPlatform = 'instagram';
+        let baseCaption = '';
+        let baseHook = '';
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function () {
+            // Event Listeners
+            document.getElementById('btn-lunes').addEventListener('click', function () { selectDay('lunes'); });
+            document.getElementById('btn-martes').addEventListener('click', function () { selectDay('martes'); });
+            document.getElementById('btn-miercoles').addEventListener('click', function () { selectDay('miercoles'); });
+            document.getElementById('btn-jueves').addEventListener('click', function () { selectDay('jueves'); });
+            document.getElementById('btn-viernes').addEventListener('click', function () { selectDay('viernes'); });
+            document.getElementById('btn-feria').addEventListener('click', function () { selectDay('feria'); });
+
+            document.getElementById('btn-generate').addEventListener('click', generateIdea);
+            document.getElementById('btn-copy-hook').addEventListener('click', function () { copy('hook'); });
+            document.getElementById('btn-copy-caption').addEventListener('click', function () { copy('caption'); });
+
+            document.getElementById('platform-instagram').addEventListener('click', function () { changePlatform('instagram'); });
+            document.getElementById('platform-facebook').addEventListener('click', function () { changePlatform('facebook'); });
+            document.getElementById('platform-linkedin').addEventListener('click', function () { changePlatform('linkedin'); });
+
+            document.getElementById('caption').addEventListener('input', updateCount);
+        });
+
+        function selectDay(day) {
+            console.log('Selecting day:', day);
+            currentDay = day;
+
+            // Update UI
+            document.querySelectorAll('.day-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            const selectedBtn = document.getElementById('btn-' + day);
+            if (selectedBtn) selectedBtn.classList.add('active');
+
+            // Show generator
+            const welcome = document.getElementById('welcome');
+            const generator = document.getElementById('generator');
+
+            if (welcome) welcome.style.display = 'none';
+            if (generator) {
+                generator.classList.add('active');
+                // Smooth scroll to generator
+                setTimeout(() => {
+                    generator.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+
+            // Generate first idea
+            generateIdea();
+        }
+
+        function generateIdea() {
+            if (!currentDay) return;
+
+            const data = content[currentDay];
+
+            // Random selection
+            const hook = data.hooks[Math.floor(Math.random() * data.hooks.length)];
+            const visual = data.visuals[Math.floor(Math.random() * data.visuals.length)];
+            const caption = data.captions[Math.floor(Math.random() * data.captions.length)];
+
+            // Store originals
+            baseHook = hook;
+            baseCaption = caption;
+
+            // Display
+            document.getElementById('hook').value = hook;
+            document.getElementById('visual').textContent = visual;
+            document.getElementById('caption').value = caption;
+
+            updateCount();
+            changePlatform(currentPlatform);
+        }
+
+        function changePlatform(platform) {
+            currentPlatform = platform;
+
+            let caption = baseCaption;
+            let hook = baseHook;
+
+            // Platform adaptations
+            if (platform === 'instagram') {
+                if (caption.indexOf('#') === -1) {
+                    caption += '\n\n#Arquitectura #ArquitectoChile #Regularizacion #LeyDelMono #ConstruccionChile #Santiago #EstudioROER';
+                }
+                if (caption.indexOf('bio') === -1) {
+                    caption += '\n\n👉 Link en bio';
+                }
+            }
+            else if (platform === 'facebook') {
+                caption = caption.replace(/#\w+/g, '');
+                caption = caption.replace(/👇/g, '');
+                caption += '\n\n📍 San Bernardo, Peñaflor, Puente Alto, Paine\n📞 Mensaje privado';
+            }
+            else if (platform === 'linkedin') {
+                caption = caption.replace(/🔥|🚀|👇|💬|✨|❓|💡|🎯|💪/g, '');
+                caption = caption.replace(/#\w+/g, '');
+                caption = caption.replace(/tu casa/gi, 'su propiedad');
+                caption = caption.replace(/Comenta/gi, 'Contacte');
+                caption += '\n\n—\nSebastián Vera M.\nArquitecto | Regularización\nEstudio ROER';
+                hook = hook.replace(/¿|?/g, '');
+            }
+
+            document.getElementById('caption').value = caption;
+            document.getElementById('hook').value = hook;
+            updateCount();
+
+            // Update button states
+            document.querySelectorAll('.platform-btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById('platform-' + platform).classList.add('active');
+
+            showToast('✓ Adaptado para ' + platform.toUpperCase());
+        }
+
+        function copy(elementId) {
+            const text = document.getElementById(elementId).value;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast('✓ Copiado al portapapeles');
+        }
+
+        function updateCount() {
+            const count = document.getElementById('caption').value.length;
+            document.getElementById('count').textContent = count;
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(function () {
+                toast.remove();
+            }, 2500);
+        }
+    </script>
+
+</body>
+
+</html>
