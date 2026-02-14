@@ -1031,3 +1031,51 @@ textarea {
     display: none;
     /* Hide checkmark, rely on strikethrough */
 }
+
+/* Floating Action Button (Promo) */
+.fab-promo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #be123c, #fda4af);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(190, 18, 60, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    z-index: 1000;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    animation: pulse-fab 3s infinite;
+}
+
+.fab-promo:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(190, 18, 60, 0.6);
+    color: white;
+}
+
+.fab-icon {
+    font-size: 1.5rem;
+}
+
+@keyframes pulse-fab {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(190, 18, 60, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(190, 18, 60, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(190, 18, 60, 0); }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .fab-promo {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+}
