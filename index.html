@@ -182,7 +182,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/modal.css">
 
     <!-- Favicon (Placeholder) -->
     <link rel="icon"
@@ -733,50 +732,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Promo FAB Button -->
-    <button class="fab-promo" onclick="openModal()">
-        <span class="fab-icon">🎰</span> Gana Premios
-    </button>
-
-    <!-- Roulette Modal -->
-    <div id="rouletteModal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModalBtn()">&times;</span>
-            <div class="iframe-container">
-                <!-- Using absolute path or correct relative path -->
-                <iframe src="../recursos/ruleta.html" title="Ruleta de Premios"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Logic -->
-    <script>
-        function openModal(e) {
-            if (e) e.preventDefault();
-            const modal = document.getElementById('rouletteModal');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(e) {
-            if (e.target.id === 'rouletteModal') {
-                closeModalBtn();
-            }
-        }
-
-        function closeModalBtn() {
-            const modal = document.getElementById('rouletteModal');
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-    </script>
 
     <script src="js/main.js"></script>
 </body>
