@@ -208,15 +208,18 @@
         <div class="lock-icon">🔒</div>
         <h2>Bóveda de Recursos VIP</h2>
         <p>Ingresa tu Código de Acceso de Cliente</p>
+        <div style="margin-bottom: 20px; font-size: 0.9rem; color: #888;">
+            TU ID DE DISPOSITIVO: <strong id="clientID" style="color: var(--primary); letter-spacing: 1px;">...</strong>
+        </div>
         <input type="text" id="passInput" placeholder="CÓDIGO SECRETO">
         <button id="unlockBtn" onclick="unlock()">DESBLOQUEAR</button>
         <div class="error-msg" id="error">❌ Código incorrecto</div>
 
         <div style="margin-top:30px; text-align:center">
             <p style="opacity:0.5; font-size:0.8rem; margin-bottom:5px">¿No tienes código?</p>
-            <a href="https://instagram.com/estudio.roer" target="_blank"
-                style="color:var(--primary); text-decoration:none; font-weight:bold; border:1px solid var(--primary); padding:5px 15px; border-radius:20px; font-size:0.8rem">
-                Pídelo en Instagram 📸
+            <a id="waLink" href="https://wa.me/p/25903073216024085/56950196861" target="_blank"
+                style="color:white; background:var(--primary); text-decoration:none; font-weight:bold; padding:10px 25px; border-radius:25px; font-size:0.9rem; display:inline-block; border:none; box-shadow:0 4px 15px rgba(63, 184, 175, 0.3)">
+                Comprar Pase VIP ($4.990) 📲
             </a>
         </div>
     </div>
@@ -342,25 +345,53 @@
     </div>
 
     <script>
-        // Master code (admin fallback)
-        const MASTER_CODE = "ROER26";
+        // Master code (admin fallback - updated)
+        const MASTER_CODE = "ROER-ADMIN-2026";
 
         // Checksum algorithm (must match admin-vip.html)
         const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
         const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+        // 1. Generate or Retrieve Client ID
+        function getClientID() {
+            let id = localStorage.getItem('roer_client_id');
+            if (!id) {
+                // Generate format U-XXXX
+                const suffix = Math.random().toString(36).substring(2, 6).toUpperCase();
+                id = 'U-' + suffix;
+                localStorage.setItem('roer_client_id', id);
+            }
+            return id;
+        }
+
+        const clientID = getClientID();
+        document.getElementById('clientID').textContent = clientID;
+
+        // Update WhatsApp Link - Using standard link to ensure message pre-fill works
+        const catalogLink = "https://wa.me/p/25903073216024085/56950196861";
+        const waMsg = encodeURIComponent(`🔑 *COMPRA PASE VIP*\nMI ID: *${clientID}*\n\nHola Sebastián, quiero comprar el pase de este artículo: ${catalogLink}`);
+        document.getElementById('waLink').href = `https://wa.me/56950196861?text=${waMsg}`;
 
         function getDayID() {
             const now = new Date();
             return Math.floor((now - new Date(2026, 0, 1)) / (1000 * 60 * 60 * 24));
         }
 
-        // Verify if a code matches a specific DayID
+        // Verify if a code matches a specific DayID AND ClientID
         function verifyChecksum(clean, dayID) {
             const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
             const c1 = clean[3];
             const c2 = clean[7];
 
-            let sum = dayID * 7; // Salt with day
+            // Mix DayID + ClientID into the sum
+            let sum = dayID * 7;
+
+            // Add ClientID influence
+            // We take the numeric value of clientID chars
+            for (let i = 0; i < clientID.length; i++) {
+                sum += clientID.charCodeAt(i) * (i + 1);
+            }
+
             for (let i = 0; i < raw.length; i++) {
                 sum += raw.charCodeAt(i) * SEED[i % SEED.length];
             }
