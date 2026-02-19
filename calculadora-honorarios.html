@@ -5,220 +5,378 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Honorarios Arquitectura | Estudio ROER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --primary: #3FB8AF;
+            --primary-dark: #2D8E87;
             --secondary: #2B4B4B;
             --accent: #FF6B6B;
-            --dark: #121212;
-            --card-bg: #1E1E1E;
+            --dark: #0a0a0a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-main);
             background: var(--dark);
             color: var(--text);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(63, 184, 175, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(43, 75, 75, 0.2) 0%, transparent 40%);
         }
 
         header {
-            padding: 40px 20px;
+            padding: 60px 20px 40px;
             text-align: center;
             width: 100%;
-            background: linear-gradient(180deg, rgba(63, 184, 175, 0.1) 0%, transparent 100%);
         }
 
         h1 {
             margin: 0;
+            font-family: var(--font-heading);
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
         }
 
         p.subtitle {
-            color: #aaa;
-            margin-top: 10px;
+            color: var(--text-dim);
+            margin-top: 15px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            font-size: 1.1rem;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 700px;
             width: 90%;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             margin-bottom: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
         }
 
-        /* Step 1: Project Type */
         .step-title {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
+        .step-number {
+            background: var(--primary);
+            color: var(--dark);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        /* Project Type Selection */
         .type-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        @media (max-width: 480px) {
-            .type-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
         .type-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 15px 5px;
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 20px 10px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100px;
+            gap: 12px;
         }
 
         .type-card:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .type-card.active {
             border-color: var(--primary);
-            background: rgba(63, 184, 175, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(63, 184, 175, 0.2);
+            background: rgba(63, 184, 175, 0.15);
+            box-shadow: 0 0 20px rgba(63, 184, 175, 0.2);
         }
 
-        .icon {
-            font-size: 2rem;
-            display: block;
+        .type-card .icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .type-card .label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            line-height: 1.2;
+            color: var(--text-dim);
+        }
+
+        .type-card.active .label {
+            color: white;
+        }
+
+        /* Sliders and Modifiers */
+        .slider-section {
+            margin-bottom: 40px;
+        }
+
+        .m2-display-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 10px;
         }
 
-        .label {
-            font-weight: 600;
-            font-size: 0.8rem;
-            line-height: 1.2;
-        }
-
-        /* Step 2: Slider */
-        .slider-container {
-            margin-bottom: 40px;
-            text-align: center;
-            transition: opacity 0.3s;
+        .m2-display {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: var(--font-heading);
         }
 
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 10px;
-            border-radius: 5px;
-            background: #333;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
             outline: none;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(63, 184, 175, 0.8);
-            transition: transform 0.2s;
+            border: 4px solid var(--dark);
+            box-shadow: 0 0 15px rgba(63, 184, 175, 0.5);
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+        /* Modifier Switches */
+        .modifiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
-        .m2-display {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 5px;
+        .modifier-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
         }
 
-        /* Result Area */
-        .result-box {
-            background: var(--secondary);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
+        .modifier-info {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Toggle Switch */
+        .switch {
             position: relative;
-            overflow: hidden;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(22px);
+        }
+
+        /* Breakdown Section */
+        .breakdown-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
             display: none;
-            /* Hidden by default */
         }
 
-        .result-box.show {
+        .breakdown-box.show {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
-        .price-label {
-            color: #ccc;
+        .breakdown-box h4 {
+            margin: 0 0 15px 0;
             font-size: 0.9rem;
+            color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
+        .breakdown-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .breakdown-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .breakdown-list li {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breakdown-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* Result Area */
+        .result-box {
+            background: linear-gradient(135deg, rgba(63, 184, 175, 0.2), rgba(43, 75, 75, 0.4));
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--primary);
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .price-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
         .price-value {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
             color: white;
-            margin: 10px 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 15px 0;
+            font-family: var(--font-heading);
+            letter-spacing: -1px;
         }
 
         .price-note {
             font-size: 0.8rem;
-            opacity: 0.7;
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-top: 15px;
         }
 
         .btn-calc {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: var(--primary);
-            color: white;
+            color: var(--dark);
             border: none;
-            border-radius: 50px;
+            border-radius: 12px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(63, 184, 175, 0.3);
+            transition: all 0.3s;
+            font-family: var(--font-heading);
+            margin-top: 10px;
         }
 
         .btn-calc:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(63, 184, 175, 0.5);
+            background: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(63, 184, 175, 0.4);
         }
 
-        @keyframes fadeIn {
+        .footer-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            border-top: 1px solid var(--glass-border);
+            padding-top: 15px;
+        }
+
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
 
             to {
@@ -228,11 +386,18 @@
         }
 
         .back-link {
-            color: #777;
+            color: var(--text-dim);
             text-decoration: none;
             font-size: 0.9rem;
-            margin-top: 20px;
-            display: inline-block;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
         }
     </style>
 </head>
@@ -241,160 +406,228 @@
 
     <header>
         <h1>Calculadora de Honorarios</h1>
-        <p class="subtitle">Estima cuánto cuesta contratar a un arquitecto para tu proyecto.</p>
+        <p class="subtitle">Simulador de inversión para servicios de arquitectura y regularización técnica.</p>
     </header>
 
     <div class="container">
 
-        <!-- Step 1 -->
-        <div class="step-title">1. ¿Qué quieres hacer?</div>
+        <!-- Step 1: Type -->
+        <div class="step-title">
+            <span class="step-number">1</span>
+            ¿Qué tipo de proyecto tienes?
+        </div>
         <div class="type-grid">
             <div class="type-card" onclick="selectType('regularizacion', this)">
                 <span class="icon">📜</span>
-                <span class="label">Regularizar (Ley Mono)</span>
+                <span class="label">Regularización<br>(Ley del Mono)</span>
             </div>
             <div class="type-card" onclick="selectType('obra_nueva', this)">
                 <span class="icon">🏗️</span>
-                <span class="label">Obra Nueva</span>
+                <span class="label">Obra Nueva<br>(Vivienda)</span>
             </div>
             <div class="type-card" onclick="selectType('remodelacion', this)">
                 <span class="icon">🔨</span>
-                <span class="label">Ampliación / Remodelacion</span>
+                <span class="label">Ampliación /<br>Remodelación</span>
             </div>
-
-            <!-- Nuevos Servicios -->
             <div class="type-card" onclick="selectType('obra_menor', this)">
                 <span class="icon">🛠️</span>
-                <span class="label">Obra Menor (Interior)</span>
-            </div>
-            <div class="type-card" onclick="selectType('subdivision', this)">
-                <span class="icon">🧩</span>
-                <span class="label">Subdivisión / Fusión</span>
-            </div>
-            <div class="type-card" onclick="selectType('otros', this)">
-                <span class="icon">💡</span>
-                <span class="label">Otros / Asesoría</span>
+                <span class="label">Obra Menor<br>(Interior)</span>
             </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="step-title" id="stepEqTitle">2. Tamaño aproximado (m²)</div>
-        <div class="slider-container" id="sliderContainer">
-            <div class="m2-display"><span id="m2Value">60</span> m²</div>
+        <!-- Step 2: Size -->
+        <div class="slider-section" id="sliderGroup">
+            <div class="step-title">
+                <span class="step-number">2</span>
+                Superficie aproximada
+            </div>
+            <div class="m2-display-container">
+                <span style="color:var(--text-dim); font-size: 0.9rem;">Área del proyecto</span>
+                <div class="m2-display"><span id="m2Value">60</span> m²</div>
+            </div>
             <input type="range" id="m2Slider" min="10" max="300" value="60" oninput="updateM2(this.value)">
-            <p style="font-size:0.8rem; color:#666">Desliza para ajustar</p>
         </div>
 
-        <button class="btn-calc" onclick="calculate()">CALCULAR ESTIMACIÓN</button>
+        <!-- Step 3: Modifiers -->
+        <div class="step-title">
+            <span class="step-number">3</span>
+            Factores de complejidad
+        </div>
+        <div class="modifiers-grid">
+            <div class="modifier-item">
+                <span class="modifier-info">Terreno con pendiente</span>
+                <label class="switch">
+                    <input type="checkbox" id="mod_pendiente" onchange="calculate()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="modifier-item">
+                <span class="modifier-info">Propiedad en Condominio</span>
+                <label class="switch">
+                    <input type="checkbox" id="mod_condominio" onchange="calculate()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="modifier-item">
+                <span class="modifier-info">Tramitación Urgente</span>
+                <label class="switch">
+                    <input type="checkbox" id="mod_urgente" onchange="calculate()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Breakdown (Hidden initially) -->
+        <div class="breakdown-box" id="breakdown">
+            <h4 id="breakdownTitle">El servicio incluye:</h4>
+            <ul class="breakdown-list" id="breakdownItems"></ul>
+        </div>
+
+        <button class="btn-calc" onclick="calculate('btn')">CALCULAR ESTIMACIÓN</button>
 
         <!-- Result -->
         <div class="result-box" id="result">
-            <p class="price-label">Rango Estimado de Honorarios</p>
+            <p class="price-label">Inversión Estimada (Honorarios)</p>
             <div class="price-value" id="finalPrice">$0</div>
-            <p class="price-note" id="priceNote">*Referencial. Incluye diseño y gestión de permisos.<br>No incluye pagos
-                de derechos municipales.</p>
+            <p class="price-note" id="priceNote"></p>
+
             <a id="wspLink" href="#" target="_blank"
-                style="display:inline-block; margin-top:15px; color:var(--primary); text-decoration:none; font-weight:bold">
-                Cotizar Exacto en WhatsApp →
+                style="display:flex; align-items:center; justify-content:center; gap:10px; margin-top:25px; background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; color:white; text-decoration:none; font-weight:700; transition: 0.3s">
+                <span>💬</span> Solicitar Cotización Formal
             </a>
         </div>
 
+        <div class="footer-info">
+            <span>UF Ref: $37.000</span>
+            <span>Valores sujetos a evaluación técnica</span>
+        </div>
     </div>
 
-    <div style="text-align:center; padding-bottom:50px">
+    <div style="text-align:center; padding-bottom:60px">
         <a href="vip.html" class="back-link">← Volver a Zona VIP</a>
     </div>
 
     <script>
         let selectedType = null;
         let m2 = 60;
-        const UF = 37000; // Referencia
+        const UF = 37000;
+
+        const SERVICES = {
+            regularizacion: [
+                "Expediente Ley 20.898",
+                "Certificado de Informaciones Previas",
+                "Planos de Arquitectura (Autocad)",
+                "Memorias de Cálculo estabilidad",
+                "Declaración Jurada y Trámites DOM",
+                "Firma de Arquitecto Responsable"
+            ],
+            obra_nueva: [
+                "Diseño Conceptual y 3D",
+                "Planos de Arquitectura Detallados",
+                "Tramitación de Permiso Edificación",
+                "Coordinación de Especialidades",
+                "Memorias Técnicas Completas",
+                "Visitas de Inspección Técnica"
+            ],
+            remodelacion: [
+                "Levantamiento de Estado Existente",
+                "Diseño de Modificaciones",
+                "Permiso de Obra Menor/Ampliación",
+                "Acompañamiento en Obra",
+                "Certificado de Recepción Final",
+                "Presupuesto Estimativo de Obra"
+            ],
+            obra_menor: [
+                "Planos de Distribución Interior",
+                "Especificaciones Técnicas",
+                "Aviso de Inicio de Obra",
+                "Asesoría en Terminaciones",
+                "Optimización de Espacios",
+                "Certificación técnica básica"
+            ]
+        };
 
         function selectType(type, element) {
             selectedType = type;
-            // Visual feedback
             document.querySelectorAll('.type-card').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
 
-            // Hide result if type changes
+            // Show breakdown
+            const breakdown = document.getElementById('breakdown');
+            const items = document.getElementById('breakdownItems');
+            items.innerHTML = SERVICES[type].map(s => `<li>${s}</li>`).join('');
+            breakdown.classList.add('show');
+
+            // Clear result for fresh feel
             document.getElementById('result').classList.remove('show');
-
-            // Handle UI for fixed cost items (No m2 slider needed)
-            const slider = document.getElementById('sliderContainer');
-            const title = document.getElementById('stepEqTitle');
-
-            if (type === 'subdivision' || type === 'otros') {
-                slider.style.opacity = '0.3';
-                slider.style.pointerEvents = 'none';
-                title.innerText = "2. Tamaño (No aplica)";
-                title.style.opacity = '0.5';
-            } else {
-                slider.style.opacity = '1';
-                slider.style.pointerEvents = 'auto';
-                title.innerText = "2. Tamaño aproximado (m²)";
-                title.style.opacity = '1';
-            }
         }
 
         function updateM2(val) {
             m2 = val;
             document.getElementById('m2Value').innerText = val;
-            document.getElementById('result').classList.remove('show');
         }
 
-        function calculate() {
+        function calculate(from) {
             if (!selectedType) {
-                alert("Selecciona un tipo de proyecto primero.");
+                if (from === 'btn') alert("Selecciona un tipo de proyecto primero.");
                 return;
             }
 
             let minUF = 0;
             let maxUF = 0;
-            let note = "*Referencial. No incluye derechos municipales.";
+            let note = "*No incluye el pago de derechos municipales ni aportes al espacio público.";
 
-            // LOGIC
+            // Base Logic
             if (selectedType === 'regularizacion') {
-                // ~ 12-18 UF base
-                minUF = 12 + (m2 * 0.05);
-                maxUF = 18 + (m2 * 0.08);
+                minUF = 12 + (m2 * 0.06);
+                maxUF = 18 + (m2 * 0.1);
             } else if (selectedType === 'obra_nueva') {
-                // ~ 1.5 UF/m2
-                minUF = m2 * 1.2;
-                maxUF = m2 * 1.8;
+                minUF = m2 * 1.25;
+                maxUF = m2 * 1.9;
             } else if (selectedType === 'remodelacion') {
-                minUF = m2 * 1.5;
-                maxUF = m2 * 2.2;
+                minUF = m2 * 1.4;
+                maxUF = m2 * 2.1;
             } else if (selectedType === 'obra_menor') {
-                // Cheaper usually
                 minUF = 8 + (m2 * 0.05);
-                maxUF = 12 + (m2 * 0.1);
-                note = "*Para modificaciones interiores que NO alteran estructura.";
-            } else if (selectedType === 'subdivision') {
-                // FIXED range
-                minUF = 15;
-                maxUF = 35;
-                note = "*Valor depende de cantidad de lotes y topografía.";
-            } else if (selectedType === 'otros') {
-                // Consultancy fixed 1 UF/hora
-                minUF = 1;
-                maxUF = 1;
-                note = "*Valor por hora de asesoría técnica (1 UF/hora).";
+                maxUF = 12 + (m2 * 0.12);
             }
 
-            // Calculations
-            const minCLP = Math.round(minUF * UF / 10000) * 10000;
-            const maxCLP = Math.round(maxUF * UF / 10000) * 10000;
+            // Complexity Modifiers
+            if (document.getElementById('mod_pendiente').checked) {
+                minUF *= 1.2;
+                maxUF *= 1.2;
+            }
+            if (document.getElementById('mod_condominio').checked) {
+                minUF += 3;
+                maxUF += 5;
+            }
+            if (document.getElementById('mod_urgente').checked) {
+                minUF *= 1.3;
+                maxUF *= 1.3;
+                note = "*Incluye recargo por prioridad de entrega urgente.";
+            }
+
+            const minCLP = Math.round(minUF * UF / 5000) * 5000;
+            const maxCLP = Math.round(maxUF * UF / 5000) * 5000;
 
             const format = (num) => "$" + num.toLocaleString('es-CL');
 
             document.getElementById('finalPrice').innerText = `${format(minCLP)} - ${format(maxCLP)}`;
             document.getElementById('priceNote').innerText = note;
 
-            // Build WSP Link
-            const text = `Hola, simulé una ${selectedType.replace('_', ' ')} ${selectedType !== 'subdivision' ? 'de ' + m2 + 'm2' : ''} y me dio aprox ${format(minCLP)}. Quiero cotizar exacto.`;
+            // WSP Link
+            const modStr = [
+                document.getElementById('mod_pendiente').checked ? "con pendiente" : "",
+                document.getElementById('mod_condominio').checked ? "en condominio" : "",
+                document.getElementById('mod_urgente').checked ? "URGENTE" : ""
+            ].filter(v => v !== "").join(", ");
+
+            const text = `Hola ROER, simulé una ${selectedType.replace('_', ' ')} de ${m2}m2 ${modStr ? '(' + modStr + ')' : ''} y el precio sugerido es ${format(minCLP)}. ¿Podemos agendar una visita?`;
             document.getElementById('wspLink').href = `https://wa.me/56950196861?text=${encodeURIComponent(text)}`;
 
-            document.getElementById('result').classList.add('show');
+            if (from === 'btn' || document.getElementById('result').classList.contains('show')) {
+                document.getElementById('result').classList.add('show');
+            }
         }
     </script>
 
