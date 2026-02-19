@@ -349,13 +349,35 @@
         const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
         const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
+        function getDayID() {
+            const now = new Date();
+            return Math.floor((now - new Date(2026, 0, 1)) / (1000 * 60 * 60 * 24));
+        }
+
+        // Verify if a code matches a specific DayID
+        function verifyChecksum(clean, dayID) {
+            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
+            const c1 = clean[3];
+            const c2 = clean[7];
+
+            let sum = dayID * 7; // Salt with day
+            for (let i = 0; i < raw.length; i++) {
+                sum += raw.charCodeAt(i) * SEED[i % SEED.length];
+            }
+
+            const expectedC1 = CHARS[sum % CHARS.length];
+            const expectedC2 = CHARS[(sum * 13 + 5) % CHARS.length];
+
+            return c1 === expectedC1 && c2 === expectedC2;
+        }
+
         function validateCode(code) {
             code = code.toUpperCase().trim();
 
             // Check master code first
             if (code === MASTER_CODE) return true;
 
-            // Normalize: add ROER- prefix if missing, add dash if needed
+            // Normalize
             if (!code.startsWith('ROER-')) {
                 if (code.startsWith('ROER')) code = 'ROER-' + code.slice(4);
                 else code = 'ROER-' + code;
@@ -369,37 +391,32 @@
                 if (!CHARS.includes(ch)) return false;
             }
 
-            // Extract raw (positions 0,1,2, 4,5,6) and checksum (3, 7)
-            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
-            const c1 = clean[3];
-            const c2 = clean[7];
+            // Check against TODAY or YESTERDAY (24h overlap)
+            const today = getDayID();
+            const yesterday = today - 1;
 
-            // Recalculate checksum
-            let sum = 0;
-            for (let i = 0; i < raw.length; i++) {
-                sum += raw.charCodeAt(i) * SEED[i % SEED.length];
-            }
-            const expectedC1 = CHARS[sum % CHARS.length];
-            const expectedC2 = CHARS[(sum * 7 + 13) % CHARS.length];
+            if (verifyChecksum(clean, today)) return true;
+            if (verifyChecksum(clean, yesterday)) return true;
 
-            return c1 === expectedC1 && c2 === expectedC2;
+            return false;
         }
 
         function checkAccess() {
-            if (localStorage.getItem('roer_vip_access') === 'granted') {
+            // Use SESSION storage (volatil)
+            if (sessionStorage.getItem('roer_vip_access') === 'granted') {
                 document.getElementById('gate').style.display = 'none';
             }
         }
 
         function relock() {
-            localStorage.removeItem('roer_vip_access');
+            sessionStorage.removeItem('roer_vip_access');
             location.reload();
         }
 
         function unlock() {
             const input = document.getElementById('passInput').value;
             if (validateCode(input)) {
-                localStorage.setItem('roer_vip_access', 'granted');
+                sessionStorage.setItem('roer_vip_access', 'granted');
                 document.getElementById('gate').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('gate').style.display = 'none';
