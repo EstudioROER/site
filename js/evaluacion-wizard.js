@@ -60,7 +60,35 @@ document.addEventListener('DOMContentLoaded', function () {
     handleFileUpload('archivosPlanos', 'planos', 10, 5);
     handleFileUpload('archivosFotos', 'fotos', 5, 10);
     handleFileUpload('archivosDocumentos', 'documentos', 5, 5);
+
+    // NEW: Check for Cabida Pro data in localStorage
+    checkForCabidaData();
 });
+
+function checkForCabidaData() {
+    const cabidaResults = localStorage.getItem('cabida_results');
+    if (cabidaResults) {
+        try {
+            const data = JSON.parse(cabidaResults);
+            console.log('Found Cabida Pro results:', data);
+
+            // Auto-fill land surface if available
+            if (data.surface) {
+                const surfaceInput = document.getElementById('superficieTerreno');
+                if (surfaceInput) {
+                    surfaceInput.value = data.surface;
+                    document.getElementById('cabidaSource').value = 'yes';
+
+                    // Show badge if we are on/reaching step 4 later
+                    const badge = document.getElementById('prefillBadge');
+                    if (badge) badge.style.display = 'inline-block';
+                }
+            }
+        } catch (e) {
+            console.error('Error parsing cabida results', e);
+        }
+    }
+}
 
 // ============================================
 // VALIDATION FUNCTIONS - Anti-Spam
@@ -659,12 +687,22 @@ function changeStep(direction) {
     }
 
     // Update step number
+    const oldStep = currentStep;
     currentStep += direction;
     console.log('New currentStep:', currentStep);
+
+    // Boundary check
+    if (currentStep < 1) currentStep = 1;
+    if (currentStep > totalSteps) currentStep = totalSteps;
 
     // Generate budget options when entering step 6
     if (currentStep === 6) {
         generateBudgetOptions(formData.tipoProyecto);
+    }
+
+    // Smooth scroll to top of wizard on mobile
+    if (window.innerWidth < 768) {
+        document.querySelector('.wizard-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Show new step
@@ -675,6 +713,9 @@ function changeStep(direction) {
     if (newStepElement) {
         newStepElement.classList.add('active');
         console.log('Added active to step', currentStep);
+
+        // Show context-aware Pro-Tip
+        showProTip(currentStep);
     } else {
         console.error('Step element not found for step', currentStep);
     }
@@ -688,6 +729,28 @@ function changeStep(direction) {
 
     if (currentStep === 10) {
         submitForm();
+    }
+}
+
+const PRO_TIPS = {
+    1: { title: "Dato Clave", text: "Elegir el tipo correcto nos ayuda a asignarte el especialista adecuado de inmediato." },
+    2: { title: "Ubicación", text: "La normativa técnica (PRC) cambia drásticamente entre comunas. Esto define qué puedes construir." },
+    3: { title: "Específicos", text: "Si no estás seguro de los metros, ingresa un aproximado. Lo ajustaremos en la entrevista." },
+    4: { title: "Terreno", text: "Si usaste nuestra herramienta de Cabida Pro, ¡hemos autocompletado la superficie por ti! 🎉" },
+    5: { title: "Legal", text: "No te preocupes si no sabes. Gran parte de nuestro trabajo es precisamente regularizar situaciones inciertas." },
+    6: { title: "Descripción", text: "Menciona si tienes apuro o si es una inversión; eso cambia nuestro enfoque estratégico." },
+    8: { title: "Finalización", text: "Tu información está protegida. Al enviar, recibirás un comprobante digital al instante." }
+};
+
+function showProTip(step) {
+    const tipContainer = document.getElementById('proTip');
+    const tipText = document.getElementById('proTipText');
+
+    if (PRO_TIPS[step]) {
+        tipText.innerHTML = `<strong>${PRO_TIPS[step].title}:</strong> ${PRO_TIPS[step].text}`;
+        tipContainer.style.display = 'flex';
+    } else {
+        tipContainer.style.display = 'none';
     }
 }
 
