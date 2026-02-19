@@ -253,7 +253,26 @@
         });
 
         // --- VIP Access Logic ---
-        const CODE = "ROER26";
+        const MASTER_CODE = "ROER26";
+        const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
+        const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+        function validateCode(code) {
+            code = code.toUpperCase().trim();
+            if (code === MASTER_CODE) return true;
+            if (!code.startsWith('ROER-')) {
+                if (code.startsWith('ROER')) code = 'ROER-' + code.slice(4);
+                else code = 'ROER-' + code;
+            }
+            const clean = code.replace('ROER-', '').replace(/-/g, '');
+            if (clean.length !== 8) return false;
+            for (let ch of clean) { if (!CHARS.includes(ch)) return false; }
+            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
+            const c1 = clean[3]; const c2 = clean[7];
+            let sum = 0;
+            for (let i = 0; i < raw.length; i++) { sum += raw.charCodeAt(i) * SEED[i % SEED.length]; }
+            return c1 === CHARS[sum % CHARS.length] && c2 === CHARS[(sum * 7 + 13) % CHARS.length];
+        }
 
         function checkAccess() {
             if (localStorage.getItem('roer_vip_access') === 'granted') {
@@ -262,8 +281,8 @@
         }
 
         function unlock() {
-            const input = document.getElementById('passInput').value.toUpperCase();
-            if (input === CODE) {
+            const input = document.getElementById('passInput').value;
+            if (validateCode(input)) {
                 localStorage.setItem('roer_vip_access', 'granted');
                 document.getElementById('gate').style.opacity = '0';
                 setTimeout(() => {

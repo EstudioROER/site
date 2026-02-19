@@ -342,8 +342,48 @@
     </div>
 
     <script>
-        // Set the secret code here
-        const CODE = "ROER26";
+        // Master code (admin fallback)
+        const MASTER_CODE = "ROER26";
+
+        // Checksum algorithm (must match admin-vip.html)
+        const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
+        const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+        function validateCode(code) {
+            code = code.toUpperCase().trim();
+
+            // Check master code first
+            if (code === MASTER_CODE) return true;
+
+            // Normalize: add ROER- prefix if missing, add dash if needed
+            if (!code.startsWith('ROER-')) {
+                if (code.startsWith('ROER')) code = 'ROER-' + code.slice(4);
+                else code = 'ROER-' + code;
+            }
+            // Ensure format ROER-XXXX-XXXX
+            const clean = code.replace('ROER-', '').replace(/-/g, '');
+            if (clean.length !== 8) return false;
+
+            // Verify all chars are valid
+            for (let ch of clean) {
+                if (!CHARS.includes(ch)) return false;
+            }
+
+            // Extract raw (positions 0,1,2, 4,5,6) and checksum (3, 7)
+            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
+            const c1 = clean[3];
+            const c2 = clean[7];
+
+            // Recalculate checksum
+            let sum = 0;
+            for (let i = 0; i < raw.length; i++) {
+                sum += raw.charCodeAt(i) * SEED[i % SEED.length];
+            }
+            const expectedC1 = CHARS[sum % CHARS.length];
+            const expectedC2 = CHARS[(sum * 7 + 13) % CHARS.length];
+
+            return c1 === expectedC1 && c2 === expectedC2;
+        }
 
         function checkAccess() {
             if (localStorage.getItem('roer_vip_access') === 'granted') {
@@ -357,8 +397,8 @@
         }
 
         function unlock() {
-            const input = document.getElementById('passInput').value.toUpperCase();
-            if (input === CODE) {
+            const input = document.getElementById('passInput').value;
+            if (validateCode(input)) {
                 localStorage.setItem('roer_vip_access', 'granted');
                 document.getElementById('gate').style.opacity = '0';
                 setTimeout(() => {
