@@ -224,10 +224,50 @@
         .back-nav:hover {
             color: var(--primary);
         }
+
+        /* LOCK SCREEN (VIP Access) */
+        #gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        #gate h2 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 2.22rem;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
+    <!-- LOCK SCREEN (VIP Access) -->
+    <div id="gate">
+        <div style="font-size: 4rem; margin-bottom: 20px;">💎</div>
+        <h2>Guía Técnica Exclusiva</h2>
+        <p style="color: #aaa; margin-top: -10px;">Ingresa tu código para desbloquear la descarga.</p>
+        <input type="text" id="passInput" placeholder="CÓDIGO VIP" maxlength="15"
+            style="padding: 15px; font-size: 1.2rem; border-radius: 50px; border: 2px solid var(--primary); background: transparent; color: white; text-align: center; margin-top: 20px; outline: none; width: 80%; max-width: 300px;">
+        <button class="btn-download" style="margin-top: 20px; box-shadow: none;" onclick="attemptUnlock()">VALIDAR
+            ACCESO</button>
+        <div id="error" style="color: var(--accent); margin-top: 15px; display: none; font-weight: bold;">❌ Código
+            incorrecto</div>
+        <a href="index.html" style="margin-top: 30px; color: #666; text-decoration: none; font-size: 0.9rem;">← Volver
+            al inicio</a>
+    </div>
 
     <div class="page-wrapper">
         <a href="vip.html" class="back-nav no-print">← Regresar a Zona VIP</a>
@@ -332,6 +372,7 @@
         </button>
     </div>
 
+    <script src="js/vip-logic.js"></script>
     <script>
         function generatePDF() {
             // Scroll to top to ensure full capture

@@ -19,25 +19,93 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/cabida.css">
 
-    <!-- Favicon -->
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>R</text></svg>">
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --accent: #FF6B6B;
+            --dark: #121212;
+            --card-bg: #1E1E1E;
+            --text: #ffffff;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--text);
+        }
+
+        /* LOCK SCREEN (VIP Access) */
+        #gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        #gate h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary);
+            font-size: 2.22rem;
+            margin-bottom: 20px;
+        }
+
+        #passInput {
+            padding: 15px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            outline: none;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .btn-unlock {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-unlock:hover {
+            transform: scale(1.05);
+            background: #2c8f87;
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
     <!-- LOCK SCREEN (VIP Access) -->
-    <div id="gate"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.98); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; backdrop-filter: blur(10px); color: white; font-family: var(--font-heading);">
-        <div style="font-size: 4rem; margin-bottom: 20px;">🔒</div>
-        <h2 style="color: var(--color-terracotta);">Herramienta VIP Pro</h2>
-        <p>Ingresa tu Código de Acceso para desbloquear el Estudio de Cabida</p>
-        <input type="text" id="passInput" placeholder="CÓDIGO SECRETO"
-            style="padding: 15px; font-size: 1.2rem; border-radius: 50px; border: 2px solid var(--color-terracotta); background: transparent; color: white; text-align: center; margin-top: 20px; outline: none; width: 80%; max-width: 300px;">
-        <button onclick="unlock()"
-            style="background: var(--color-terracotta); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; font-size: 1.1rem; margin-top: 20px; cursor: pointer; transition: 0.3s;">DESBLOQUEAR</button>
-        <div id="error" style="color: #FF6B6B; margin-top: 15px; display: none; font-weight: bold;">❌ Código incorrecto
-        </div>
-        <a href="index.html" style="margin-top: 30px; color: #999; text-decoration: none; font-size: 0.9rem;">← Volver
+    <div id="gate">
+        <div style="font-size: 4rem; margin-bottom: 20px;">💎</div>
+        <h2>Acceso Exclusivo Pro</h2>
+        <p style="color: #aaa; margin-top: -10px;">Ingresa tu código para desbloquear Cabida Pro.</p>
+        <input type="text" id="passInput" placeholder="CÓDIGO VIP" maxlength="15">
+        <button class="btn-unlock" onclick="unlock()">VALIDAR ACCESO</button>
+        <div id="error" style="color: var(--accent); margin-top: 15px; display: none; font-weight: bold;">❌ Código
+            incorrecto</div>
+        <a href="index.html" style="margin-top: 30px; color: #666; text-decoration: none; font-size: 0.9rem;">← Volver
             al inicio</a>
     </div>
 
@@ -188,6 +256,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/vip-logic.js"></script>
     <script>
         const PRESETS = {
             puchuncavi_zu1: { cos: 0.5, cc: 1.0, height: 7, density: 160 },
@@ -252,75 +321,11 @@
             document.querySelector('.nav-links').classList.toggle('active');
         });
 
-        // --- VIP Access Logic ---
-        // --- VIP Access Logic ---
-        const MASTER_CODE = "ROER26";
-        const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
-        const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-        function getDayID() {
-            const now = new Date();
-            return Math.floor((now - new Date(2026, 0, 1)) / (1000 * 60 * 60 * 24));
-        }
-
-        function verifyChecksum(clean, dayID) {
-            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
-            const c1 = clean[3];
-            const c2 = clean[7];
-            let sum = dayID * 7;
-            for (let i = 0; i < raw.length; i++) { sum += raw.charCodeAt(i) * SEED[i % SEED.length]; }
-            return c1 === CHARS[sum % CHARS.length] && c2 === CHARS[(sum * 13 + 5) % CHARS.length];
-        }
-
-        function validateCode(code) {
-            code = code.toUpperCase().trim();
-            if (code === MASTER_CODE) return true;
-            if (!code.startsWith('ROER-')) {
-                if (code.startsWith('ROER')) code = 'ROER-' + code.slice(4);
-                else code = 'ROER-' + code;
-            }
-            const clean = code.replace('ROER-', '').replace(/-/g, '');
-            if (clean.length !== 8) return false;
-            for (let ch of clean) { if (!CHARS.includes(ch)) return false; }
-
-            const today = getDayID();
-            if (verifyChecksum(clean, today)) return true;
-            if (verifyChecksum(clean, today - 1)) return true; // Allow yesterday
-            return false;
-        }
-
-        function checkAccess() {
-            if (sessionStorage.getItem('roer_vip_access') === 'granted') {
-                document.getElementById('gate').style.display = 'none';
-            }
-        }
-
+        // Use attemptUnlock from vip-logic.js for the button
         function unlock() {
-            const input = document.getElementById('passInput').value;
-            if (validateCode(input)) {
-                sessionStorage.setItem('roer_vip_access', 'granted');
-                document.getElementById('gate').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('gate').style.display = 'none';
-                }, 500);
-            } else {
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('passInput').style.borderColor = '#FF6B6B';
-                setTimeout(() => {
-                    document.getElementById('error').style.display = 'none';
-                    document.getElementById('passInput').style.borderColor = 'var(--color-terracotta)';
-                }, 2000);
-            }
+            attemptUnlock();
         }
 
-        // Allow Enter key
-        document.getElementById('passInput').addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                unlock();
-            }
-        });
-
-        checkAccess();
         calculate();
     </script>
 </body>

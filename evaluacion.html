@@ -17,11 +17,12 @@
         :root {
             --primary: #3FB8AF;
             --primary-dark: #2B9A91;
-            --secondary: #E0E0E0;
-            --text: #2B4B4B;
-            --bg-glass: rgba(255, 255, 255, 0.7);
-            --border-glass: rgba(255, 255, 255, 0.3);
+            --secondary: #2B4B4B;
+            --text: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(255, 255, 255, 0.1);
             --accent: #FF6B6B;
+            --dark: #121212;
             --font-heading: 'Merriweather', serif;
             --font-body: 'Inter', sans-serif;
         }
@@ -34,7 +35,7 @@
 
         body {
             font-family: var(--font-body);
-            background: radial-gradient(circle at top left, #F0F9F9 0%, #D8EEEE 100%);
+            background: var(--dark);
             min-height: 100vh;
             padding-top: 100px;
             color: var(--text);
@@ -104,11 +105,11 @@
         }
 
         .wizard-glass {
-            background: var(--bg-glass);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
             border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -193,14 +194,14 @@
         }
 
         .option-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
             border: 2px solid transparent;
             border-radius: 20px;
             padding: 2rem 1rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .option-card:hover {
@@ -210,9 +211,9 @@
         }
 
         .option-card.selected {
-            background: #E8F5F5;
+            background: rgba(63, 184, 175, 0.15);
             border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(63, 184, 175, 0.15);
+            box-shadow: 0 10px 25px rgba(63, 184, 175, 0.25);
         }
 
         .option-card .icon {
@@ -249,13 +250,13 @@
         textarea {
             width: 100%;
             padding: 1.1rem;
-            border: 2px solid #EEE;
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             font-family: var(--font-body);
             font-size: 1rem;
             transition: all 0.3s;
-            background: white;
-            color: var(--text);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
         }
 
         input:focus,
@@ -297,13 +298,13 @@
         }
 
         .btn-secondary {
-            background: #F0F0F0;
-            color: #777;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
         }
 
         .btn-secondary:hover {
-            background: #E5E5E5;
-            color: #333;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
 
         .btn-primary {
@@ -321,7 +322,7 @@
 
         /* Pro Tip Bubble */
         .pro-tip {
-            background: #E8F5F5;
+            background: rgba(63, 184, 175, 0.05);
             border-left: 4px solid var(--primary);
             padding: 1.2rem;
             border-radius: 12px;
@@ -391,7 +392,7 @@
         .success-icon {
             width: 100px;
             height: 100px;
-            background: #E8F5F5;
+            background: rgba(63, 184, 175, 0.1);
             color: var(--primary);
             border-radius: 50%;
             display: flex;
@@ -399,7 +400,7 @@
             justify-content: center;
             font-size: 3rem;
             margin: 0 auto 2rem;
-            box-shadow: 0 10px 20px rgba(63, 184, 175, 0.1);
+            box-shadow: 0 10px 20px rgba(63, 184, 175, 0.2);
         }
 
         .btn-whatsapp {
@@ -469,6 +470,32 @@
                 font-size: 1.4rem;
             }
         }
+
+        /* LOCK SCREEN (VIP Access) */
+        #gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        #gate h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary);
+            font-size: 2.22rem;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
@@ -478,33 +505,29 @@
         <div class="nav-container">
             <a href="index.html" class="logo">
                 <img src="assets/images/logo.png" alt="Logo ROER" class="logo-icon">
-                <span>Estudio ROER</span>
+                <span style="color: white">Estudio ROER</span>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
-                <li>
-                    <div class="vip-tooltip-wrapper">
-                        <a href="vip.html" class="nav-item-vip">Zona VIP</a>
-                        <span class="vip-info-trigger">i</span>
-                        <div class="vip-tooltip">
-                            <h4>🔑 Zona VIP — Acceso Exclusivo</h4>
-                            <ul>
-                                <li><strong>Cabida Pro:</strong> Simulador de normativa técnica.</li>
-                                <li><strong>Calculadoras:</strong> Costos de obra y honorarios.</li>
-                                <li><strong>Guías PDF:</strong> Costos 2026, Ley del Mono y Recepción.</li>
-                            </ul>
-                            <p style="font-size:0.75rem; margin:8px 0 4px; color:#b0b0b0;">
-                                📲 <strong>¿Cómo acceder?</strong> Solicita tu código único por WhatsApp y desbloquea
-                                todo el contenido premium.
-                            </p>
-                            <div class="tooltip-footer">Código único por cliente</div>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="index.html">← Volver al Inicio</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" style="color: white">Inicio</a></li>
+                <li><a href="vip.html" style="color: white">Zona VIP</a></li>
             </ul>
         </div>
     </nav>
+
+    <!-- LOCK SCREEN (VIP Access) -->
+    <div id="gate">
+        <div style="font-size: 4rem; margin-bottom: 20px;">💎</div>
+        <h2>Evaluación Exclusiva</h2>
+        <p style="color: #aaa; margin-top: -10px;">Ingresa tu código para desbloquear la Pre-Evaluación.</p>
+        <input type="text" id="passInput" placeholder="CÓDIGO VIP" maxlength="15"
+            style="border: 2px solid var(--primary); border-radius: 50px; max-width: 300px; background: transparent; text-align: center; color: white;">
+        <button class="btn btn-primary" style="margin-top: 20px; max-width: 300px; padding: 15px 40px;"
+            onclick="attemptUnlock()">VALIDAR ACCESO</button>
+        <div id="error" style="color: var(--accent); margin-top: 15px; display: none; font-weight: bold;">❌ Código
+            incorrecto</div>
+        <a href="index.html" style="margin-top: 30px; color: #666; text-decoration: none; font-size: 0.9rem;">← Volver
+            al inicio</a>
+    </div>
 
     <div class="wizard-container">
         <div class="wizard-glass">
@@ -799,6 +822,7 @@
         </div>
     </div>
 
+    <script src="js/vip-logic.js"></script>
     <script src="js/evaluacion-wizard.js?v=2"></script>
 </body>
 

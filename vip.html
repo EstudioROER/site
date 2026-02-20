@@ -451,19 +451,12 @@
         </div>
     </div>
 
+    <script src="js/vip-logic.js"></script>
     <script>
-        // Master code (admin fallback - updated)
-        const MASTER_CODE = "ROER-ADMIN-2026";
-
-        // Checksum algorithm (must match admin-vip.html)
-        const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
-        const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-
-        // 1. Generate or Retrieve Client ID
+        // 1. Generate or Retrieve Client ID (Keep specific to Landing Page)
         function getClientID() {
             let id = localStorage.getItem('roer_client_id');
             if (!id) {
-                // Generate format U-XXXX
                 const suffix = Math.random().toString(36).substring(2, 6).toUpperCase();
                 id = 'U-' + suffix;
                 localStorage.setItem('roer_client_id', id);
@@ -474,111 +467,20 @@
         const clientID = getClientID();
         document.getElementById('clientID').textContent = clientID;
 
-        // Update WhatsApp Link - Using standard link to ensure message pre-fill works
+        // Update WhatsApp Link
         const catalogLink = "https://wa.me/p/25903073216024085/56950196861";
         const waMsg = encodeURIComponent(`🔑 *COMPRA PASE VIP*\nMI ID: *${clientID}*\n\nHola Sebastián, quiero comprar el pase de este artículo: ${catalogLink}`);
         const finalUrl = `https://wa.me/56950196861?text=${waMsg}`;
         document.getElementById('waLink').href = finalUrl;
 
-        function getDayID() {
-            const now = new Date();
-            return Math.floor((now - new Date(2026, 0, 1)) / (1000 * 60 * 60 * 24));
-        }
-
-        // Verify if a code matches a specific DayID AND ClientID
-        function verifyChecksum(clean, dayID) {
-            const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
-            const c1 = clean[3];
-            const c2 = clean[7];
-
-            // Mix DayID + ClientID into the sum
-            let sum = dayID * 7;
-
-            // Add ClientID influence
-            // We take the numeric value of clientID chars
-            for (let i = 0; i < clientID.length; i++) {
-                sum += clientID.charCodeAt(i) * (i + 1);
-            }
-
-            for (let i = 0; i < raw.length; i++) {
-                sum += raw.charCodeAt(i) * SEED[i % SEED.length];
-            }
-
-            const expectedC1 = CHARS[sum % CHARS.length];
-            const expectedC2 = CHARS[(sum * 13 + 5) % CHARS.length];
-
-            return c1 === expectedC1 && c2 === expectedC2;
-        }
-
-        function validateCode(code) {
-            code = code.toUpperCase().trim();
-
-            // Check master code first
-            if (code === MASTER_CODE) return true;
-
-            // Normalize
-            if (!code.startsWith('ROER-')) {
-                if (code.startsWith('ROER')) code = 'ROER-' + code.slice(4);
-                else code = 'ROER-' + code;
-            }
-            // Ensure format ROER-XXXX-XXXX
-            const clean = code.replace('ROER-', '').replace(/-/g, '');
-            if (clean.length !== 8) return false;
-
-            // Verify all chars are valid
-            for (let ch of clean) {
-                if (!CHARS.includes(ch)) return false;
-            }
-
-            // Check against TODAY or YESTERDAY (24h overlap)
-            const today = getDayID();
-            const yesterday = today - 1;
-
-            if (verifyChecksum(clean, today)) return true;
-            if (verifyChecksum(clean, yesterday)) return true;
-
-            return false;
-        }
-
-        function checkAccess() {
-            // Use LOCAL storage (permanent on device)
-            if (localStorage.getItem('roer_vip_access') === 'granted') {
-                document.getElementById('gate').style.display = 'none';
-            }
+        // Use shared functions from vip-logic.js
+        function unlock() {
+            attemptUnlock();
         }
 
         function relock() {
-            localStorage.removeItem('roer_vip_access');
-            location.reload();
+            revokeVIPAccess();
         }
-
-        function unlock() {
-            const input = document.getElementById('passInput').value;
-            if (validateCode(input)) {
-                localStorage.setItem('roer_vip_access', 'granted');
-                document.getElementById('gate').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('gate').style.display = 'none';
-                }, 500);
-            } else {
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('passInput').style.borderColor = '#FF6B6B';
-                setTimeout(() => {
-                    document.getElementById('error').style.display = 'none';
-                    document.getElementById('passInput').style.borderColor = '#3FB8AF';
-                }, 2000);
-            }
-        }
-
-        // Allow Enter key
-        document.getElementById('passInput').addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                unlock();
-            }
-        });
-
-        // Run on load
-        checkAccess();
     </script>
 </body>
 
