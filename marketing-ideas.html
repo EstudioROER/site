@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspiración de Marketing | Estudio ROER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3FB8AF;
+            --secondary: #2B4B4B;
+            --accent: #FF6B6B;
+            --dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: white;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #3FB8AF, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .example-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+        }
+
+        .visual-hook {
+            background: #000;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .visual-hook p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .caption-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            user-select: all;
+            cursor: pointer;
+            border: 1px dashed var(--border);
+        }
+
+        .caption-box::before {
+            content: "💡 Haz clic para seleccionar texto";
+            display: block;
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .hashtags {
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Ejemplos de Marketing VIP</h1>
+            <p class="subtitle">Estructuras listas para usar con tus capturas de video 🚀</p>
+        </header>
+
+        <div class="grid">
+            <!-- Ejemplo 1: El Gancho Directo -->
+            <div class="example-card">
+                <span class="badge">Reels / Stories</span>
+                <h3>🎯 El Gancho de Curiosidad</h3>
+                <div class="visual-hook">
+                    <p>Texto sobre video (Overlay):<br>
+                        "¿Cuánto mide tu terreno? 👀<br>
+                        Mira lo que puedes construir..."</p>
+                </div>
+                <div class="caption-box" onclick="selectText(this)">
+                    ¡Deja de adivinar! 📐 Mi nueva herramienta de Cabida Pro te da los datos técnicos en
+                    segundos.<br><br>
+                    Accede hoy mismo en la Zona VIP por solo $4.990 y planifica tu proyecto como un experto. 🏗️<br><br>
+                    #EstudioROER #ArquitecturaChile #Construccion #Arquitecto #VIP
+                </div>
+            </div>
+
+            <!-- Ejemplo 2: El Dolor de Cabeza -->
+            <div class="example-card">
+                <span class="badge">Reels / Historias</span>
+                <h3>😫 El Problema vs Solución</h3>
+                <div class="visual-hook">
+                    <p>Texto sobre video (Overlay):<br>
+                        "No mueras en el intento... 💀<br>
+                        Calcula tus costos 2026 aquí ⬇️"</p>
+                </div>
+                <div class="caption-box" onclick="selectText(this)">
+                    ¿Sabes cuánto cuesta construir hoy? 💸 No te arriesgues con presupuestos viejos. Nuestra calculadora
+                    actualizada 2026 ya está disponible.<br><br>
+                    Toda la info en el link de mi bio. 💎💰
+                </div>
+            </div>
+
+            <!-- Ejemplo 3: WhatsApp Status -->
+            <div class="example-card">
+                <span class="badge">WhatsApp Status</span>
+                <h3>📲 El Tráfico Directo</h3>
+                <div class="visual-hook">
+                    <p>Texto sobre imagen/video:<br>
+                        "¡Lanzamiento Zona VIP! 🚀<br>
+                        Todo lo que necesitas en un solo lugar."</p>
+                </div>
+                <div class="caption-box" onclick="selectText(this)">
+                    Hola 👋 He liberado herramientas que mis clientes aman: Simulador Pro, Calculadoras e informes
+                    PDF.<br><br>
+                    Pide tu código de acceso por aquí y desbloquea el contenido 💎
+                </div>
+            </div>
+
+            <!-- Ejemplo 4: Testimonio/Confianza -->
+            <div class="example-card">
+                <span class="badge">Reels Educativo</span>
+                <h3>🏗️ El Experto</h3>
+                <div class="visual-hook">
+                    <p>Texto sobre video:<br>
+                        "Herramientas que yo mismo uso 👷‍♂️<br>
+                        Para regularizar y construir."</p>
+                </div>
+                <div class="caption-box" onclick="selectText(this)">
+                    La arquitectura no tiene por qué ser un misterio. Creamos la Zona VIP para que tengas el control de
+                    tu inversión desde el día 1. 📐✨<br><br>
+                    ¡Únete hoy por solo $4.990! Enlace en el perfil.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Estudio ROER Arquitectura &copy; 2026 | Marketing Kit</p>
+        </footer>
+    </div>
+
+    <script>
+        function selectText(container) {
+            const range = document.createRange();
+            range.selectNodeContents(container);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    </script>
+</body>
+
+</html>

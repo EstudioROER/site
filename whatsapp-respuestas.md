@@ -36,7 +36,7 @@ Aquí tienes un listado de mensajes predefinidos optimizados para copiar y pegar
 
 ---
 
-## 3. Zona VIP y Recursos Gratuitos
+## 3. Zona VIP y Recursos Exclusivos
 **Atajo: /vip**
 > ¡Excelente! Para acceder a nuestra **Bóveda de Recursos VIP** (con calculadoras de costos, guías PDF y simulador de cabida), usa este enlace:
 >
