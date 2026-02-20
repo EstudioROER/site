@@ -51,7 +51,7 @@ Aquí tienes un listado de mensajes predefinidos optimizados para copiar y pegar
 > 🔑 **Tu Clave:** `[PEGAR CÓDIGO AQUÍ]`
 >
 > Ingrésala aquí: https://www.estudioroer.com/vip.html
-> Nota: Esta clave es válida por 24 horas. Disfruta el contenido VIP 💎
+> Nota: Esta clave desbloquea tu acceso de forma permanente en este dispositivo. 💎
 
 **Atajo: /guiamonos**
 > Si quieres saber si tu casa aplica a la Ley del Mono, descargué nuestra guía práctica en PDF. La puedes encontrar dentro de nuestra Zona VIP:

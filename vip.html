@@ -541,21 +541,21 @@
         }
 
         function checkAccess() {
-            // Use SESSION storage (volatil)
-            if (sessionStorage.getItem('roer_vip_access') === 'granted') {
+            // Use LOCAL storage (permanent on device)
+            if (localStorage.getItem('roer_vip_access') === 'granted') {
                 document.getElementById('gate').style.display = 'none';
             }
         }
 
         function relock() {
-            sessionStorage.removeItem('roer_vip_access');
+            localStorage.removeItem('roer_vip_access');
             location.reload();
         }
 
         function unlock() {
             const input = document.getElementById('passInput').value;
             if (validateCode(input)) {
-                sessionStorage.setItem('roer_vip_access', 'granted');
+                localStorage.setItem('roer_vip_access', 'granted');
                 document.getElementById('gate').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('gate').style.display = 'none';
