@@ -86,7 +86,29 @@ Aquí tienes un listado de mensajes predefinidos optimizados para copiar y pegar
 
 ---
 
-## 6. Cierre y Seguimiento
+## 6. Proceso de Venta VIP ($4.990)
+**Atajo: /vippago**
+> ¡Genial! Para activar tu acceso a la **Bóveda VIP**, el valor es de **$4.990** (pago único bloqueado a tu dispositivo).
+>
+> Puedes transferir aquí:
+> 🏦 **Banco:** [TU BANCO]
+> 👤 **Nombre:** [TU NOMBRE]
+> 🆔 **RUT:** [TU RUT]
+> 📧 **Email:** [TU EMAIL]
+>
+> Al enviar el comprobante, por favor dime tu **ID de dispositivo** que aparece en la web.
+
+**Atajo: /vipentrega**
+> ✅ Pago verificado. ¡Bienvenido a la Zona VIP!
+>
+> Inicia sesión aquí: https://www.estudioroer.com/vip.html
+> 🔑 **Tu Clave Única:** `[PEGAR CÓDIGO]`
+>
+> Este código desbloquea todas las herramientas permanentemente en este dispositivo. ¡Que lo disfrutes!
+
+---
+
+## 7. Cierre y Seguimiento
 **Atajo: /agendar**
 > ¿Qué te parece si agendamos una breve llamada de 10 minutos para explicarte mejor los pasos?
 >

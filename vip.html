@@ -34,59 +34,119 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 10, 0.98);
+            background: var(--dark);
             z-index: 9999;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
-            padding: 20px;
-            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .gate-content {
+            max-width: 600px;
+            width: 100%;
         }
 
         .lock-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
+            font-size: 3rem;
+            margin-bottom: 10px;
         }
 
         #gate h2 {
             font-family: 'Merriweather', serif;
             color: var(--primary);
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-list {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 1px solid var(--border);
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item span {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .gate-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: white;
+        }
+
+        .gate-price del {
+            font-size: 1.2rem;
+            color: #888;
+            margin-right: 10px;
         }
 
         #passInput {
             padding: 15px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            border: 2px solid var(--primary);
-            background: transparent;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
             outline: none;
-            width: 80%;
-            max-width: 300px;
+            width: 100%;
+            max-width: 280px;
         }
 
         #unlockBtn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 20px;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 15px;
             cursor: pointer;
             transition: 0.3s;
         }
 
         #unlockBtn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(63, 184, 175, 0.5);
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .buy-steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .step {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .step strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
         }
 
         .error-msg {
@@ -203,24 +263,72 @@
 
 <body>
 
-    <!-- LOCK SCREEN -->
+    <!-- LOCK SCREEN (SALES LANDING) -->
     <div id="gate">
-        <div class="lock-icon">🔒</div>
-        <h2>Bóveda de Recursos VIP</h2>
-        <p>Ingresa tu Código de Acceso de Cliente</p>
-        <div style="margin-bottom: 20px; font-size: 0.9rem; color: #888;">
-            TU ID DE DISPOSITIVO: <strong id="clientID" style="color: var(--primary); letter-spacing: 1px;">...</strong>
-        </div>
-        <input type="text" id="passInput" placeholder="CÓDIGO SECRETO">
-        <button id="unlockBtn" onclick="unlock()">DESBLOQUEAR</button>
-        <div class="error-msg" id="error">❌ Código incorrecto</div>
+        <div class="gate-content">
+            <div class="lock-icon">💎</div>
+            <h2>Acceso a Bóveda VIP</h2>
+            <p style="color: #aaa; margin-top: -10px;">Desbloquea herramientas profesionales de arquitectura.</p>
 
-        <div style="margin-top:30px; text-align:center">
-            <p style="opacity:0.5; font-size:0.8rem; margin-bottom:5px">¿No tienes código?</p>
-            <a id="waLink" href="https://wa.me/p/25903073216024085/56950196861" target="_blank"
-                style="color:white; background:var(--primary); text-decoration:none; font-weight:bold; padding:10px 25px; border-radius:25px; font-size:0.9rem; display:inline-block; border:none; box-shadow:0 4px 15px rgba(63, 184, 175, 0.3)">
-                Comprar Pase VIP ($4.990) 📲
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <span>📏</span>
+                    <div>
+                        <strong>Estudio de Cabida Pro:</strong> Simulador avanzado con normas de densidad y
+                        constructibilidad.
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span>🧮</span>
+                    <div>
+                        <strong>Calculadoras de Inversión:</strong> Estimación precisa de honorarios y costos de obra
+                        2026.
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span>📚</span>
+                    <div>
+                        <strong>Guías y Manuales PDF:</strong> Todo sobre Ley del Mono y Recepción Municipal para
+                        descargar.
+                    </div>
+                </div>
+            </div>
+
+            <div class="gate-price">
+                <del>$9.990</del> $4.990
+            </div>
+
+            <a id="waLink" href="#" target="_blank"
+                style="color:var(--dark); background:var(--primary); text-decoration:none; font-weight:800; padding:18px 40px; border-radius:15px; font-size:1.1rem; display:inline-block; border:none; box-shadow:0 10px 25px rgba(63, 184, 175, 0.4); width: 100%; box-sizing: border-box; margin-bottom: 20px;">
+                COMPRAR ACCESO VIP 🚀
             </a>
+
+            <div class="buy-steps">
+                <div class="step">
+                    <strong>1. Paga</strong>
+                    Vía WhatsApp
+                </div>
+                <div class="step">
+                    <strong>2. Envía ID</strong>
+                    ID: <span id="clientID" style="color:var(--primary)">...</span>
+                </div>
+                <div class="step">
+                    <strong>3. Recibe</strong>
+                    Tu código único
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+                <p style="opacity:0.5; font-size:0.8rem; margin-bottom:15px">¿Ya tienes tu código de acceso?</p>
+                <input type="text" id="passInput" placeholder="INGRESAR CÓDIGO">
+                <br>
+                <button id="unlockBtn" onclick="unlock()">Validar Código 🔒</button>
+                <div class="error-msg" id="error">❌ Código incorrecto o expirado</div>
+
+                <div style="margin-top:40px; padding-bottom: 60px;">
+                    <!-- Redundant contact removed, using main CTA -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -370,7 +478,8 @@
         // Update WhatsApp Link - Using standard link to ensure message pre-fill works
         const catalogLink = "https://wa.me/p/25903073216024085/56950196861";
         const waMsg = encodeURIComponent(`🔑 *COMPRA PASE VIP*\nMI ID: *${clientID}*\n\nHola Sebastián, quiero comprar el pase de este artículo: ${catalogLink}`);
-        document.getElementById('waLink').href = `https://wa.me/56950196861?text=${waMsg}`;
+        const finalUrl = `https://wa.me/56950196861?text=${waMsg}`;
+        document.getElementById('waLink').href = finalUrl;
 
         function getDayID() {
             const now = new Date();
