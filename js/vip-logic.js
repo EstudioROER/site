@@ -3,9 +3,13 @@
  * Centralizes code validation and localStorage persistence.
  */
 
-const MASTER_CODE = "ROER2026ADMIN"; // Consistent with admin panel
+const MASTER_CODES = ["ROER2026ADMIN", "ROER-ADMIN-2026"];
 const SEED = [3, 7, 1, 5, 9, 2, 8, 4];
 const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+function getClientID() {
+    return localStorage.getItem('roer_client_id') || "";
+}
 
 function getDayID() {
     const now = new Date();
@@ -16,14 +20,27 @@ function verifyChecksum(clean, dayID) {
     const raw = clean[0] + clean[1] + clean[2] + clean[4] + clean[5] + clean[6];
     const c1 = clean[3];
     const c2 = clean[7];
+    const clientID = getClientID().toUpperCase().trim();
+
     let sum = dayID * 7;
-    for (let i = 0; i < raw.length; i++) { sum += raw.charCodeAt(i) * SEED[i % SEED.length]; }
+
+    // Add ClientID influence (CRITICAL: match admin-vip.html)
+    if (clientID) {
+        for (let i = 0; i < clientID.length; i++) {
+            sum += clientID.charCodeAt(i) * (i + 1);
+        }
+    }
+
+    for (let i = 0; i < raw.length; i++) {
+        sum += raw.charCodeAt(i) * SEED[i % SEED.length];
+    }
+
     return c1 === CHARS[sum % CHARS.length] && c2 === CHARS[(sum * 13 + 5) % CHARS.length];
 }
 
 function validateVIPCode(code) {
     code = code.toUpperCase().trim();
-    if (code === MASTER_CODE) return true;
+    if (MASTER_CODES.includes(code)) return true;
 
     // Auto-fix format if ROER is missing or dash is missing
     if (!code.startsWith('ROER-')) {
