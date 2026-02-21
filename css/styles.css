@@ -60,6 +60,7 @@ body {
     background-color: var(--color-gray-warm);
     color: var(--color-blue-petrol);
     line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll jitter */
 }
 
 h1,
