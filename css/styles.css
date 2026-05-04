@@ -1,26 +1,26 @@
 :root {
     --color-white: #FFFFFF;
-    --color-gray-warm: #F4F7F6;
-    /* Cool light gray/white */
+    --color-gray-warm: #FAFAFA;
+    /* Clean white-ish */
     --color-black: #000000;
 
-    /* Navy Blue Palette */
-    --color-blue-petrol: #0a192f;
-    /* Deep Navy (Primary Dark) */
-    --color-terracotta: #3EA6FF;
-    /* Electric Blue (Accent - replaced terracotta) */
-    --color-terracotta-dark: #0056b3;
-    /* Darker Blue for hover */
-    --color-navy-light: #112240;
-    /* Secondary Navy */
+    /* Elegant Architecture Palette */
+    --color-blue-petrol: #1A1A1A;
+    /* Deep Charcoal (Primary Dark) */
+    --color-terracotta: #1D8068;
+    /* Fresh Mint/Teal (Accent) */
+    --color-terracotta-dark: #145c4a;
+    /* Darker Teal for hover */
+    --color-navy-light: #2A2A2A;
+    /* Secondary Charcoal */
 
     --font-heading: 'Inter', sans-serif;
-    --font-body: 'Merriweather', serif;
+    --font-body: 'Inter', sans-serif; /* Unified modern sans-serif */
 
     /* Updated Shadows for cooler theme */
-    --shadow-light: 8px 8px 16px #d9dce0, -8px -8px 16px #ffffff;
-    --shadow-hover: 12px 12px 20px #c0c4c9, -12px -12px 20px #ffffff;
-    --shadow-inset: inset 4px 4px 8px #d9dce0, inset -4px -4px 8px #ffffff;
+    --shadow-light: 8px 8px 16px #eaeaea, -8px -8px 16px #ffffff;
+    --shadow-hover: 12px 12px 20px #e0e0e0, -12px -12px 20px #ffffff;
+    --shadow-inset: inset 4px 4px 8px #eaeaea, inset -4px -4px 8px #ffffff;
 
     --transition: all 0.3s ease;
 }

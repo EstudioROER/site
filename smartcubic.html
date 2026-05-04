@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCubic Pro | Control de Obra</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #42005a;
+            --primary-light: #5d0080;
+            --secondary: #3fb8af;
+            --accent: #ce121f;
+            --bg-site: #f4f7f6;
+            --bg-card: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e2e8f0;
+            --shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+            --radius-pro: 14px;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            background-color: var(--bg-site);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- Enterprise Header --- */
+        .enterprise-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .pro-badge {
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* --- Dashboard Layout --- */
+        .pro-container {
+            max-width: 1440px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2.5rem;
+        }
+
+        .pro-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-pro);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .pro-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 1.5rem;
+        }
+
+        .pro-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* --- Form Elements --- */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .label-pro {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .pro-input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pro-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(66, 0, 90, 0.1);
+            outline: none;
+        }
+
+        /* --- Pro Table --- */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: white;
+        }
+
+        .pro-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pro-table thead {
+            background: #f1f5f9;
+        }
+
+        .pro-table th {
+            padding: 18px 12px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .pro-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        /* --- Pro Buttons --- */
+        .btn-pro {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .btn-brand {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(66, 0, 90, 0.2);
+        }
+
+        .btn-brand:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(66, 0, 90, 0.3);
+        }
+
+        .btn-outline-pro {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-danger-pro {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .btn-danger-pro:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* --- Badges --- */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-info {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .price-highlight {
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        /* --- Responsive Modifications --- */
+        @media (max-width: 1100px) {
+            .grid-main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="enterprise-header">
+            <div class="brand-box">
+                <i data-lucide="shield-check" class="w-10 h-10 text-secondary"></i>
+                <div>
+                    <div class="brand-name">SMARTCUBIC <span class="pro-badge">Enterprise</span></div>
+                    <div style="font-size: 0.75rem; opacity: 0.8; font-weight: 600;">ESTIMATE & PROJECT MANAGEMENT</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button onclick="resetProject()" class="btn-pro btn-danger-pro">
+                    <i data-lucide="refresh-ccw" class="w-4 h-4"></i> REINICIAR
+                </button>
+                <button onclick="saveProject()" class="btn-pro btn-brand">
+                    <i data-lucide="save" class="w-4 h-4"></i> GUARDAR OBRA
+                </button>
+                <button onclick="exportPDF()" class="btn-pro btn-outline-pro">
+                    <i data-lucide="file-down" class="w-4 h-4"></i> EXPORTAR INFORME
+                </button>
+            </div>
+        </header>
+
+        <main class="pro-container">
+            <!-- Dashboard Header Info -->
+            <div class="pro-card"
+                style="margin-bottom: 2rem; padding: 1.5rem 2.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 40px; overflow-x: auto;">
+                    <div>
+                        <div class="label-pro">Estado del Proyecto</div>
+                        <div class="status-badge badge-info"><i data-lucide="clock" class="w-3 h-3 inline"></i> EN
+                            ESTIMACIÓN</div>
+                    </div>
+                    <div>
+                        <div class="label-pro">Última Modificación</div>
+                        <div style="font-weight: 700;">Hoy, 16:55</div>
+                    </div>
+                    <div>
+                        <div class="label-pro">Ubicación</div>
+                        <div style="font-weight: 700;"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> Santiago,
+                            Chile</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="label-pro">Total Presupuestado</div>
+                    <div class="price-highlight" id="top-total">$0</div>
+                </div>
+            </div>
+
+            <div class="grid-main">
+                <!-- Left Column: Estimations -->
+                <section id="categories-container" class="space-y-8">
+                    <!-- Dynamic Categories -->
+                </section>
+
+                <!-- Right Column: Totals & Summary -->
+                <aside>
+                    <div class="pro-card" style="position: sticky; top: 120px;">
+                        <div class="pro-card-header" style="margin-bottom: 1.5rem;">
+                            <div class="pro-title" style="font-size: 1.1rem;"><i data-lucide="bar-chart-3"></i> RESUMEN
+                                EJECUTIVO</div>
+                        </div>
+
+                        <div class="space-y-4" id="executive-summary">
+                            <!-- Dynamic Summary -->
+                        </div>
+
+                        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #f1f5f9;">
+                            <button onclick="addCategory()" class="btn-pro btn-outline-pro"
+                                style="width: 100%; justify-content: center; margin-bottom: 15px;">
+                                <i data-lucide="plus-circle"></i> AÑADIR PARTIDA
+                            </button>
+                            <div class="label-pro">Acciones de Control</div>
+                            <div style="display: grid; gap: 10px; margin-top: 10px;">
+                                <button class="btn-pro btn-brand" style="width: 100%;" onclick="exportPDF()">
+                                    <i data-lucide="printer"></i> REPORTE DETALLADO
+                                </button>
+                                <button class="btn-pro btn-outline-pro" style="width: 100%;">
+                                    <i data-lucide="share-2"></i> COMPARTIR ACCESO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+        <script>
+            // --- Core Logic & Data ---
+            const formulas = {
+                volumen: (n, l, a, h) => n * (l * a * h),
+                superficie: (n, l, h) => n * (l * h),
+                excavacion: (n, l, a, h, waste = 0.1) => n * (l * a * h) * (1 + waste),
+                ladrillo: (n, l, h, waste = 0.05, dimL = 0.29, dimH = 0.09, junta = 0.015) => {
+                    const areaMuro = n * (l * h);
+                    const areaLadrillo = (dimL + junta) * (dimH + junta);
+                    return Math.ceil((areaMuro / areaLadrillo) * (1 + waste));
+                },
+                hormigon: (n, l, a, h, waste = 0.05) => n * (l * a * h) * (1 + waste),
+            };
+
+            const units = {
+                volumen: 'm3',
+                superficie: 'm2',
+                excavacion: 'm3',
+                ladrillo: 'un',
+                hormigon: 'm3',
+            };
+
+            let state = {
+                categories: [
+                    {
+                        id: 1,
+                        name: '1. INFRAESTRUCTURA (Fundaciones)',
+                        items: [
+                            { id: 101, description: 'Excavación Cimientos (Perímetro 32m)', logic: 'excavacion', n: 1, l: 32, a: 0.5, h: 0.7, unitPrice: 42500, isDeduction: false, waste: 0.1, source: 'MINVU LPU', sourceUrl: 'https://www.minvu.gob.cl/listado-de-precios-unitarios/' },
+                            { id: 102, description: 'Hormigón Cimientos H15 (Mezcla en Obra)', logic: 'hormigon', n: 1, l: 32, a: 0.5, h: 0.7, unitPrice: 145000, isDeduction: false, waste: 0.05, source: 'Ondac', sourceUrl: 'https://www.ondac.com/hormigon-h15/' },
+                            { id: 103, description: 'Carpintería de Moldaje Sobrecimiento', logic: 'superficie', n: 2, l: 32, a: 1, h: 0.3, unitPrice: 9500, isDeduction: false, waste: 0.05, source: 'Sodimac', sourceUrl: 'https://www.sodimac.cl/sodimac-cl/category/scat112524/madera-para-construccion/' }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: '2. PRIMER PISO (Albañilería Armada)',
+                        items: [
+                            { id: 201, description: 'Ladrillo Princesa Titán (Muros Perimetrales)', logic: 'ladrillo', n: 1, l: 32, a: 0.14, h: 2.4, unitPrice: 780, isDeduction: false, waste: 0.05, source: 'Sodimac', sourceUrl: 'https://www.sodimac.cl/sodimac-cl/product/270415/ladrillo-princesa-titan-29x14x9-cm/' },
+                            { id: 202, description: 'Vanos: Ventanas y Puertas (Descuento)', logic: 'ladrillo', n: 1, l: 1.5, a: 1, h: 6.5, unitPrice: 780, isDeduction: true, waste: 0, source: 'Sodimac', sourceUrl: 'https://www.sodimac.cl/' },
+                            { id: 203, description: 'Cadena de Amarre Hormigón H20', logic: 'hormigon', n: 1, l: 32, a: 0.14, h: 0.2, unitPrice: 185000, isDeduction: false, waste: 0.05, source: 'Ondac', sourceUrl: 'https://www.ondac.com/hormigon-h20/' }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: '3. ENTREPISO (Estructural)',
+                        items: [
+                            { id: 301, description: 'Viguería Entrepiso (Pino IPV 2x8)', logic: 'superficie', n: 1, l: 8, a: 1, h: 8, unitPrice: 18500, isDeduction: false, waste: 0.05, source: 'Imperial', sourceUrl: 'https://www.imperial.cl/vigueria-estructural/' },
+                            { id: 302, description: 'Plancha Terciado Estructural 18mm', logic: 'superficie', n: 1, l: 8, a: 1, h: 8, unitPrice: 22500, isDeduction: false, waste: 0.03, source: 'Imperial', sourceUrl: 'https://www.imperial.cl/tableros-estructurales/' }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: '4. SEGUNDO PISO (Albañilería de Ladrillo)',
+                        items: [
+                            { id: 401, description: 'Ladrillo Princesa Segundo Nivel', logic: 'ladrillo', n: 1, l: 32, a: 0.14, h: 2.4, unitPrice: 780, isDeduction: false, waste: 0.05, source: 'Sodimac', sourceUrl: 'https://www.sodimac.cl/sodimac-cl/product/270415/' },
+                            { id: 402, description: 'Vanos: Descuento Ventanas 2do Piso', logic: 'ladrillo', n: 4, l: 1.2, a: 1, h: 1.2, unitPrice: 780, isDeduction: true, waste: 0, source: 'Sodimac', sourceUrl: 'https://www.sodimac.cl/' }
+                        ]
+                    },
+                    {
+                        id: 5,
+                        name: '5. TECHUMBRE (Estructura y Cubierta)',
+                        items: [
+                            { id: 501, description: 'Cerchas de Madera + Costaneras', logic: 'superficie', n: 1, l: 8.5, a: 1, h: 9.5, unitPrice: 24500, isDeduction: false, waste: 0.05, source: 'MINVU LPU', sourceUrl: 'https://www.minvu.gob.cl/' },
+                            { id: 502, description: 'Cubierta Zinc Alum PV4 0.4mm', logic: 'superficie', n: 1, l: 8.5, a: 1, h: 9.5, unitPrice: 15500, isDeduction: false, waste: 0.05, source: 'Ondac', sourceUrl: 'https://www.ondac.com/techumbres/' }
+                        ]
+                    }
+                ],
+                overhead: 15,
+                profit: 10
+            };
+
+            // --- Persistence ---
+            function loadProject() {
+                const saved = localStorage.getItem('smartcubic_standalone');
+                if (saved) {
+                    const loadedState = JSON.parse(saved);
+                    // Data Migration: Ensure categories and items have new fields
+                    loadedState.categories.forEach(cat => {
+                        cat.items.forEach(item => {
+                            if (item.source === undefined) item.source = '';
+                            if (item.sourceUrl === undefined) item.sourceUrl = '';
+                        });
+                    });
+                    state = loadedState;
+                }
+                render();
+            }
+
+            function resetProject() {
+                if (confirm('¿Estás seguro de reiniciar el proyecto? Se perderán todos los cambios guardados y se cargarán los datos de ejemplo con los nuevos enlaces.')) {
+                    localStorage.removeItem('smartcubic_standalone');
+                    location.reload();
+                }
+            }
+
+            function saveProject() {
+                localStorage.setItem('smartcubic_standalone', JSON.stringify(state));
+                alert('Proyecto guardado en el navegador.');
+            }
+
+            // --- Actions ---
+            function addCategory() {
+                state.categories.push({
+                    id: Date.now(),
+                    name: 'NUEVA CATEGORÍA',
+                    items: []
+                });
+                render();
+            }
+
+            function removeCategory(id) {
+                if (confirm('¿Eliminar categoría?')) {
+                    state.categories = state.categories.filter(c => c.id !== id);
+                    render();
+                }
+            }
+
+            function addItem(catId) {
+                const cat = state.categories.find(c => c.id === catId);
+                cat.items.push({
+                    id: Date.now(),
+                    description: '',
+                    logic: 'superficie',
+                    n: 1,
+                    l: 0,
+                    a: 1,
+                    h: 1,
+                    unitPrice: 0,
+                    isDeduction: false,
+                    waste: 0.05,
+                    source: 'Mercado',
+                    sourceUrl: ''
+                });
+                render();
+            }
+
+            function removeItem(catId, itemId) {
+                const cat = state.categories.find(c => c.id === catId);
+                cat.items = cat.items.filter(i => i.id !== itemId);
+                render();
+            }
+
+            function updateItem(catId, itemId, field, value) {
+                const cat = state.categories.find(c => c.id === catId);
+                const item = cat.items.find(i => i.id === itemId);
+                item[field] = value;
+                render();
+            }
+
+            function updateCategoryName(catId, name) {
+                const cat = state.categories.find(c => c.id === catId);
+                cat.name = name;
+            }
+
+            function toggleDeduction(catId, itemId) {
+                const cat = state.categories.find(c => c.id === catId);
+                const item = cat.items.find(i => i.id === itemId);
+                item.isDeduction = !item.isDeduction;
+                render();
+            }
+
+            // --- Calculations ---
+            function calculateItemQty(item) {
+                const { logic, n, l, a, h, waste, isDeduction } = item;
+                let qty = 0;
+                if (logic === 'volumen') qty = formulas.volumen(n, l, a, h);
+                else if (logic === 'superficie') qty = formulas.superficie(n, l, h);
+                else if (logic === 'excavacion') qty = formulas.excavacion(n, l, a, h, waste);
+                else if (logic === 'ladrillo') qty = formulas.ladrillo(n, l, h, waste);
+                else if (logic === 'hormigon') qty = formulas.hormigon(n, l, a, h, waste);
+
+                return isDeduction ? -qty : qty;
+            }
+
+            function calculateTotals() {
+                let subtotal = 0;
+                state.categories.forEach(cat => {
+                    cat.items.forEach(item => {
+                        const qty = calculateItemQty(item);
+                        subtotal += (qty * item.unitPrice);
+                    });
+                });
+
+                const totalOverhead = subtotal * (state.overhead / 100);
+                const totalProfit = subtotal * (state.profit / 100);
+                const grandTotal = subtotal + totalOverhead + totalProfit;
+
+                return { subtotal, totalOverhead, totalProfit, grandTotal };
+            }
+
+            // --- UI Rendering ---
+            function render() {
+                const container = document.getElementById('categories-container');
+                const summary = document.getElementById('executive-summary');
+                const topTotal = document.getElementById('top-total');
+                const totals = calculateTotals();
+
+                // 1. Update Top Total
+                topTotal.innerText = `$${Math.round(totals.grandTotal).toLocaleString('es-CL')}`;
+
+                // 2. Render Executive Summary (Sidebar)
+                summary.innerHTML = `
+                    <div class="summary-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Costo Directo</span>
+                        <span style="font-weight: 700;">$${Math.round(totals.subtotal).toLocaleString('es-CL')}</span>
+                    </div>
+                    <div class="summary-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Gastos Generales (15%)</span>
+                        <span style="font-weight: 700;">$${Math.round(totals.totalOverhead).toLocaleString('es-CL')}</span>
+                    </div>
+                    <div class="summary-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Utilidad Proyecto (10%)</span>
+                        <span style="font-weight: 700;">$${Math.round(totals.totalProfit).toLocaleString('es-CL')}</span>
+                    </div>
+                    <div class="summary-row" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                        <span style="color: var(--primary); font-weight: 800; font-size: 1rem;">PRESUPUESTO NETO</span>
+                        <span class="price-highlight" style="font-size: 1.3rem; margin-top: -5px;">$${Math.round(totals.grandTotal).toLocaleString('es-CL')}</span>
+                    </div>
+                `;
+
+                // 3. Render Categories (Main Column)
+                container.innerHTML = '';
+                state.categories.forEach(cat => {
+                    const catCard = document.createElement('div');
+                    catCard.className = 'pro-card';
+                    catCard.innerHTML = `
+                        <div class="pro-card-header">
+                            <div class="pro-title">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                                <input onchange="updateCategoryName(${cat.id}, this.value)" value="${cat.name}" 
+                                       class="bg-transparent border-none outline-none font-bold uppercase focus:ring-0" style="width: auto;"/>
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="addItem(${cat.id})" class="btn-pro btn-brand" style="padding: 6px 12px; font-size: 0.75rem;">
+                                    <i data-lucide="plus" class="w-3 h-3"></i> AÑADIR ÍTEM
+                                </button>
+                                <button onclick="removeCategory(${cat.id})" class="text-red-400 hover:text-red-600 transition-colors">
+                                    <i data-lucide="x-circle" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-wrapper">
+                            <table class="pro-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px;"></th>
+                                        <th>DESCRIPCIÓN DE PARTIDA</th>
+                                        <th style="width: 120px;">LÓGICA</th>
+                                        <th style="width: 150px; text-align: right;">DIMENSIONES</th>
+                                        <th style="width: 120px; text-align: right;">CANT.</th>
+                                        <th style="width: 150px; text-align: right;">P. UNIT ($)</th>
+                                        <th style="width: 150px; text-align: right;">SUBTOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${cat.items.map(item => {
+                        const qty = calculateItemQty(item);
+                        const subTotal = qty * item.unitPrice;
+                        return `
+                                            <tr class="${item.isDeduction ? 'is-deduction' : ''}">
+                                                <td>
+                                                    <button onclick="removeItem(${cat.id}, ${item.id})" class="text-gray-300 hover:text-red-500">
+                                                        <i data-lucide="trash-2" class="w-3 h-3"></i>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <div style="display: flex; gap: 12px; align-items: flex-start;">
+                                                        ${item.imageUrl ? `<img src="${item.imageUrl}" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 1px solid var(--border);" onclick="viewImage('${item.imageUrl}')"/>` : `<div style="width: 50px; height: 50px; border-radius: 8px; background: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #cbd5e1;"><i data-lucide="image" class="w-4 h-4"></i></div>`}
+                                                        <div style="flex: 1;">
+                                                            <input onchange="updateItem(${cat.id}, ${item.id}, 'description', this.value)" 
+                                                                   value="${item.description}" class="bg-transparent border-none outline-none w-full font-bold"/>
+                                                            <div style="font-size: 0.7rem; color: var(--text-muted); display: flex; gap: 10px; margin-top: 4px;">
+                                                                <input onchange="updateItem(${cat.id}, ${item.id}, 'source', this.value)" 
+                                                                       value="${item.source || ''}" placeholder="Fuente..." class="bg-transparent border-none outline-none italic" style="width: 30%"/>
+                                                                <input onchange="updateItem(${cat.id}, ${item.id}, 'sourceUrl', this.value)" 
+                                                                       value="${item.sourceUrl || ''}" placeholder="vincular URL..." class="bg-transparent border-none outline-none text-blue-500 underline truncate" style="width: 40%"/>
+                                                                <button onclick="openAPU(${cat.id}, ${item.id})" class="text-primary font-bold hover:underline" style="font-size: 0.65rem;">
+                                                                    <i data-lucide="calculator" class="w-3 h-3 inline"></i> VER APU
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <select onchange="updateItem(${cat.id}, ${item.id}, 'logic', this.value)" 
+                                                            class="pro-input" style="padding: 4px 8px; font-size: 0.75rem; color: var(--primary); font-weight: 700;">
+                                                        ${Object.keys(formulas).map(f => `<option value="${f}" ${item.logic === f ? 'selected' : ''}>${f.toUpperCase()}</option>`).join('')}
+                                                    </select>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <div style="display: flex; gap: 5px; justify-content: flex-end;">
+                                                        <input type="number" onchange="updateItem(${cat.id}, ${item.id}, 'n', parseFloat(this.value))" value="${item.n}" class="pro-input" style="width: 40px; padding: 2px 4px; text-align: center; font-size: 0.7rem;"/>
+                                                        <input type="number" onchange="updateItem(${cat.id}, ${item.id}, 'l', parseFloat(this.value))" value="${item.l}" class="pro-input" style="width: 40px; padding: 2px 4px; text-align: center; font-size: 0.7rem;"/>
+                                                        <input type="number" onchange="updateItem(${cat.id}, ${item.id}, 'a', parseFloat(this.value))" value="${item.a}" class="pro-input" style="width: 40px; padding: 2px 4px; text-align: center; font-size: 0.7rem; ${item.logic === 'superficie' ? 'opacity: 0.2;' : ''}"/>
+                                                        <input type="number" onchange="updateItem(${cat.id}, ${item.id}, 'h', parseFloat(this.value))" value="${item.h}" class="pro-input" style="width: 40px; padding: 2px 4px; text-align: center; font-size: 0.7rem;"/>
+                                                    </div>
+                                                </td>
+                                                <td style="text-align: right; font-weight: 800;">
+                                                    ${qty.toFixed(2)} <span style="font-size: 0.6rem; color: var(--text-muted);">${units[item.logic] || 'un'}</span>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <input type="number" onchange="updateItem(${cat.id}, ${item.id}, 'unitPrice', parseFloat(this.value))" 
+                                                           value="${item.unitPrice}" class="bg-transparent border-none outline-none text-right font-bold text-primary" style="width: 80px;"/>
+                                                </td>
+                                                <td style="text-align: right; font-weight: 900; color: var(--primary); font-size: 1rem;">
+                                                    $${Math.abs(Math.round(subTotal)).toLocaleString('es-CL')}
+                                                </td>
+                                            </tr>
+                                        `;
+                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                    container.appendChild(catCard);
+                });
+
+                lucide.createIcons();
+            }
+
+            // --- Specialized Modals ---
+            function viewImage(url) {
+                const overlay = document.createElement('div');
+                overlay.style = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; display:flex; align-items:center; justify-content:center; cursor:zoom-out;';
+                overlay.onclick = () => overlay.remove();
+                overlay.innerHTML = `<img src="${url}" style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.5);">`;
+                document.body.appendChild(overlay);
+            }
+
+            function openAPU(catId, itemId) {
+                const cat = state.categories.find(c => c.id === catId);
+                const item = cat.items.find(i => i.id === itemId);
+
+                const overlay = document.createElement('div');
+                overlay.id = 'apu-modal';
+                overlay.style = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(66,0,90,0.4); backdrop-filter:blur(8px); z-index:2000; display:flex; align-items:center; justify-content:center;';
+
+                overlay.innerHTML = `
+                    <div class="pro-card" style="width: 800px; max-height: 90vh; overflow-y: auto;">
+                        <div class="pro-card-header">
+                            <div class="pro-title"><i data-lucide="calculator"></i> APU: ${item.description}</div>
+                            <button onclick="document.getElementById('apu-modal').remove()" class="text-gray-400 hover:text-red-500"><i data-lucide="x-circle"></i></button>
+                        </div>
+                        
+                        <div style="margin-bottom: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                            <div class="p-4 bg-slate-50 rounded-lg">
+                                <div class="label-pro">Unidad de Medida</div>
+                                <div style="font-weight: 800; color: var(--primary);">${units[item.logic] || 'un'}</div>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg">
+                                <div class="label-pro">Rendimiento Est.</div>
+                                <div style="font-weight: 800; color: var(--primary);">1.00 / ${units[item.logic] || 'un'}</div>
+                            </div>
+                            <div class="p-4 bg-slate-50 rounded-lg">
+                                <div class="label-pro">Costo Unitario Directo</div>
+                                <div style="font-weight: 800; color: var(--primary);">$${item.unitPrice.toLocaleString('es-CL')}</div>
+                            </div>
+                        </div>
+
+                        <div class="table-wrapper" style="margin-bottom: 2rem;">
+                            <table class="pro-table">
+                                <thead>
+                                    <tr>
+                                        <th>RECURSO (Materiales, Mano de Obra, Equipos)</th>
+                                        <th>UNIDAD</th>
+                                        <th style="text-align: right;">CANTIDAD</th>
+                                        <th style="text-align: right;">P. UNIT ($)</th>
+                                        <th style="text-align: right;">TOTAL ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 700;">Material base (Suministro)</td>
+                                        <td>${units[item.logic] || 'un'}</td>
+                                        <td style="text-align: right;">1.050</td>
+                                        <td style="text-align: right;">$${Math.round(item.unitPrice * 0.6).toLocaleString('es-CL')}</td>
+                                        <td style="text-align: right; font-weight: 700;">$${Math.round(item.unitPrice * 0.63).toLocaleString('es-CL')}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 700;">Mano de Obra especializada</td>
+                                        <td>gl</td>
+                                        <td style="text-align: right;">1.000</td>
+                                        <td style="text-align: right;">$${Math.round(item.unitPrice * 0.3).toLocaleString('es-CL')}</td>
+                                        <td style="text-align: right; font-weight: 700;">$${Math.round(item.unitPrice * 0.3).toLocaleString('es-CL')}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 700;">Equipos y Herramientas (5% MO)</td>
+                                        <td>%</td>
+                                        <td style="text-align: right;">0.050</td>
+                                        <td style="text-align: right;">$${Math.round(item.unitPrice * 0.3).toLocaleString('es-CL')}</td>
+                                        <td style="text-align: right; font-weight: 700;">$${Math.round(item.unitPrice * 0.015).toLocaleString('es-CL')}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-bottom: 2rem;">
+                            <div class="label-pro"><i data-lucide="trending-up" class="w-3 h-3 inline"></i> Tendencia de Mercado (Histórico 6 meses)</div>
+                            <div style="height: 120px; width: 100%; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); margin-top: 10px; display: flex; align-items: flex-end; padding: 10px; gap: 4px;">
+                                ${[40, 55, 45, 70, 65, 85].map((h, i) => `
+                                    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                        <div style="width: 100%; height: ${h}px; background: ${i === 5 ? 'var(--primary)' : '#cbd5e1'}; border-radius: 4px; transition: all 0.5s;"></div>
+                                        <span style="font-size: 0.6rem; color: var(--text-muted); font-weight: 700;">M${i + 1}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; text-align: right;">Variación Acumulada: <span style="color: #059669; font-weight: 800;">+2.4%</span></div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button onclick="document.getElementById('apu-modal').remove()" class="btn-pro btn-brand">CERRAR DETALLE APU</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                lucide.createIcons();
+            }
+
+            // --- Export ---
+            async function exportPDF() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                const totals = calculateTotals();
+                const margin = 20;
+                const pageWidth = doc.internal.pageSize.getWidth();
+                let y = 20;
+
+                // --- Header Section ---
+                doc.setFillColor(66, 0, 90); // Enterprise Purple #42005a
+                doc.rect(0, 0, pageWidth, 45, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(24);
+                doc.text('SMARTCUBIC Enterprise', margin, 25);
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text('PLATAFORMA DE ESTIMACIÓN Y CONTROL DE OBRAs', margin, 32);
+                doc.text('REPORTE TÉCNICO DETALLADO DE PARTIDAS', margin, 37);
+
+                doc.setFontSize(8);
+                const dateStr = new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' });
+                doc.text(`Generado: ${dateStr}`, pageWidth - margin - 50, 37);
+
+                y = 60;
+
+                // --- Executive Summary Box ---
+                doc.setDrawColor(226, 232, 240);
+                doc.setFillColor(248, 250, 252);
+                doc.roundedRect(margin, y, pageWidth - 2 * margin, 35, 3, 3, 'FD');
+
+                doc.setTextColor(66, 0, 90);
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.text('RESUMEN EJECUTIVO DEL PROYECTO', margin + 5, y + 10);
+
+                doc.setFontSize(8);
+                doc.setTextColor(100, 116, 139);
+                doc.text('COSTO DIRECTO:', margin + 5, y + 18);
+                doc.text('GASTOS GENERALES (15%):', margin + 5, y + 23);
+                doc.text('UTILIDAD (10%):', margin + 5, y + 28);
+
+                doc.setTextColor(40, 40, 40);
+                doc.text(`$${Math.round(totals.subtotal).toLocaleString('es-CL')}`, margin + 55, y + 18);
+                doc.text(`$${Math.round(totals.totalOverhead).toLocaleString('es-CL')}`, margin + 55, y + 23);
+                doc.text(`$${Math.round(totals.totalProfit).toLocaleString('es-CL')}`, margin + 55, y + 28);
+
+                doc.setFontSize(14);
+                doc.setTextColor(66, 0, 90);
+                doc.text('TOTAL NETO:', margin + 110, y + 18);
+                doc.setFontSize(18);
+                doc.text(`$${Math.round(totals.grandTotal).toLocaleString('es-CL')}`, margin + 110, y + 28);
+
+                y += 50;
+
+                // --- Detailed Audit Header ---
+                doc.setFontSize(12);
+                doc.setTextColor(66, 0, 90);
+                doc.setFont('helvetica', 'bold');
+                doc.text('AUDITORÍA DETALLADA DE PARTIDAS', margin, y);
+                y += 10;
+
+                // --- Table Header ---
+                const headers = ['DESCRIPCIÓN', 'CANT.', 'UND.', 'P. UNIT.', 'FUENTE', 'SUBTOTAL'];
+                const colWidths = [70, 20, 15, 25, 30, 30];
+                const startX = margin;
+
+                function drawTableHeader() {
+                    doc.setFillColor(240, 240, 240);
+                    doc.rect(startX, y, pageWidth - (margin * 2), 7, 'F');
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    let currentX = startX;
+                    headers.forEach((h, i) => {
+                        doc.text(h, currentX + 2, y + 5);
+                        currentX += colWidths[i];
+                    });
+                    y += 7;
+                }
+
+                drawTableHeader();
+
+                // --- Categories and Items ---
+                state.categories.forEach(cat => {
+                    // Category Title
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(9);
+                    doc.setTextColor(66, 0, 90);
+                    doc.text(cat.name.toUpperCase(), startX, y + 6);
+                    y += 8;
+
+                    // Items
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(60, 60, 60);
+
+                    cat.items.forEach(item => {
+                        const hasUrl = !!item.sourceUrl;
+                        const rowHeight = hasUrl ? 11 : 6;
+
+                        if (y + rowHeight > 280) {
+                            doc.addPage();
+                            y = 20;
+                            drawTableHeader();
+                        }
+
+                        const qty = calculateItemQty(item);
+                        const subVal = Math.round(qty * item.unitPrice);
+                        const sub = `$${Math.abs(subVal).toLocaleString('es-CL')}`;
+                        const pu = `$${item.unitPrice.toLocaleString('es-CL')}`;
+
+                        let currentX = startX;
+                        const rowData = [
+                            item.description,
+                            qty.toFixed(2),
+                            units[item.logic] || 'un',
+                            pu,
+                            item.source || 'Mercado',
+                            sub
+                        ];
+
+                        rowData.forEach((text, i) => {
+                            let displayText = String(text);
+                            if (i === 0 && displayText.length > 40) displayText = displayText.substring(0, 37) + '...';
+
+                            const textX = currentX + 2;
+                            const textY = y + 4;
+                            doc.text(displayText, textX, textY);
+
+                            // 1. Blue and Bold Source Name with Link
+                            if (i === 4 && item.sourceUrl) {
+                                doc.setTextColor(0, 102, 204);
+                                doc.setFont('helvetica', 'bold');
+                                doc.text(displayText, textX, textY);
+                                doc.link(textX, textY - 3, doc.getTextWidth(displayText), 5, { url: item.sourceUrl });
+
+                                // 2. Visible URL (Size 7 - very clear)
+                                doc.setFontSize(7);
+                                doc.setFont('helvetica', 'normal');
+                                doc.setTextColor(100, 100, 100);
+                                let cleanUrl = item.sourceUrl.replace('https://', '').replace('www.', '');
+                                if (cleanUrl.length > 40) cleanUrl = cleanUrl.substring(0, 37) + '...';
+                                doc.text(cleanUrl, textX, textY + 3.5);
+                                doc.link(textX, textY + 1.5, doc.getTextWidth(cleanUrl), 4, { url: item.sourceUrl });
+
+                                doc.setFontSize(8);
+                                doc.setFont('helvetica', 'normal');
+                                doc.setTextColor(60, 60, 60);
+                            }
+
+                            currentX += colWidths[i];
+                        });
+
+                        doc.setDrawColor(245, 245, 245);
+                        doc.line(startX, y + rowHeight, pageWidth - margin, y + rowHeight);
+                        y += rowHeight;
+                    });
+                    y += 4;
+                });
+
+                // --- SOURCES APPENDIX (FULL TRANSPARENCY) ---
+                const sourcesList = [];
+                state.categories.forEach(cat => cat.items.forEach(item => {
+                    if (item.sourceUrl) sourcesList.push({ d: item.description, s: item.source, u: item.sourceUrl });
+                }));
+
+                if (sourcesList.length > 0) {
+                    doc.addPage();
+                    doc.setFillColor(63, 184, 175);
+                    doc.rect(0, 0, pageWidth, 40, 'F');
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFontSize(22);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('ANEXO DE VERIFICACIÓN TÉCNICA', margin, 25);
+                    doc.setFontSize(9);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 100, 100);
+                    doc.text('Este documento certifica el origen de los precios y es verificable mediante los enlaces adjuntos.', margin, 32);
+
+                    let appendixY = 55;
+                    sourcesList.forEach((s, idx) => {
+                        if (appendixY > 265) { doc.addPage(); appendixY = 30; }
+                        doc.setTextColor(40, 40, 40);
+                        doc.setFontSize(9);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text(`${idx + 1}. ${s.d}`, margin, appendixY);
+                        appendixY += 5;
+                        doc.setTextColor(0, 102, 204);
+                        doc.setFontSize(8);
+                        doc.text(`FUENTE: ${s.s} | LINK: ${s.u}`, margin + 5, appendixY);
+                        doc.link(margin + 5, appendixY - 3, pageWidth - margin * 2, 5, { url: s.u });
+                        appendixY += 10;
+                    });
+                }
+
+                // --- Totals Section ---
+                y += 10;
+                if (y > 250) { doc.addPage(); y = 20; }
+
+                const totalBoxWidth = 80;
+                const totalBoxX = pageWidth - margin - totalBoxWidth;
+
+                doc.setFillColor(250, 250, 250);
+                doc.rect(totalBoxX, y, totalBoxWidth, 35, 'F');
+                doc.setDrawColor(230, 230, 230);
+                doc.rect(totalBoxX, y, totalBoxWidth, 35, 'S');
+
+                doc.setFontSize(10);
+                doc.setTextColor(100, 100, 100);
+                doc.text('SUBTOTAL:', totalBoxX + 5, y + 8);
+                doc.text(`$${Math.round(totals.subtotal).toLocaleString('es-CL')}`, pageWidth - margin - 5, y + 8, { align: 'right' });
+
+                doc.text('GASTOS GRALES (15%):', totalBoxX + 5, y + 15);
+                doc.text(`$${Math.round(totals.totalOverhead).toLocaleString('es-CL')}`, pageWidth - margin - 5, y + 15, { align: 'right' });
+
+                doc.text('UTILIDAD (10%):', totalBoxX + 5, y + 22);
+                doc.text(`$${Math.round(totals.totalProfit).toLocaleString('es-CL')}`, pageWidth - margin - 5, y + 22, { align: 'right' });
+
+                doc.setFillColor(255, 158, 157); // Secondary color
+                doc.rect(totalBoxX, y + 25, totalBoxWidth, 10, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('helvetica', 'bold');
+                doc.text('TOTAL GENERAL:', totalBoxX + 5, y + 32);
+                const ufValue = (totals.grandTotal / 38000).toFixed(2); // Estimación UF
+                doc.text(`$${Math.round(totals.grandTotal).toLocaleString('es-CL')} (~${ufValue} UF)`, pageWidth - margin - 5, y + 32, { align: 'right' });
+
+                // Footer
+                doc.setFontSize(7);
+                doc.setTextColor(150, 150, 150);
+                doc.text('Documento generado por SmartCubic Pro - Software de Cubicación y Presupuestos.', pageWidth / 2, 285, { align: 'center' });
+
+                doc.save('Presupuesto_AnibalPinto_Pro.pdf');
+            }
+
+            // Initialize
+            try {
+                console.log("SmartCubic: Iniciando aplicación...");
+                loadProject();
+                console.log("SmartCubic: Aplicación iniciada con éxito.");
+            } catch (error) {
+                console.error("SmartCubic Error:", error);
+                alert("Error al cargar la aplicación: " + error.message);
+            }
+        </script>
+</body>
+
+</html>

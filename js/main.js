@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("ROER Index: DOMContentLoaded disparado.");
 
     // --- Mobile Menu ---
     const mobileToggle = document.querySelector('.mobile-toggle');
