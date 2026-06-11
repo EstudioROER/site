@@ -1,0 +1,200 @@
+/* --- ESTUDIO DE CABIDA PREMIUM INTEGRATION --- */
+
+.cabida-app {
+    padding-top: 2rem;
+}
+
+.cabida-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+    .cabida-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Glassmorphism Panels */
+.cabida-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cabida-header {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 700;
+}
+
+.cabida-field {
+    margin-bottom: 1.2rem;
+}
+
+.cabida-label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.cabida-input {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: white;
+}
+
+.cabida-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(63, 184, 175, 0.1);
+}
+
+/* Results Display */
+.cabida-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .cabida-results {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Premium Visualizer */
+.cabida-visualizer {
+    grid-column: 1 / -1;
+    background: var(--color-blue-petrol);
+    height: 300px;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.cabida-visualizer::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(62, 166, 255, 0.1) 1px, transparent 1px);
+    background-size: 25px 25px;
+}
+
+.cabida-vis_tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    color: var(--primary);
+    background: rgba(63, 184, 175, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+/* Metrics */
+.cabida-metric {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.2rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--primary);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cabida-metric-label {
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-heading);
+}
+
+.cabida-metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    font-family: var(--font-heading);
+}
+
+.cabida-metric-unit {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 4px;
+}
+
+/* Summary Box */
+.cabida-summary {
+    grid-column: 1 / -1;
+    background: rgba(63, 184, 175, 0.03);
+    border: 1px dashed var(--primary);
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.cabida-summary h4 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.cabida-summary p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #aaa;
+    font-family: var(--font-body);
+}
+
+/* SVG Colors */
+#plot {
+    stroke: var(--primary);
+    opacity: 0.3;
+}
+
+#footprint {
+    fill: var(--primary);
+    fill-opacity: 0.5;
+    stroke: var(--primary);
+    stroke-width: 1.5;
+}
+
+#vis_text {
+    fill: var(--color-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 5px;
+}
+
+#vis_label {
+    fill: rgba(255, 255, 255, 0.4);
+    font-family: var(--font-heading);
+    font-size: 3px;
+    font-weight: 600;
+}

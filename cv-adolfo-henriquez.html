@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Adolfo Henríquez Carvajal | Arquitecto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111827;
+            --accent: #4b5563;
+            --text: #1f2937;
+            --text-light: #4b5563;
+            --bg: #ffffff;
+            --bg-light: #f9fafb;
+            --border: #d1d5db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: #f3f4f6;
+        }
+
+        .print-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .btn-download {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: #000000;
+            transform: translateY(-1px);
+        }
+
+        .cv-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--bg);
+            box-shadow: 0 1px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* Header */
+        .cv-header {
+            background: var(--bg);
+            color: var(--primary);
+            padding: 50px 50px 30px 50px;
+            text-align: left;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .cv-header h1 {
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .cv-header .title {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px 25px;
+            font-size: 0.85rem;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text);
+        }
+
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .contact-item a:hover {
+            border-bottom-color: var(--primary);
+            color: #000;
+        }
+
+        /* Main Content */
+        .cv-body {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+        }
+
+        /* Summary */
+        .summary {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .summary p {
+            color: var(--text);
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+
+        .summary strong {
+            color: var(--primary);
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .exp-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .exp-company {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .exp-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 600;
+            background: #f3f4f6;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .exp-location {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .exp-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exp-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text);
+            text-align: justify;
+        }
+
+        .exp-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Enfoque Profesional */
+        .enfoque-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .enfoque-item {
+            background: var(--bg-light);
+            padding: 18px 20px;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid var(--accent);
+        }
+
+        .enfoque-item h4 {
+            font-family: 'Georgia', serif;
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .enfoque-item p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Education */
+        .education-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .edu-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-light);
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .edu-details h3 {
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .edu-details p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .skill-category h4 {
+            font-family: 'Georgia', serif;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: white;
+            color: var(--text);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Specializations */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .spec-item {
+            background: var(--bg-light);
+            padding: 12px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text);
+            border: 1px solid #e5e7eb;
+        }
+
+        .spec-item .check {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Coverage */
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .coverage-region {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .coverage-region h4 {
+            font-family: 'Georgia', serif;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .coverage-region p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .cv-footer {
+            background: var(--bg-light);
+            padding: 25px 50px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: #000000;
+            }
+
+            .print-controls {
+                display: none !important;
+            }
+
+            .cv-container {
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+                max-width: 100%;
+            }
+
+            .cv-header {
+                padding: 0 0 20px 0;
+                border-bottom: 2px solid #000000;
+            }
+
+            .cv-body {
+                padding: 30px 0 0 0;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                border-bottom: 1px solid #000000;
+                color: #000000;
+            }
+
+            .summary {
+                background: none;
+                border-left: 2px solid #000000;
+                padding: 10px 0 10px 15px;
+            }
+
+            .experience-item {
+                border-bottom: 1px solid #000000;
+            }
+
+            .exp-date {
+                background: none;
+                padding: 0;
+            }
+
+            .enfoque-item {
+                background: none;
+                border: 1px solid #000000;
+                border-left: 2px solid #000000;
+            }
+
+            .project-tag, .skill-tag, .spec-item, .coverage-region, .skill-category {
+                background: none !important;
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Download Button -->
+    <div class="print-controls">
+        <button class="btn-download" onclick="window.print()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Descargar PDF
+        </button>
+    </div>
+
+    <div class="cv-container">
+        <!-- Header -->
+        <header class="cv-header">
+            <h1>ADOLFO HENRÍQUEZ CARVAJAL</h1>
+            <p class="title">Arquitecto | Especialista en Arquitectura Sustentable y BIM</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Santiago, Chile
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                    <a href="tel:+56971089393">+56 9 7108 9393</a>
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <a href="mailto:Adolfohc.arq@gmail.com">Adolfohc.arq@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    <a href="https://www.linkedin.com/in/adolfo-henriquez-arq/" target="_blank">LinkedIn</a>
+                </div>
+                <div class="contact-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <a href="https://adolfohenriquez.wixsite.com/aarq" target="_blank">Portafolio Wix</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Body -->
+        <main class="cv-body">
+            <!-- Summary -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 16v-4M12 8h.01"></path>
+                    </svg>
+                    Perfil Laboral
+                </h2>
+                <div class="summary">
+                    <p>
+                        Arquitecto con experiencia en diseño, desarrollo y coordinación integral de proyectos residenciales, comerciales, turísticos y de infraestructura pública. Especializado en <strong>arquitectura sustentable, modelado BIM, documentación técnica y coordinación interdisciplinaria</strong>, con experiencia en tramitación municipal, desarrollo territorial y gestión de proyectos en distintas escalas.
+                    </p>
+                    <br>
+                    <p>
+                        He participado en iniciativas vinculadas a conservación, planificación y desarrollo inmobiliario sostenible, integrando soluciones arquitectónicas eficientes, representación visual avanzada y criterios de alto estándar técnico, funcional y ambiental.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Enfoque Profesional -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Enfoque Profesional
+                </h2>
+                <div class="enfoque-grid">
+                    <div class="enfoque-item">
+                        <h4>Diseño BIM Integrado</h4>
+                        <p>Modelado y documentación completa en ArchiCAD con coordinación de especialidades, garantizando coherencia técnica entre arquitectura, estructura e instalaciones.</p>
+                    </div>
+                    <div class="enfoque-item">
+                        <h4>Arquitectura Sustentable</h4>
+                        <p>Integración de criterios ambientales y paisajísticos desde la etapa conceptual, con foco en eficiencia energética, uso de materiales locales y desarrollo responsable del territorio.</p>
+                    </div>
+                    <div class="enfoque-item">
+                        <h4>Coordinación Multidisciplinaria</h4>
+                        <p>Gestión efectiva de equipos técnicos en proyectos de distintas escalas, asegurando compatibilización de especialidades y cumplimiento de plazos y normativas vigentes.</p>
+                    </div>
+                    <div class="enfoque-item">
+                        <h4>Representación Visual Avanzada</h4>
+                        <p>Producción de renders fotorrealistas y material de presentación de alto nivel para comunicar el proyecto de forma clara y convincente a clientes e instituciones.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    Antecedentes Laborales
+                </h2>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Arquitecto Desarrollador</div>
+                            <div class="exp-company">Consultora Raíz Estudio</div>
+                        </div>
+                        <span class="exp-date">Agosto 2024 – Actualidad</span>
+                    </div>
+                    <div class="exp-location">📍 Santiago, Chile</div>
+                    <ul class="exp-list">
+                        <li>Desarrollo y coordinación integral de proyectos residenciales, comerciales y turísticos en todas las etapas de diseño y documentación técnica.</li>
+                        <li>Elaboración de documentación técnica detallada y modelado BIM completo en ArchiCAD para proyectos de diversas escalas.</li>
+                        <li>Desarrollo de 3 proyectos hoteleros y centros turísticos en el sur de Chile con criterios de sustentabilidad e integración paisajística.</li>
+                        <li>Gestión y compatibilización de especialidades técnicas, control documental y tramitación ante DOM.</li>
+                        <li>Planificación territorial y subdivisión de más de 200 lotes, compatibilizando conservación ambiental y desarrollo responsable.</li>
+                        <li>Participación en proyecto residencial de inversión extranjera en Puerto Raúl Marín Balmaceda bajo modelos DRC y APP enfocados en sostenibilidad.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Arquitecto Colaborador</div>
+                            <div class="exp-company">Crisosto Smith Arquitectos</div>
+                        </div>
+                        <span class="exp-date">Febrero 2024 – Julio 2024</span>
+                    </div>
+                    <ul class="exp-list">
+                        <li>Desarrollo de proyectos de infraestructura pública, integrando equipos multidisciplinarios en seguridad pública y educación.</li>
+                        <li>Apoyo en diseño arquitectónico y desarrollo técnico de proyectos de mediana y gran escala para eficiencia funcional y cumplimiento de normativas.</li>
+                        <li>Participación en el diseño de 2 cuarteles de la Policía de Investigaciones de Chile (PDI) y un recinto penitenciario en el norte del país.</li>
+                        <li>Modelado 3D, documentación técnica y producción de láminas para concursos y licitaciones públicas.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-title">Dibujante Técnico</div>
+                            <div class="exp-company">Domo Habitare Constructora</div>
+                        </div>
+                        <span class="exp-date">Marzo 2023 – Febrero 2024</span>
+                    </div>
+                    <ul class="exp-list">
+                        <li>Desarrollo de diseño, modelado 3D y documentación de más de 20 proyectos residenciales habitacionales.</li>
+                        <li>Elaboración de propuestas arquitectónicas y coordinación técnica con clientes y organismos municipales.</li>
+                        <li>Coordinación y compatibilización de especialidades para proyecto residencial de gran envergadura (más de 500 m²).</li>
+                        <li>Producción de renders fotorrealistas y material de presentación arquitectónica.</li>
+                    </ul>
+                </div>
+            </main>
+
+            <!-- Education -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    Formación Académica
+                </h2>
+                <div class="education-item">
+                    <div class="edu-icon">🎓</div>
+                    <div class="edu-details">
+                        <h3>Arquitecto (Licenciado en Arquitectura en 2020)</h3>
+                        <p>Universidad de Santiago de Chile (USACH) • 2017 – 2022</p>
+                    </div>
+                </div>
+                <div class="education-item">
+                    <div class="edu-icon">⚡</div>
+                    <div class="edu-details">
+                        <h3>Técnico de Nivel Medio en Electricidad</h3>
+                        <p>Liceo Comercial Guillermo González Heinrich • 2010 – 2014</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seminarios y Cursos -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
+                    </svg>
+                    Seminarios y Cursos
+                </h2>
+                <ul class="exp-list">
+                    <li><strong>Diplomado en Renderización Arquitectónica D5</strong> (2025) - Dimensión 5 Online | México</li>
+                    <li><strong>Diplomado en Diseño y Modelado Arquitectónico BIM</strong> (2024) - .Lab</li>
+                    <li><strong>Diplomado en Diseño Computacional en Arquitectura</strong> (2019) - Universidad de Santiago de Chile (USACH)</li>
+                </ul>
+            </section>
+
+            <!-- Skills -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg>
+                    Habilidades Técnicas
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>💻 BIM y Modelado</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">ArchiCAD (Avanzado)</span>
+                            <span class="skill-tag">SketchUp (Avanzado)</span>
+                            <span class="skill-tag">Revit (Intermedio)</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>🎨 Visualización</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">D5 Render (Avanzado)</span>
+                            <span class="skill-tag">Twinmotion (Intermedio)</span>
+                            <span class="skill-tag">V-Ray (Intermedio)</span>
+                            <span class="skill-tag">Lumion (Intermedio)</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>📐 Doc. y Diseño</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Office (Avanzado)</span>
+                            <span class="skill-tag">Photoshop (Intermedio)</span>
+                            <span class="skill-tag">Illustrator (Intermedio)</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>🗣️ Otros</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Inglés B2</span>
+                            <span class="skill-tag">Planificación Territorial</span>
+                            <span class="skill-tag">Coordinación de Especialidades</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Specializations -->
+            <section class="section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    Especialidades
+                </h2>
+                <div class="spec-grid">
+                    <div class="spec-item"><span class="check">✓</span> Arquitectura Sustentable</div>
+                    <div class="spec-item"><span class="check">✓</span> Modelado BIM Avanzado</div>
+                    <div class="spec-item"><span class="check">✓</span> Proyectos Residenciales</div>
+                    <div class="spec-item"><span class="check">✓</span> Renders Fotorrealistas</div>
+                    <div class="spec-item"><span class="check">✓</span> Planificación Territorial</div>
+                    <div class="spec-item"><span class="check">✓</span> Infraestructura Pública</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="cv-footer">
+            <p>Referencias disponibles a solicitud • Actualizado: Febrero 2026</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
