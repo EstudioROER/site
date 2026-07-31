@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="assets/css/styles.css">
   
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22bold%22 fill=%22%23d98a6c%22>R</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22bold%22 fill=%22%238c5b36%22>R</text></svg>">
 </head>
 <body>
 
@@ -58,7 +58,7 @@
         </p>
 
         <div class="hero-actions">
-          <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20agendar%20evaluaci%C3%B3n%20técnica%20gratis" target="_blank" class="btn btn-primary">
+          <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20agendar%20evaluaci%C3%B3n%20t%C3%A9cnica%20gratis" target="_blank" class="btn btn-primary">
             Solicitar Evaluación Gratis
           </a>
           <a href="#calculadora" class="btn btn-secondary">
@@ -103,7 +103,7 @@
           <div class="service-icon">📜</div>
           <h3 class="service-title">Regularización Ley del Mono</h3>
           <p class="service-desc">Procedimiento simplificado para regularizar casas o ampliaciones construidas antes de 2016 (hasta 140 m²).</p>
-          <a href="https://wa.me/56950196861?text=Hola,%20deseo%20información%20de%20Ley%20del%20Mono" target="_blank" class="service-link">Consultar caso →</a>
+          <a href="https://wa.me/56950196861?text=Hola,%20deseo%20informaci%C3%B3n%20de%20Ley%20del%20Mono" target="_blank" class="service-link">Consultar caso →</a>
         </div>
 
         <!-- Servicio 2 -->
@@ -111,7 +111,7 @@
           <div class="service-icon">🏠</div>
           <h3 class="service-title">Ampliaciones de Segundo Piso</h3>
           <p class="service-desc">Diseño arquitectónico y cálculo de exención estructural (OGUC 5.6) para ampliar en vertical con seguridad.</p>
-          <a href="https://wa.me/56950196861?text=Hola,%20deseo%20cotizar%20Ampliación%20de%20Segundo%20Piso" target="_blank" class="service-link">Consultar caso →</a>
+          <a href="https://wa.me/56950196861?text=Hola,%20deseo%20cotizar%20Ampliaci%C3%B3n%20de%20Segundo%20Piso" target="_blank" class="service-link">Consultar caso →</a>
         </div>
 
         <!-- Servicio 3 -->
@@ -130,9 +130,9 @@
     <div class="calc-card">
       <div class="calc-grid">
         <div>
-          <span class="section-tag">Estimador Interactivo</span>
+          <span class="section-tag" style="color: #e8ded1;">Estimador Interactivo</span>
           <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Calcula la Factibilidad de tu Propiedad</h2>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+          <p style="color: #a3b0be; font-size: 0.95rem; margin-bottom: 1.5rem;">
             Ingresa los datos principales para obtener una estimación de presupuesto de honorarios y factibilidad bajo la normativa chilena.
           </p>
 
@@ -170,9 +170,9 @@
 
         <div>
           <div id="calc-result" class="calc-result">
-            <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Honorarios Estimados</span>
+            <span style="font-size:0.8rem; font-weight:700; color:#d1d7de; text-transform:uppercase;">Honorarios Estimados</span>
             <div id="calc-price" class="calc-price">$0 CLP</div>
-            <p id="calc-desc" style="font-size:0.9rem; color:var(--text-body); margin-bottom:1.25rem;"></p>
+            <p id="calc-desc" style="font-size:0.9rem; color:#e1e5e8; margin-bottom:1.25rem;"></p>
             
             <a id="calc-wa-btn" href="#" target="_blank" class="btn btn-whatsapp" style="width:100%;">
               📲 Agendar Evaluación Gratuita en Terreno
@@ -183,7 +183,7 @@
     </div>
   </section>
 
-  <!-- Blog y Material Didáctico (Unificado) -->
+  <!-- Blog y Material Didáctico -->
   <section id="recursos" class="section">
     <div class="container">
       <div class="section-header">
@@ -227,7 +227,7 @@
   </section>
 
   <!-- FAQ Section -->
-  <section id="faq" class="section" style="background:var(--pastel-sand);">
+  <section id="faq" class="section" style="background:var(--concrete-bg); border-top:1px solid var(--concrete-border); border-bottom:1px solid var(--concrete-border);">
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Respuesta Directa</span>
@@ -268,7 +268,7 @@
     </div>
   </section>
 
-  <!-- Contacto Section -->
+  <!-- Contacto Section con Web3Forms Integrado -->
   <section id="contacto" class="section">
     <div class="container contact-grid">
       <div class="contact-info">
@@ -303,30 +303,39 @@
       </div>
 
       <div class="contact-form-card">
-        <h3 style="font-size:1.4rem; margin-bottom:1rem;">Contacto Directo</h3>
-        <form id="contact-form">
+        <h3 style="font-size:1.4rem; margin-bottom:1rem;">Enviar Mensaje Directo</h3>
+        
+        <!-- Formulario Web3Forms API -->
+        <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="74adcccc-d748-4d84-8eac-e027310cb0af">
+          <input type="hidden" name="subject" value="Nueva consulta desde sitio web - Estudio ROER">
+          <input type="hidden" name="from_name" value="Estudio ROER Web">
+
           <div class="form-group">
             <label for="contact-name">Nombre Completo *</label>
-            <input type="text" id="contact-name" class="form-control" placeholder="Ej: Juan Pérez" required>
+            <input type="text" id="contact-name" name="name" class="form-control" placeholder="Ej: Juan Pérez" required>
           </div>
 
           <div class="form-group">
-            <label for="contact-phone">Teléfono / WhatsApp *</label>
-            <input type="tel" id="contact-phone" class="form-control" placeholder="+56 9 1234 5678" required>
+            <label for="contact-email">Correo Electrónico *</label>
+            <input type="email" id="contact-email" name="email" class="form-control" placeholder="ejemplo@correo.com" required>
           </div>
 
           <div class="form-group">
-            <label for="contact-commune">Comuna</label>
-            <input type="text" id="contact-commune" class="form-control" placeholder="Ej: San Bernardo">
+            <label for="contact-phone">Teléfono / WhatsApp</label>
+            <input type="tel" id="contact-phone" name="phone" class="form-control" placeholder="+56 9 1234 5678">
           </div>
 
           <div class="form-group">
-            <label for="contact-msg">Detalle de tu proyecto *</label>
-            <textarea id="contact-msg" class="form-control" rows="3" placeholder="Superficie, tipo de edificación o consulta..." required></textarea>
+            <label for="contact-msg">Mensaje / Detalle del Proyecto *</label>
+            <textarea id="contact-msg" name="message" class="form-control" rows="3" placeholder="Describe brevemente tu proyecto o consulta..." required></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width:100%;">
-            Enviar Consulta por WhatsApp
+          <div id="form-status" style="margin-bottom:1rem; font-size:0.9rem; display:none;"></div>
+
+          <button type="submit" id="contact-submit-btn" class="btn btn-primary" style="width:100%;">
+            📩 Enviar Formulario
           </button>
         </form>
       </div>

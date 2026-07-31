@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTUDIO ROER ARQUITECTURA - Application Script (Pastel & Clean Edition)
+   ESTUDIO ROER ARQUITECTURA - Application Script with Web3Forms API
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCalculator();
   initFaq();
   initModal();
-  initContactForm();
+  initWeb3ContactForm();
 });
 
 /* Mobile Navbar */
@@ -26,15 +26,15 @@ function initNavbar() {
         navLinks.style.top = '70px';
         navLinks.style.left = '0';
         navLinks.style.width = '100%';
-        navLinks.style.background = '#faf7f2';
+        navLinks.style.background = '#ffffff';
         navLinks.style.padding = '1.5rem';
-        navLinks.style.borderBottom = '1px solid #e8e2d9';
+        navLinks.style.borderBottom = '2px solid #e1e5e8';
       }
     });
   }
 }
 
-/* Tab Navigation for Blog & Material Didáctico */
+/* Tab Navigation */
 function initTabs() {
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -86,7 +86,7 @@ function initCalculator() {
     priceEl.textContent = `${fmt.format(minPrice)} - ${fmt.format(maxPrice)} CLP`;
     descEl.innerHTML = `
       Estimación para <strong>${meters} m²</strong> en <strong>${commune}</strong> (${floors} ${floors > 1 ? 'pisos' : 'piso'}).<br>
-      <small style="color:#7c8a83;">*Evaluación técnica presencial confirma el costo final sin compromisos.</small>
+      <small style="color:#d1d7de;">*Evaluación técnica presencial confirma el costo final sin compromisos.</small>
     `;
 
     resultBox.classList.add('active');
@@ -109,14 +109,14 @@ function initFaq() {
   });
 }
 
-/* Modal Content Reader */
+/* Modal Reader */
 const modalData = {
   'post-ley-mono': {
     title: 'Guía Completa Ley del Mono (Ley 20.898)',
     content: `
       <p style="margin-bottom:1rem;">La Ley 20.898 otorga facilidades únicas para regularizar viviendas construidas antes de febrero de 2016 con un trámite simplificado y costos reducidos en la municipalidad.</p>
       <h4>Requisitos clave:</h4>
-      <ul style="margin-left:1.25rem; margin-bottom:1.5rem; color:#4a5550;">
+      <ul style="margin-left:1.25rem; margin-bottom:1.5rem; color:#566370;">
         <li>Superficie útil máxima de hasta 140 m².</li>
         <li>Avalúo fiscal de la edificación inferior a 2.000 UF.</li>
         <li>Informe de habitabilidad suscrito por un Arquitecto.</li>
@@ -135,7 +135,7 @@ const modalData = {
     title: 'Checklist Oficial de Documentación DOM',
     content: `
       <h4>Documentos Requeridos:</h4>
-      <ol style="margin-left:1.25rem; margin-bottom:1.5rem; color:#4a5550;">
+      <ol style="margin-left:1.25rem; margin-bottom:1.5rem; color:#566370;">
         <li>Fotocopia Cédula de Identidad del propietario.</li>
         <li>Certificado de Informaciones Previas (CIP).</li>
         <li>Planos de Arquitectura (Planta, Cortes y Elevaciones).</li>
@@ -176,19 +176,57 @@ function initModal() {
   });
 }
 
-/* Contact Form Formatter */
-function initContactForm() {
+/* Web3Forms Contact Form Integration */
+function initWeb3ContactForm() {
   const form = document.getElementById('contact-form');
+  const statusDiv = document.getElementById('form-status');
+  const submitBtn = document.getElementById('contact-submit-btn');
+
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const name = document.getElementById('contact-name').value;
-    const phone = document.getElementById('contact-phone').value;
-    const commune = document.getElementById('contact-commune').value;
-    const msg = document.getElementById('contact-msg').value;
+    
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
 
-    const waUrl = `https://wa.me/56950196861?text=${encodeURIComponent(`Hola Estudio ROER, mi nombre es ${name} (${phone}) de ${commune}. Consulta: ${msg}`)}`;
-    window.open(waUrl, '_blank');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+    }
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      let resJson = await response.json();
+      if (response.status === 200) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.color = '#10b981';
+        statusDiv.innerHTML = '✅ <strong>¡Mensaje enviado con éxito!</strong> Nos pondremos en contacto contigo a la brevedad.';
+        form.reset();
+      } else {
+        statusDiv.style.display = 'block';
+        statusDiv.style.color = '#ef4444';
+        statusDiv.innerHTML = `⚠️ ${resJson.message || 'Error al enviar el formulario.'}`;
+      }
+    })
+    .catch(error => {
+      statusDiv.style.display = 'block';
+      statusDiv.style.color = '#ef4444';
+      statusDiv.innerHTML = '⚠️ Ocurrió un problema de conexión. Intenta nuevamente o contáctanos por WhatsApp.';
+    })
+    .then(function() {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📩 Enviar Formulario';
+      }
+    });
   });
 }
