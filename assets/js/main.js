@@ -85,13 +85,13 @@ function initCalculator() {
 
     priceEl.textContent = `${fmt.format(minPrice)} - ${fmt.format(maxPrice)} CLP`;
     descEl.innerHTML = `
-      Estimación para <strong>${meters} m²</strong> en <strong>${commune}</strong> (${floors} ${floors > 1 ? 'pisos' : 'piso'}).<br>
-      <small style="color:#d1d7de;">*Evaluación técnica presencial confirma el costo final sin compromisos.</small>
+      Estimación preliminar para <strong>${meters} m²</strong> en <strong>${commune}</strong> (${floors} ${floors > 1 ? 'pisos' : 'piso'}).<br>
+      <small style="color:#d1d7de;">*La factibilidad y valor definitivo se confirman tras la revisión de antecedentes o asesoría técnica.</small>
     `;
 
     resultBox.classList.add('active');
 
-    const msg = encodeURIComponent(`Hola Estudio ROER, solicité una estimación en su web para ${meters}m² (${floors} piso/s) en ${commune}. Deseo agendar la evaluación técnica gratis.`);
+    const msg = encodeURIComponent(`Hola Estudio ROER, solicité una estimación en su web para ${meters}m² (${floors} piso/s) en ${commune}. Deseo consultar por la factibilidad y cotización.`);
     waBtn.href = `https://wa.me/56950196861?text=${msg}`;
   });
 }
@@ -128,7 +128,7 @@ const modalData = {
     title: 'Exención de Cálculo Estructural (OGUC Art. 5.6)',
     content: `
       <p style="margin-bottom:1rem;">Según el artículo 5.6 de la OGUC, las ampliaciones o edificaciones residenciales de hasta 2 pisos estructuradas en albañilería, madera o acero convencional pueden eximirse del cálculo realizado por un ingeniero, ahorrando tiempo y dinero en tu proyecto.</p>
-      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20evaluar%20si%20mi%20casa%20califica%20a%20exenci%C3%B3n%20OGUC" target="_blank" class="btn btn-primary" style="width:100%;">Evaluar Mi Caso Gratis</a>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20evaluar%20si%20mi%20casa%20califica%20a%20exenci%C3%B3n%20OGUC" target="_blank" class="btn btn-primary" style="width:100%;">Consultar Caso</a>
     `
   },
   'doc-checklist': {

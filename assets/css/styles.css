@@ -88,7 +88,7 @@ img {
   backdrop-filter: blur(10px);
   z-index: 1000;
   border-bottom: 2px solid var(--concrete-border);
-  padding: 1.1rem 0;
+  padding: 0.9rem 0;
 }
 
 .nav-container {
@@ -104,8 +104,8 @@ img {
 }
 
 .logo-badge {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   background: var(--steel-dark);
   color: var(--wood-warm);
   border-radius: var(--radius-sm);
@@ -114,13 +114,13 @@ img {
   justify-content: center;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   border-left: 3px solid var(--wood-warm);
 }
 
 .brand-name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--steel-dark);
   letter-spacing: -0.02em;
@@ -129,12 +129,12 @@ img {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2.2rem;
+  gap: 2rem;
   list-style: none;
 }
 
 .nav-links a {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -143,40 +143,58 @@ img {
   color: var(--wood-warm);
 }
 
+/* Minimalist Button Styles */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.6rem;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   border: none;
   cursor: pointer;
   transition: var(--transition);
 }
 
+.btn-minimal {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
 .btn-primary {
   background: var(--wood-warm);
   color: white;
-  box-shadow: 0 4px 12px rgba(140, 91, 54, 0.2);
+  box-shadow: 0 2px 6px rgba(140, 91, 54, 0.15);
 }
 
 .btn-primary:hover {
   background: var(--wood-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(140, 91, 54, 0.3);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: transparent;
   color: var(--steel-dark);
-  border: 1.5px solid var(--steel-dark);
+  border: 1px solid var(--steel-dark);
 }
 
 .btn-secondary:hover {
   background: var(--steel-dark);
+  color: white;
+}
+
+.btn-outline-minimal {
+  background: transparent;
+  color: var(--wood-warm);
+  border: 1px solid var(--wood-warm);
+}
+
+.btn-outline-minimal:hover {
+  background: var(--wood-warm);
   color: white;
 }
 
@@ -200,7 +218,7 @@ img {
 
 /* Hero Section */
 .hero {
-  padding: 5rem 0;
+  padding: 4.5rem 0;
   background: linear-gradient(180deg, #ffffff 0%, var(--concrete-bg) 100%);
   border-bottom: 1px solid var(--concrete-border);
 }
@@ -214,21 +232,21 @@ img {
 
 .hero-tag {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--wood-warm);
   background: var(--wood-light);
-  padding: 0.35rem 0.9rem;
+  padding: 0.3rem 0.8rem;
   border-radius: var(--radius-sm);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
   border-left: 3px solid var(--wood-warm);
 }
 
 .hero-title {
-  font-size: 2.8rem;
-  margin-bottom: 1.25rem;
+  font-size: 2.7rem;
+  margin-bottom: 1.15rem;
   color: var(--steel-dark);
 }
 
@@ -237,17 +255,17 @@ img {
 }
 
 .hero-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   color: var(--text-muted);
-  margin-bottom: 2.25rem;
+  margin-bottom: 2rem;
   max-width: 580px;
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
-  margin-bottom: 2.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .hero-metrics {
@@ -258,7 +276,7 @@ img {
 }
 
 .metric h4 {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   color: var(--steel-dark);
   font-family: var(--font-body);
   font-weight: 800;
@@ -279,39 +297,39 @@ img {
 
 .hero-image {
   width: 100%;
-  height: 390px;
+  height: 380px;
   object-fit: cover;
 }
 
 /* Sections & Grid */
 .section {
-  padding: 4.5rem 0;
+  padding: 4rem 0;
 }
 
 .section-header {
   text-align: center;
   max-width: 650px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2.75rem;
 }
 
 .section-tag {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--wood-warm);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   display: block;
 }
 
 .section-title {
-  font-size: 2.1rem;
-  margin-bottom: 0.75rem;
+  font-size: 2.05rem;
+  margin-bottom: 0.65rem;
   color: var(--steel-dark);
 }
 
 .section-desc {
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
 }
 
@@ -319,13 +337,13 @@ img {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 .service-card {
   background: var(--concrete-card);
   border-radius: var(--radius-md);
-  padding: 2.25rem;
+  padding: 2rem;
   border: 1px solid var(--concrete-border);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
@@ -334,39 +352,39 @@ img {
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
   border-color: var(--wood-warm);
 }
 
 .service-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: var(--steel-dark);
   color: var(--wood-warm);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.15rem;
 }
 
 .service-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.65rem;
 }
 
 .service-desc {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.35rem;
   flex-grow: 1;
 }
 
 .service-link {
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--wood-warm);
 }
 
@@ -379,9 +397,9 @@ img {
   background: var(--steel-dark);
   color: white;
   border-radius: var(--radius-md);
-  padding: 3rem 2.5rem;
+  padding: 2.75rem 2.25rem;
   box-shadow: var(--shadow-md);
-  margin: 2rem 0;
+  margin: 1.75rem 0;
 }
 
 .calc-card h2 {
@@ -391,29 +409,29 @@ img {
 .calc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2.75rem;
   align-items: center;
 }
 
 .form-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 .form-group label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #d1d7de;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .form-control {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.7rem 0.9rem;
   border-radius: var(--radius-sm);
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.07);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: white;
   outline: none;
   transition: var(--transition);
@@ -433,8 +451,8 @@ select.form-control option {
   background: rgba(140, 91, 54, 0.15);
   border: 1px solid var(--wood-warm);
   border-radius: var(--radius-sm);
-  padding: 1.5rem;
-  margin-top: 1.5rem;
+  padding: 1.35rem;
+  margin-top: 1.35rem;
   display: none;
 }
 
@@ -444,27 +462,27 @@ select.form-control option {
 }
 
 .calc-price {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: white;
-  margin: 0.4rem 0;
+  margin: 0.35rem 0;
 }
 
 /* Resources & Blog Tabs */
 .resources-tabs-nav {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
 }
 
 .tab-btn {
-  padding: 0.6rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--concrete-border);
   background: white;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition);
@@ -483,13 +501,13 @@ select.form-control option {
 .tab-content.active {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 .content-card {
   background: white;
   border-radius: var(--radius-md);
-  padding: 2rem;
+  padding: 1.75rem;
   border: 1px solid var(--concrete-border);
   box-shadow: var(--shadow-sm);
   display: flex;
@@ -498,28 +516,28 @@ select.form-control option {
 }
 
 .content-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
   border-color: var(--wood-warm);
 }
 
 .card-tag {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--wood-warm);
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.65rem;
 }
 
 .card-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   flex-grow: 1;
 }
 
@@ -529,7 +547,7 @@ select.form-control option {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .faq-item {
@@ -540,9 +558,9 @@ select.form-control option {
 }
 
 .faq-header {
-  padding: 1.25rem 1.5rem;
+  padding: 1.15rem 1.35rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -558,8 +576,8 @@ select.form-control option {
 }
 
 .faq-body p {
-  padding: 1rem 1.5rem;
-  font-size: 0.92rem;
+  padding: 0.9rem 1.35rem;
+  font-size: 0.9rem;
   color: var(--text-main);
 }
 
@@ -571,21 +589,21 @@ select.form-control option {
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2.75rem;
 }
 
 .contact-info {
   background: var(--steel-dark);
   color: white;
   border-radius: var(--radius-md);
-  padding: 2.75rem 2.25rem;
+  padding: 2.5rem 2rem;
   box-shadow: var(--shadow-md);
 }
 
 .contact-info h3 {
   color: white;
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 0.85rem;
 }
 
 .contact-info p {
@@ -595,15 +613,15 @@ select.form-control option {
 .contact-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1.35rem;
+  margin-top: 1.75rem;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 0.95rem;
+  gap: 0.85rem;
+  font-size: 0.92rem;
 }
 
 .contact-item a {
@@ -615,8 +633,8 @@ select.form-control option {
 }
 
 .contact-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: rgba(140, 91, 54, 0.2);
   color: var(--wood-warm);
   border-radius: var(--radius-sm);
@@ -628,7 +646,7 @@ select.form-control option {
 .contact-form-card {
   background: white;
   border-radius: var(--radius-md);
-  padding: 2.75rem 2.25rem;
+  padding: 2.5rem 2rem;
   border: 1px solid var(--concrete-border);
   box-shadow: var(--shadow-sm);
 }
@@ -652,8 +670,8 @@ select.form-control option {
 .footer {
   background: #151a20;
   color: #8895a3;
-  padding: 3.5rem 0 2rem;
-  font-size: 0.9rem;
+  padding: 3rem 0 1.75rem;
+  font-size: 0.88rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -662,14 +680,14 @@ select.form-control option {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
+  gap: 1.25rem;
+  padding-bottom: 1.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer-socials {
   display: flex;
-  gap: 1.25rem;
+  gap: 1.15rem;
 }
 
 .footer-socials a {
@@ -705,21 +723,21 @@ select.form-control option {
 .modal-box {
   background: white;
   border-radius: var(--radius-md);
-  max-width: 650px;
+  max-width: 620px;
   width: 90%;
   max-height: 80vh;
   overflow-y: auto;
-  padding: 2.25rem;
+  padding: 2rem;
   position: relative;
 }
 
 .modal-close {
   position: absolute;
   top: 1rem;
-  right: 1.5rem;
+  right: 1.25rem;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   cursor: pointer;
   color: var(--text-muted);
 }
@@ -727,7 +745,7 @@ select.form-control option {
 @media (max-width: 900px) {
   .hero-grid, .calc-grid, .contact-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2.25rem;
   }
 
   .nav-links {
