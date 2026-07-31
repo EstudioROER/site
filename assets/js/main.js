@@ -1,0 +1,194 @@
+/* ==========================================================================
+   ESTUDIO ROER ARQUITECTURA - Application Script (Pastel & Clean Edition)
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initNavbar();
+  initTabs();
+  initCalculator();
+  initFaq();
+  initModal();
+  initContactForm();
+});
+
+/* Mobile Navbar */
+function initNavbar() {
+  const toggle = document.querySelector('.mobile-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      const isVisible = navLinks.style.display === 'flex';
+      navLinks.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) {
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '70px';
+        navLinks.style.left = '0';
+        navLinks.style.width = '100%';
+        navLinks.style.background = '#faf7f2';
+        navLinks.style.padding = '1.5rem';
+        navLinks.style.borderBottom = '1px solid #e8e2d9';
+      }
+    });
+  }
+}
+
+/* Tab Navigation for Blog & Material Didáctico */
+function initTabs() {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-tab');
+      const targetContent = document.getElementById(target);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+    });
+  });
+}
+
+/* Calculator Logic */
+function initCalculator() {
+  const form = document.getElementById('calc-form');
+  const resultBox = document.getElementById('calc-result');
+  const priceEl = document.getElementById('calc-price');
+  const descEl = document.getElementById('calc-desc');
+  const waBtn = document.getElementById('calc-wa-btn');
+
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const meters = parseFloat(document.getElementById('calc-meters').value) || 0;
+    const floors = parseInt(document.getElementById('calc-floors').value) || 1;
+    const commune = document.getElementById('calc-commune').value;
+
+    if (meters <= 0) return;
+
+    let baseFee = 320000;
+    let ratePerMeter = 6000;
+    if (floors > 1) baseFee += 70000;
+
+    let totalEst = baseFee + (meters * ratePerMeter);
+    let minPrice = Math.round(totalEst * 0.95);
+    let maxPrice = Math.round(totalEst * 1.25);
+
+    const fmt = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 });
+
+    priceEl.textContent = `${fmt.format(minPrice)} - ${fmt.format(maxPrice)} CLP`;
+    descEl.innerHTML = `
+      Estimación para <strong>${meters} m²</strong> en <strong>${commune}</strong> (${floors} ${floors > 1 ? 'pisos' : 'piso'}).<br>
+      <small style="color:#7c8a83;">*Evaluación técnica presencial confirma el costo final sin compromisos.</small>
+    `;
+
+    resultBox.classList.add('active');
+
+    const msg = encodeURIComponent(`Hola Estudio ROER, solicité una estimación en su web para ${meters}m² (${floors} piso/s) en ${commune}. Deseo agendar la evaluación técnica gratis.`);
+    waBtn.href = `https://wa.me/56950196861?text=${msg}`;
+  });
+}
+
+/* FAQ Accordion */
+function initFaq() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const header = item.querySelector('.faq-header');
+    header.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      faqItems.forEach(i => i.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+    });
+  });
+}
+
+/* Modal Content Reader */
+const modalData = {
+  'post-ley-mono': {
+    title: 'Guía Completa Ley del Mono (Ley 20.898)',
+    content: `
+      <p style="margin-bottom:1rem;">La Ley 20.898 otorga facilidades únicas para regularizar viviendas construidas antes de febrero de 2016 con un trámite simplificado y costos reducidos en la municipalidad.</p>
+      <h4>Requisitos clave:</h4>
+      <ul style="margin-left:1.25rem; margin-bottom:1.5rem; color:#4a5550;">
+        <li>Superficie útil máxima de hasta 140 m².</li>
+        <li>Avalúo fiscal de la edificación inferior a 2.000 UF.</li>
+        <li>Informe de habitabilidad suscrito por un Arquitecto.</li>
+      </ul>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20quiero%20consultar%20sobre%20Ley%20del%20Mono" target="_blank" class="btn btn-primary" style="width:100%;">Consultar Caso por WhatsApp</a>
+    `
+  },
+  'post-oguc': {
+    title: 'Exención de Cálculo Estructural (OGUC Art. 5.6)',
+    content: `
+      <p style="margin-bottom:1rem;">Según el artículo 5.6 de la OGUC, las ampliaciones o edificaciones residenciales de hasta 2 pisos estructuradas en albañilería, madera o acero convencional pueden eximirse del cálculo realizado por un ingeniero, ahorrando tiempo y dinero en tu proyecto.</p>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20evaluar%20si%20mi%20casa%20califica%20a%20exenci%C3%B3n%20OGUC" target="_blank" class="btn btn-primary" style="width:100%;">Evaluar Mi Caso Gratis</a>
+    `
+  },
+  'doc-checklist': {
+    title: 'Checklist Oficial de Documentación DOM',
+    content: `
+      <h4>Documentos Requeridos:</h4>
+      <ol style="margin-left:1.25rem; margin-bottom:1.5rem; color:#4a5550;">
+        <li>Fotocopia Cédula de Identidad del propietario.</li>
+        <li>Certificado de Informaciones Previas (CIP).</li>
+        <li>Planos de Arquitectura (Planta, Cortes y Elevaciones).</li>
+        <li>Informe Técnico de Habitabilidad.</li>
+      </ol>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20revisar%20mi%20documentaci%C3%B3n" target="_blank" class="btn btn-primary" style="width:100%;">Solicitar Apoyo de Arquitecto</a>
+    `
+  }
+};
+
+function initModal() {
+  const overlay = document.getElementById('modal-overlay');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+  const closeBtn = document.getElementById('modal-close');
+
+  if (!overlay) return;
+
+  document.querySelectorAll('[data-modal]').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const key = trigger.getAttribute('data-modal');
+      const item = modalData[key];
+      if (item) {
+        title.textContent = item.title;
+        body.innerHTML = item.content;
+        overlay.classList.add('active');
+      }
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+  }
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+}
+
+/* Contact Form Formatter */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('contact-name').value;
+    const phone = document.getElementById('contact-phone').value;
+    const commune = document.getElementById('contact-commune').value;
+    const msg = document.getElementById('contact-msg').value;
+
+    const waUrl = `https://wa.me/56950196861?text=${encodeURIComponent(`Hola Estudio ROER, mi nombre es ${name} (${phone}) de ${commune}. Consulta: ${msg}`)}`;
+    window.open(waUrl, '_blank');
+  });
+}
