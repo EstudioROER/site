@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTUDIO ROER ARQUITECTURA - Application Script with Web3Forms API
+   ESTUDIO ROER ARQUITECTURA - Application Script with Web3Forms & Draggable Floating Stack
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaq();
   initModal();
   initWeb3ContactForm();
+  initDraggableWidget();
 });
 
 /* Mobile Navbar */
@@ -109,8 +110,29 @@ function initFaq() {
   });
 }
 
-/* Modal Reader */
+/* Modal Reader Data */
 const modalData = {
+  'post-gift': {
+    title: '🎁 Regalo Especial: Guía Práctica de Regularización & Checklist DOM 2026',
+    content: `
+      <div style="text-align:center; padding:0.5rem 0;">
+        <p style="font-size:1.05rem; font-weight:600; color:var(--steel-dark); margin-bottom:1rem;">
+          ¡Gracias por tu interés en Estudio ROER!
+        </p>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.6;">
+          Descarga nuestra guía educativa gratuita con el paso a paso normativo para regularizar por Ley del Mono y la lista de chequeo de la DOM.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; max-width:380px; margin:0 auto;">
+          <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20recibir%20el%20Regalo%20Especial%20de%20la%20Gu%C3%ADa%20y%20Checklist%20DOM." target="_blank" class="btn-micro-filled" style="padding:0.6rem; font-size:0.88rem;">
+            📲 Solicitar Guía & Checklist por WhatsApp
+          </a>
+          <a href="#contacto" onclick="document.getElementById('modal-overlay').classList.remove('active');" class="btn-micro" style="padding:0.6rem; font-size:0.85rem;">
+            ✉️ Consultar con un Arquitecto
+          </a>
+        </div>
+      </div>
+    `
+  },
   'post-ley-mono': {
     title: 'Guía Completa Ley del Mono (Ley 20.898)',
     content: `
@@ -121,14 +143,14 @@ const modalData = {
         <li>Avalúo fiscal de la edificación inferior a 2.000 UF.</li>
         <li>Informe de habitabilidad suscrito por un Arquitecto.</li>
       </ul>
-      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20quiero%20consultar%20sobre%20Ley%20del%20Mono" target="_blank" class="btn btn-primary" style="width:100%;">Consultar Caso por WhatsApp</a>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20quiero%20consultar%20sobre%20Ley%20del%20Mono" target="_blank" class="btn-micro-filled" style="width:100%; padding:0.55rem;">Consultar Caso por WhatsApp</a>
     `
   },
   'post-oguc': {
     title: 'Exención de Cálculo Estructural (OGUC Art. 5.6)',
     content: `
       <p style="margin-bottom:1rem;">Según el artículo 5.6 de la OGUC, las ampliaciones o edificaciones residenciales de hasta 2 pisos estructuradas en albañilería, madera o acero convencional pueden eximirse del cálculo realizado por un ingeniero, ahorrando tiempo y dinero en tu proyecto.</p>
-      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20evaluar%20si%20mi%20casa%20califica%20a%20exenci%C3%B3n%20OGUC" target="_blank" class="btn btn-primary" style="width:100%;">Consultar Caso</a>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20evaluar%20si%20mi%20casa%20califica%20a%20exenci%C3%B3n%20OGUC" target="_blank" class="btn-micro-filled" style="width:100%; padding:0.55rem;">Consultar Caso</a>
     `
   },
   'doc-checklist': {
@@ -141,7 +163,7 @@ const modalData = {
         <li>Planos de Arquitectura (Planta, Cortes y Elevaciones).</li>
         <li>Informe Técnico de Habitabilidad.</li>
       </ol>
-      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20revisar%20mi%20documentaci%C3%B3n" target="_blank" class="btn btn-primary" style="width:100%;">Solicitar Apoyo de Arquitecto</a>
+      <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20revisar%20mi%20documentaci%C3%B3n" target="_blank" class="btn-micro-filled" style="width:100%; padding:0.55rem;">Solicitar Apoyo de Arquitecto</a>
     `
   }
 };
@@ -226,6 +248,85 @@ function initWeb3ContactForm() {
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = '📩 Enviar Formulario';
+      }
+    });
+  });
+}
+
+/* Draggable Floating Stacked Widget (PC Mouse + Mobile Touch) */
+function initDraggableWidget() {
+  const stack = document.getElementById('floating-widget-stack');
+  if (!stack) return;
+
+  let isDragging = false;
+  let hasMoved = false;
+  let startX, startY, initialLeft, initialTop;
+
+  function onStart(e) {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    isDragging = true;
+    hasMoved = false;
+    startX = clientX;
+    startY = clientY;
+
+    const rect = stack.getBoundingClientRect();
+    initialLeft = rect.left;
+    initialTop = rect.top;
+
+    stack.style.right = 'auto';
+    stack.style.bottom = 'auto';
+    stack.style.left = `${initialLeft}px`;
+    stack.style.top = `${initialTop}px`;
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
+
+    if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
+      hasMoved = true;
+    }
+
+    let newLeft = initialLeft + deltaX;
+    let newTop = initialTop + deltaY;
+
+    const maxLeft = window.innerWidth - stack.offsetWidth - 10;
+    const maxTop = window.innerHeight - stack.offsetHeight - 10;
+
+    newLeft = Math.max(10, Math.min(newLeft, maxLeft));
+    newTop = Math.max(10, Math.min(newTop, maxTop));
+
+    stack.style.left = `${newLeft}px`;
+    stack.style.top = `${newTop}px`;
+  }
+
+  function onEnd() {
+    isDragging = false;
+  }
+
+  // Mouse PC listeners
+  stack.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+
+  // Touch Mobile listeners
+  stack.addEventListener('touchstart', onStart, { passive: true });
+  window.addEventListener('touchmove', onMove, { passive: true });
+  window.addEventListener('touchend', onEnd);
+
+  // Prevent link click trigger if user was dragging
+  document.querySelectorAll('#floating-widget-stack a, #floating-widget-stack button').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (hasMoved) {
+        e.preventDefault();
+        e.stopPropagation();
       }
     });
   });
