@@ -756,3 +756,50 @@ select.form-control option {
     display: block;
   }
 }
+
+/* Floating Guide Button */
+.floating-guide-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--wood-warm);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px rgba(140, 91, 54, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.floating-guide-btn:hover {
+  background: var(--wood-hover);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(140, 91, 54, 0.6);
+  color: white;
+}
+
+.floating-guide-icon {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .floating-guide-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.8rem;
+    border-radius: 50%;
+  }
+  .floating-guide-text {
+    display: none;
+  }
+  .floating-guide-icon {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
