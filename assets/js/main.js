@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTUDIO ROER ARQUITECTURA - Application Script with Web3Forms & Draggable Floating Stack
+   ESTUDIO ROER ARQUITECTURA - Application Script with Lead Magnet Funnel & Web3Forms API
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -115,21 +115,42 @@ const modalData = {
   'post-gift': {
     title: '🎁 Regalo Especial: Guía Práctica de Regularización & Checklist DOM 2026',
     content: `
-      <div style="text-align:center; padding:0.5rem 0;">
-        <p style="font-size:1.05rem; font-weight:600; color:var(--steel-dark); margin-bottom:1rem;">
-          ¡Gracias por tu interés en Estudio ROER!
+      <div style="padding:0.25rem 0;">
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+          Completa tus datos para recibir la <strong>Guía Educativa Oficial de Ley del Mono & Checklist de Requisitos DOM</strong> directamente en tu correo y WhatsApp:
         </p>
-        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.6;">
-          Descarga nuestra guía educativa gratuita con el paso a paso normativo para regularizar por Ley del Mono y la lista de chequeo de la DOM.
-        </p>
-        <div style="display:flex; flex-direction:column; gap:0.75rem; max-width:380px; margin:0 auto;">
-          <a href="https://wa.me/56950196861?text=Hola%20Estudio%20ROER,%20deseo%20recibir%20el%20Regalo%20Especial%20de%20la%20Gu%C3%ADa%20y%20Checklist%20DOM." target="_blank" class="btn-micro-filled" style="padding:0.6rem; font-size:0.88rem;">
-            📲 Solicitar Guía & Checklist por WhatsApp
-          </a>
-          <a href="#contacto" onclick="document.getElementById('modal-overlay').classList.remove('active');" class="btn-micro" style="padding:0.6rem; font-size:0.85rem;">
-            ✉️ Consultar con un Arquitecto
-          </a>
-        </div>
+
+        <form id="gift-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="74adcccc-d748-4d84-8eac-e027310cb0af">
+          <input type="hidden" name="subject" value="🎁 Nuevo Lead de Regalo - Estudio ROER Web">
+          <input type="hidden" name="from_name" value="Embudo Regalo ROER">
+
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:600; color:var(--steel-dark);">Nombre Completo *</label>
+            <input type="text" name="name" id="gift-name" class="form-control" placeholder="Ej: María González" required style="background:var(--concrete-bg); color:var(--steel-dark); border-color:var(--concrete-border);">
+          </div>
+
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:600; color:var(--steel-dark);">Correo Electrónico *</label>
+            <input type="email" name="email" id="gift-email" class="form-control" placeholder="ejemplo@correo.com" required style="background:var(--concrete-bg); color:var(--steel-dark); border-color:var(--concrete-border);">
+          </div>
+
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:600; color:var(--steel-dark);">Teléfono / WhatsApp *</label>
+            <input type="tel" name="phone" id="gift-phone" class="form-control" placeholder="+56 9 1234 5678" required style="background:var(--concrete-bg); color:var(--steel-dark); border-color:var(--concrete-border);">
+          </div>
+
+          <div class="form-group">
+            <label style="font-size:0.8rem; font-weight:600; color:var(--steel-dark);">Comuna de la Propiedad</label>
+            <input type="text" name="commune" id="gift-commune" class="form-control" placeholder="Ej: San Bernardo" style="background:var(--concrete-bg); color:var(--steel-dark); border-color:var(--concrete-border);">
+          </div>
+
+          <div id="gift-form-status" style="margin-bottom:1rem; font-size:0.85rem; display:none;"></div>
+
+          <button type="submit" id="gift-submit-btn" class="btn-micro-filled" style="width:100%; padding:0.6rem; font-size:0.85rem;">
+            🎁 Reclamar Mi Regalo Gratis
+          </button>
+        </form>
       </div>
     `
   },
@@ -185,6 +206,11 @@ function initModal() {
         title.textContent = item.title;
         body.innerHTML = item.content;
         overlay.classList.add('active');
+
+        // Attach event listener for gift lead form if opened
+        if (key === 'post-gift') {
+          initGiftLeadForm();
+        }
       }
     });
   });
@@ -195,6 +221,75 @@ function initModal() {
 
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) overlay.classList.remove('active');
+  });
+}
+
+/* Gift Lead Magnet Form Submission Handler */
+function initGiftLeadForm() {
+  const giftForm = document.getElementById('gift-form');
+  const statusDiv = document.getElementById('gift-form-status');
+  const submitBtn = document.getElementById('gift-submit-btn');
+
+  if (!giftForm) return;
+
+  giftForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('gift-name').value;
+    const phone = document.getElementById('gift-phone').value;
+    const commune = document.getElementById('gift-commune').value || 'No especificada';
+
+    const formData = new FormData(giftForm);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando datos...';
+    }
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      let resJson = await response.json();
+      if (response.status === 200) {
+        const waMsg = encodeURIComponent(`Hola Estudio ROER, mi nombre es ${name} de ${commune}. Acabo de solicitar mi regalo (Guía Ley del Mono & Checklist DOM) en su sitio web.`);
+        
+        statusDiv.style.display = 'block';
+        statusDiv.style.color = '#10b981';
+        statusDiv.innerHTML = `
+          <div style="background:rgba(16,185,129,0.1); border:1px solid #10b981; padding:1rem; border-radius:6px; margin-top:0.5rem; text-align:center;">
+            <strong>✅ ¡Felicitaciones ${name}!</strong><br>
+            Tus datos han sido registrados con éxito.<br><br>
+            <a href="https://wa.me/56950196861?text=${waMsg}" target="_blank" class="btn-whatsapp btn" style="width:100%; font-size:0.85rem; padding:0.55rem; text-align:center; display:inline-block; margin-top:0.25rem;">
+              📲 Recibir Guía & Contactar por WhatsApp
+            </a>
+          </div>
+        `;
+        giftForm.reset();
+      } else {
+        statusDiv.style.display = 'block';
+        statusDiv.style.color = '#ef4444';
+        statusDiv.innerHTML = `⚠️ ${resJson.message || 'Error al procesar la solicitud.'}`;
+      }
+    })
+    .catch(error => {
+      statusDiv.style.display = 'block';
+      statusDiv.style.color = '#ef4444';
+      statusDiv.innerHTML = '⚠️ Error de conexión. Intenta nuevamente.';
+    })
+    .then(function() {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🎁 Reclamar Mi Regalo Gratis';
+      }
+    });
   });
 }
 
