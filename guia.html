@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descarga Gratis: Guía Ley del Mono y Decreto 10 | Estudio ROER</title>
+  <meta name="description" content="Aprovecha el nuevo Decreto 10 y la extensión de la Ley del Mono. Descarga nuestra guía gratuita y aprende cómo regularizar y ampliar sin multas.">
+  <meta name="author" content="Estudio ROER Arquitectura">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22bold%22 fill=%22%238c5b36%22>R</text></svg>">
+  <style>
+    .landing-hero {
+      padding: 120px 0 80px;
+      background: var(--bg-color);
+    }
+    .landing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .landing-grid { grid-template-columns: 1fr; }
+    }
+    .lead-magnet-form {
+      background: var(--concrete-bg);
+      padding: 2.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--concrete-border);
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background: #e8f5e9;
+      border-radius: 8px;
+      border: 1px solid #c8e6c9;
+    }
+    .success-message h3 { color: #2e7d32; margin-bottom: 1rem; }
+    .success-message a { margin-top: 1rem; display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-badge">R</div>
+        <div>
+          <span class="brand-name">ESTUDIO ROER</span>
+          <small style="display:block; font-size:0.7rem; font-weight:600; color:var(--wood-warm); letter-spacing:0.02em; line-height:1.1;">
+            Regularización y Optimización de Espacios Residenciales
+          </small>
+        </div>
+      </a>
+      <a href="index.html" class="btn btn-outline-minimal btn-minimal">
+        Volver al Inicio
+      </a>
+    </div>
+  </nav>
+
+  <!-- Landing Section -->
+  <section class="landing-hero">
+    <div class="container landing-grid">
+      <div class="hero-content">
+        <span class="hero-tag">📘 GUÍA GRATUITA 2026</span>
+        <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">
+          Cómo Regularizar y Ampliar tu Propiedad <span>Rápidamente</span>
+        </h1>
+        <p class="hero-subtitle" style="font-size: 1.1rem; margin-bottom: 2rem;">
+          Aprovecha el nuevo <strong>Decreto 10</strong> y la extensión de la <strong>Ley del Mono</strong> para construir o regularizar sin esperar meses por la DOM y evitando multas.
+        </p>
+        
+        <ul style="list-style: none; padding: 0; margin-bottom: 2rem;">
+          <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 10px;">
+            <span>✅</span> <strong>Nuevo Decreto 10:</strong> Cómo iniciar obras sin esperar el permiso municipal.
+          </li>
+          <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 10px;">
+            <span>✅</span> <strong>Ley del Mono 2026:</strong> Nuevos límites de metros cuadrados y avalúos.
+          </li>
+          <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 10px;">
+            <span>✅</span> <strong>Los 3 Pasos:</strong> La ruta exacta para evitar multas y regularizar con éxito.
+          </li>
+        </ul>
+      </div>
+
+      <div class="lead-magnet-form">
+        <div id="form-container">
+          <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Descarga la Guía Ahora</h3>
+          <p style="font-size:0.9rem; color:var(--text-light); margin-bottom:1.5rem;">
+            Déjanos tu nombre y correo, y te daremos acceso inmediato al documento PDF.
+          </p>
+          
+          <form id="lead-form">
+            <!-- Usamos el mismo Web3Forms que ya tienes -->
+            <input type="hidden" name="access_key" value="74adcccc-d748-4d84-8eac-e027310cb0af">
+            <input type="hidden" name="subject" value="NUEVO LEAD: Descargó Guía Ley del Mono">
+            <input type="hidden" name="from_name" value="Estudio ROER Leads">
+
+            <div class="form-group">
+              <label for="lead-name">Nombre Completo *</label>
+              <input type="text" id="lead-name" name="name" class="form-control" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+              <label for="lead-email">Correo Electrónico *</label>
+              <input type="email" id="lead-email" name="email" class="form-control" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <button type="submit" id="lead-submit-btn" class="btn btn-primary btn-minimal" style="width:100%;">
+              📥 Obtener Guía PDF Gratis
+            </button>
+            <p id="lead-status" style="margin-top:1rem; font-size:0.85rem; display:none;"></p>
+          </form>
+        </div>
+
+        <div id="success-container" class="success-message">
+          <h3>¡Todo listo!</h3>
+          <p>Hemos recibido tus datos. Haz clic en el botón de abajo para descargar tu guía.</p>
+          <!-- Enlace al archivo PDF que crearemos -->
+          <a href="assets/docs/Guia-Regularizacion-Roer.pdf" target="_blank" class="btn btn-primary btn-minimal">
+            📄 Descargar PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong style="color:white; font-size:1.1rem;">ESTUDIO ROER</strong>
+        <p style="font-size:0.85rem; margin-top:0.3rem;">Regularización y Optimización de Espacios Residenciales en Chile.</p>
+      </div>
+
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/estudioroer" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/estudio.roer/" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('lead-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const btn = document.getElementById('lead-submit-btn');
+      const status = document.getElementById('lead-status');
+      
+      btn.innerText = 'Procesando...';
+      btn.disabled = true;
+
+      const formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+          // Éxito: Ocultar formulario, mostrar botón de descarga
+          document.getElementById('form-container').style.display = 'none';
+          document.getElementById('success-container').style.display = 'block';
+        } else {
+          status.style.display = 'block';
+          status.style.color = 'red';
+          status.innerText = json.message || 'Ocurrió un error. Intenta nuevamente.';
+          btn.innerText = '📥 Obtener Guía PDF Gratis';
+          btn.disabled = false;
+        }
+      })
+      .catch(error => {
+        status.style.display = 'block';
+        status.style.color = 'red';
+        status.innerText = 'Error de conexión. Intenta nuevamente.';
+        btn.innerText = '📥 Obtener Guía PDF Gratis';
+        btn.disabled = false;
+      });
+    });
+  </script>
+</body>
+</html>
